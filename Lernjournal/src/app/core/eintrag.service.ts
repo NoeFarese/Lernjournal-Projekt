@@ -1,13 +1,13 @@
 import { Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {catchError, Observable, of} from "rxjs";
-import {Eintrag} from "./Eintrag";
+import {Eintrag} from "../types/eintrag";
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class ServiceEintrag{
+export class EintragService {
   constructor(private http: HttpClient) {}
   private baseUrl = 'http://localhost:8080/eintrag';
 

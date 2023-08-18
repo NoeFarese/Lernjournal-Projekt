@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {Eintrag} from "../Eintrag";
-import {ServiceEintrag} from "../service.eintrag";
+import {Eintrag} from "../../types/eintrag";
+import {EintragService} from "../../core/eintrag.service";
 import jsPDF from "jspdf";
 
 @Component({
@@ -9,7 +9,7 @@ import jsPDF from "jspdf";
   styleUrls: ['./main.component.css']
 })
 export class MainComponent {
-  constructor(private eintragService: ServiceEintrag) {
+  constructor(private eintragService: EintragService) {
   }
 
   ngOnInit(): void {
@@ -19,7 +19,7 @@ export class MainComponent {
   eintragArr: Eintrag[] = [];
 
   getEintragList(): void {
-    this.eintragService.getEintragList().subscribe(eintragArr => this.eintragArr = eintragArr);
+    this.eintragService.getEintragList().subscribe((eintragArr: Eintrag[]) => this.eintragArr = eintragArr);
   }
 
   delete(eintrag: Eintrag): void {

@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {Eintrag} from "../Eintrag";
-import {ServiceEintrag} from "../service.eintrag";
+import {Eintrag} from "../../types/eintrag";
+import {EintragService} from "../../core/eintrag.service";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -10,7 +10,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 
 export class EintragComponent {
-  constructor(private eintragService: ServiceEintrag, private route: ActivatedRoute,) {}
+  constructor(private eintragService: EintragService, private route: ActivatedRoute,) {}
 
   ngOnInit(): void {
     this.getEintrag();
@@ -20,7 +20,7 @@ export class EintragComponent {
 
   getEintrag():void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.eintragService.getEintrag(id).subscribe(eintragArray => this.eintragArray = eintragArray);
+    this.eintragService.getEintrag(id).subscribe((eintragArray: any) => this.eintragArray = eintragArray);
   }
 
   convertNewlines(text: string | undefined): string | undefined {

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EditComponent } from './edit/edit.component';
-import { MainComponent } from './main/main.component';
-import { EintragComponent } from "./eintrag/eintrag.component";
-import {RegistrationComponent} from "./registration/registration.component";
-import {LoginComponent} from "./login/login.component";
+import {LoginComponent} from "./features/login/login.component";
+import {RegistrationComponent} from "./features/registration/registration.component";
+import {MainComponent} from "./features/main/main.component";
+import {EditComponent} from "./features/edit/edit.component";
+import {EintragComponent} from "./features/eintrag/eintrag.component";
 
 const routes: Routes = [
   { path: 'edit', component: EditComponent },

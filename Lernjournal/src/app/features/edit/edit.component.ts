@@ -1,18 +1,17 @@
 import {Component, OnInit} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import jsPDF from "jspdf";
-import {ServiceEintrag} from "../service.eintrag";
+import {EintragService} from "../../core/eintrag.service";
 import {ActivatedRoute} from "@angular/router";
-import {Eintrag} from "../Eintrag";
-import {PdfExportService} from "../pdf-export.service";
-
+import {Eintrag} from "../../types/eintrag";
+import {PdfExportService} from "../../core/pdf-export.service";
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit{
-  constructor(private http : HttpClient, private eintragService: ServiceEintrag, private route: ActivatedRoute, private pdfExportService: PdfExportService ) {}
+  constructor(private http : HttpClient, private eintragService: EintragService, private route: ActivatedRoute, private pdfExportService: PdfExportService ) {}
 
  titel: string | undefined = "";
  text: string | undefined = "";
@@ -87,10 +86,10 @@ export class EditComponent implements OnInit{
 
   getEintrag():void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.eintragService.getEintrag(id).subscribe(eintrag => {
+    this.eintragService.getEintrag(id).subscribe((eintrag => {
       this.text = eintrag?.text;
       this.titel = eintrag?.titel;
       this.eintrag = eintrag;
-    });
+    }));
   }
 }
