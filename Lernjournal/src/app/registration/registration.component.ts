@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { RegistrationService } from '../registration.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-registration',
@@ -13,7 +15,7 @@ export class RegistrationComponent {
   showErrorMessage: boolean = false;
   isSuccess: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private registrationService: RegistrationService) {
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private registrationService: RegistrationService, private snackBar: MatSnackBar) {
     this.registrationForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -23,11 +25,13 @@ export class RegistrationComponent {
   register(): void {
     if (this.registrationForm.invalid) {
       this.showErrorMessage = true;
-
-      setTimeout(() => {
+      const snackBarRef = this.snackBar.open('Email oder Passwort ist leer', 'Schließen', {
+        duration: 3000,
+        verticalPosition: 'bottom',
+      });
+      snackBarRef.afterDismissed().subscribe(() => {
         this.showErrorMessage = false;
-      }, 3000);
-
+      });
       return;
     } else {
       this.checkIfEmailIsAlreadyInUse();
@@ -40,7 +44,14 @@ export class RegistrationComponent {
       if (!exists) {
         this.createRegistration();
       } else {
-        this.registrationForm.controls['email'].setErrors({ emailUsed: true });
+       // this.registrationForm.controls['email'].setErrors({ emailUsed: true });
+        const snackBarRef = this.snackBar.open('Email wurde schon gebraucht', 'Schließen', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+        snackBarRef.afterDismissed().subscribe(() => {
+          this.showErrorMessage = false;
+        });
       }
     });
   }
@@ -54,11 +65,14 @@ export class RegistrationComponent {
         password: password,
       }).subscribe(() => {
         this.isSuccess = true;
-
-        setTimeout(() => {
-          this.isSuccess = false;
-          this.registrationForm.reset();
-        }, 3000);
+        const snackBarRef = this.snackBar.open('Du wurdest erfolgreich registriert', 'Schließen', {
+        duration: 3000,
+        verticalPosition: 'bottom',
       });
+      snackBarRef.afterDismissed().subscribe(() => {
+        this.isSuccess = false;
+        this.registrationForm.reset();
+      });
+    });
   }
 }
