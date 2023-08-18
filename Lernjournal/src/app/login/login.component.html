@@ -1,0 +1,15 @@
+<div class="login-container">
+  <h2>Login</h2>
+  <div class="form-container">
+    <label for="email">Email:</label>
+    <input type="email" id="email" [(ngModel)]="email">
+
+    <label for="password">Passwort:</label>
+    <input type="password" id="password" [(ngModel)]="password">
+
+    <button (click)="login()">Einloggen</button>
+  </div>
+  </div>
+<p class="login-failed">Falsches Passwort</p>
+<p class="login-failed">Email existiert</p>
+<p class="login-successed">Login erfolgreich</p>

@@ -1,0 +1,18 @@
+<body>
+  <div class="flex-container">
+    <div class="flex-container-input-felder">
+      <label for="titel" class="label-titel">Titel</label>
+      <textarea placeholder="Titel" id="titel" [(ngModel)]="titel"></textarea>
+
+      <label for="text" class="label-text">Text</label>
+      <textarea placeholder="Inhalttext" id="text" [(ngModel)]="text"></textarea>
+    </div>
+
+    <button matTooltip="speichern"  mat-raised-button  color="primary" type="button" class="save-button" (click)="submit()"><mat-icon>save</mat-icon></button>
+    <button matTooltip="als PDF herunterladen" mat-raised-button color="primary" type="button" class="exportPdf-button" (click)="exportPdf()"><mat-icon>save_alt</mat-icon></button>
+    <a routerLink="/main">go back</a>
+
+    <p *ngIf="!isValidInput" class="fehlermeldung">Text und Titel sollten nicht leer sein</p>
+    <p *ngIf="isSaved" class="success-meldung">Der Eintrag wurde erflogreich gespeichert</p>
+  </div>
+</body>

@@ -1,0 +1,87 @@
+mat-list-item {
+  margin-top: 20px;
+  border-bottom: solid 4px;
+}
+
+mat-list{
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+a {
+  padding: 10px;
+  text-decoration: none;
+  display: inline-block;
+  background-color: lightgray;
+  color: #333333;
+  margin-right: 20px;
+}
+
+a:hover{
+  color: black;
+  background-color: lightgray;
+}
+
+a:active{
+  background-color: grey;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+.flex-container-liste {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 12px 0 50px;
+}
+
+
+.einträge {
+  list-style-type: none;
+  text-align: center;
+  margin: 0 12px;
+}
+
+
+button.delete {
+  padding: 12px;
+  margin-right: 20px;
+  text-decoration: none;
+  background-color: lightcoral;
+  color: #3d3d3d;
+}
+
+button.delete:hover {
+  background-color: red;
+  color: white;
+}
+
+.exportAll-Checkbox, .exportPDF-Checkbox{
+  background-color: lightgray;
+  color: #333333;
+  padding: 12px;
+  border-radius: 4px;
+}
+
+.suchleiste {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 3px 5px;
+  width: 90%;
+  height: 40px;
+  box-sizing: border-box;
+}

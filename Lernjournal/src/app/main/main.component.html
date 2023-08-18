@@ -1,0 +1,16 @@
+<body>
+<h1>Einträge:</h1>
+<div class="flex-container-liste">
+  <input type="text" [(ngModel)]="searchTerm" placeholder="Suche nach Einträgen" class="suchleiste">
+  <mat-checkbox color="primary" class="exportAll-Checkbox" [(ngModel)]="exportAllChecked" (change)="updateCheckboxStates(exportAllChecked)">Export all as PDF</mat-checkbox>
+  <mat-list class="einträge">
+    <mat-list-item *ngFor="let eintrag of filterEintraege()" class="eintrag-item">
+    <!-- <mat-list-item *ngFor="let eintrag of eintragArr" class="eintrag-item"> -->
+      <a routerLink="/eintrag/{{eintrag.id}}">{{eintrag.titel}}</a>
+      <a routerLink="/edit/{{eintrag.id}}" href="http://localhost:4200/edit/{{eintrag.id}}"><mat-icon>border_color</mat-icon></a>
+      <button type="button" class="delete" title="delete-eintrag" (click)="delete(eintrag)"><mat-icon>delete</mat-icon></button>
+      <mat-checkbox color="primary" class="exportPDF-Checkbox" [(ngModel)]="checkboxStates[eintrag.id]" (change)="checkboxChanged(eintrag.id)">PDF exportieren</mat-checkbox>
+    </mat-list-item>
+  </mat-list>
+</div>
+</body>
