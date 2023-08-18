@@ -1,68 +1,64 @@
-import {Component} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {RegistrationService} from "../registration.service";
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { RegistrationService } from '../registration.service';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
+  styleUrls: ['./registration.component.css'],
 })
 export class RegistrationComponent {
-  email: string = '';
-  password: string = '';
-  isBlank: boolean = false;
+  registrationForm: FormGroup;
+  showErrorMessage: boolean = false;
   isSuccess: boolean = false;
-  isEmailAlreadyUsed: boolean = false;
 
-  constructor(private http: HttpClient, private registrationService: RegistrationService) {}
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private registrationService: RegistrationService) {
+    this.registrationForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+    });
+  }
 
   register(): void {
-    if (this.email === '' || this.password === '') {
-      console.log('Email oder Passwort ist leer');
-      this.isBlank = true;
+    if (this.registrationForm.invalid) {
+      this.showErrorMessage = true;
 
       setTimeout(() => {
-        this.isBlank = false;
+        this.showErrorMessage = false;
       }, 3000);
 
+      return;
     } else {
       this.checkIfEmailIsAlreadyInUse();
     }
   }
 
   private checkIfEmailIsAlreadyInUse() {
-    this.registrationService.getHttpResponseEmail(this.email).subscribe(exists => {
-      this.isEmailAlreadyUsed = exists;
-
-      if (!this.isEmailAlreadyUsed) {
+    const email = this.registrationForm.value.email;
+    this.registrationService.getHttpResponseEmail(email).subscribe((exists) => {
+      if (!exists) {
         this.createRegistration();
-        console.log('erfolgreich registriert');
-        this.isSuccess = true;
-        setTimeout(() => {
-          this.isSuccess = false;
-        }, 3000);
       } else {
-        console.log('email wurde schon verwendet');
-        this.isSuccess = false;
-        this.isEmailAlreadyUsed = true;
-
-        setTimeout(() => {
-          this.isEmailAlreadyUsed = false;
-        }, 3000);
+        this.registrationForm.controls['email'].setErrors({ emailUsed: true });
       }
     });
   }
-  private createRegistration() {
-    this.http.post('http://localhost:8080/registration', {
-      email: this.email,
-      password: this.password
-    }).subscribe(() => {
-      this.isSuccess = true;
 
-      setTimeout(() => {
-        this.isSuccess = false;
-      }, 3000);
-    });
+  private createRegistration() {
+    const email = this.registrationForm.value.email;
+    const password = this.registrationForm.value.password;
+
+    this.http.post('http://localhost:8080/registration', {
+        email: email,
+        password: password,
+      }).subscribe(() => {
+        this.isSuccess = true;
+
+        setTimeout(() => {
+          this.isSuccess = false;
+          this.registrationForm.reset();
+        }, 3000);
+      });
   }
 }
-
