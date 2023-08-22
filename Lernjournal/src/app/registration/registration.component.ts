@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { RegistrationService } from '../registration.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -15,7 +14,7 @@ export class RegistrationComponent {
   showErrorMessage: boolean = false;
   isSuccess: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private registrationService: RegistrationService, private snackBar: MatSnackBar) {
+  constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService, private snackBar: MatSnackBar) {
     this.registrationForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -32,7 +31,6 @@ export class RegistrationComponent {
       snackBarRef.afterDismissed().subscribe(() => {
         this.showErrorMessage = false;
       });
-      return;
     } else {
       this.checkIfEmailIsAlreadyInUse();
     }
@@ -40,9 +38,11 @@ export class RegistrationComponent {
 
   private checkIfEmailIsAlreadyInUse() {
     const email = this.registrationForm.value.email;
-    this.registrationService.getHttpResponseEmail(email).subscribe((exists) => {
+    const password = this.registrationForm.value.password;
+
+    this.registrationService.getEmailExists(email).subscribe((exists) => {
       if (!exists) {
-        this.createRegistration();
+        this.createRegistration(email, password);
       } else {
         const snackBarRef = this.snackBar.open('Email wurde schon gebraucht', 'Schließen', {
           duration: 3000,
@@ -55,14 +55,8 @@ export class RegistrationComponent {
     });
   }
 
-  private createRegistration() {
-    const email = this.registrationForm.value.email;
-    const password = this.registrationForm.value.password;
-
-    this.http.post('http://localhost:8080/registration', {
-        email: email,
-        password: password,
-      }).subscribe(() => {
+  private createRegistration(email: string, password: string) {
+    this.registrationService.registrateUser(email, password).subscribe(() => {
         this.isSuccess = true;
         const snackBarRef = this.snackBar.open('Du wurdest erfolgreich registriert', 'Schließen', {
         duration: 3000,
