@@ -24,6 +24,7 @@ public interface RegistrationRepository {
 
     String findByEmail(String email);
 
+    boolean findByUser(String email, String password);
     @Transactional
         // <4>
     Registration save(@NotBlank String email, @NotBlank String password);

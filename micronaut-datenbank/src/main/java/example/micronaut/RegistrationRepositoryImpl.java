@@ -46,6 +46,22 @@ public class RegistrationRepositoryImpl implements RegistrationRepository {
         }
     }
 
+
+    @Override
+    @Transactional
+    public boolean findByUser(String email, String password){
+        String qlString = "SELECT g FROM Registration as g WHERE g.email = :email AND g.password = :password";
+        TypedQuery<Registration> query = entityManager.createQuery(qlString, Registration.class);
+        query.setParameter("email", email);
+        query.setParameter("password", password);
+
+        try {
+            return query.getSingleResult().getEmail() != null || query.getSingleResult().getPassword() != null;
+        } catch(Exception e){
+            return false;
+        }
+    }
+
     @Override
     @Transactional // <4>
     public Registration save(@NotBlank String email, @NotBlank String passwort) {

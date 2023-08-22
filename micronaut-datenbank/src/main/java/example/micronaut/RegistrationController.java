@@ -27,8 +27,13 @@ public class RegistrationController {
 
     @Get("/{email}/exists")
     boolean show (@PathVariable String email) {
-        System.out.println(registrationRepository.findByEmail(email));
         return registrationRepository.findByEmail(email) != null;
+    }
+
+
+    @Get("/userExists")
+    boolean show(@QueryValue("email") String email, @QueryValue("password") String password) {
+        return registrationRepository.findByUser(email, password);
     }
 
     @Get("/all")
