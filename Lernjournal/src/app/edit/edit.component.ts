@@ -1,10 +1,10 @@
 import {Component, OnInit} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import jsPDF from "jspdf";
-import {ServiceEintrag} from "../service.eintrag";
+import {ServiceEintrag} from "../Services/service.eintrag";
 import {ActivatedRoute} from "@angular/router";
-import {Eintrag} from "../Eintrag";
-import {PdfExportService} from "../pdf-export.service";
+import {Eintrag} from "../Interfaces/Eintrag";
+import {PdfExportService} from "../Services/pdf-export.service";
 
 @Component({
   selector: 'app-edit',

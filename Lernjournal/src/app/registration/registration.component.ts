@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { RegistrationService } from '../registration.service';
+import { RegistrationService } from '../Services/registration.service';
+import { SnackbarService } from "../Services/snackbar.service";
+
 
 @Component({
   selector: 'app-registration',
@@ -10,10 +11,8 @@ import { RegistrationService } from '../registration.service';
 })
 export class RegistrationComponent {
   registrationForm: FormGroup;
-  showErrorMessage: boolean = false;
-  isSuccess: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private registrationService: RegistrationService) {
+  constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService,  private snackBarService: SnackbarService) {
     this.registrationForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -22,13 +21,7 @@ export class RegistrationComponent {
 
   register(): void {
     if (this.registrationForm.invalid) {
-      this.showErrorMessage = true;
-
-      setTimeout(() => {
-        this.showErrorMessage = false;
-      }, 3000);
-
-      return;
+      this.snackBarService.openSnackbar('Email oder Passwort ist leer', 'Schließen', 3000);
     } else {
       this.checkIfEmailIsAlreadyInUse();
     }
@@ -36,29 +29,21 @@ export class RegistrationComponent {
 
   private checkIfEmailIsAlreadyInUse() {
     const email = this.registrationForm.value.email;
-    this.registrationService.getHttpResponseEmail(email).subscribe((exists) => {
+    const password = this.registrationForm.value.password;
+
+    this.registrationService.getEmailExists(email).subscribe((exists) => {
       if (!exists) {
-        this.createRegistration();
+        this.createRegistration(email, password);
       } else {
-        this.registrationForm.controls['email'].setErrors({ emailUsed: true });
+        this.snackBarService.openSnackbar('User existiert schon', 'Schließen', 3000);
       }
     });
   }
 
-  private createRegistration() {
-    const email = this.registrationForm.value.email;
-    const password = this.registrationForm.value.password;
-
-    this.http.post('http://localhost:8080/registration', {
-        email: email,
-        password: password,
-      }).subscribe(() => {
-        this.isSuccess = true;
-
-        setTimeout(() => {
-          this.isSuccess = false;
-          this.registrationForm.reset();
-        }, 3000);
-      });
+  private createRegistration(email: string, password: string) {
+    this.registrationService.registrateUser(email, password).subscribe(() => {
+      this.snackBarService.openSnackbar('Du wurdest erfolgreich registriert', 'Schließen', 3000);
+      this.registrationForm.reset();
+    });
   }
 }

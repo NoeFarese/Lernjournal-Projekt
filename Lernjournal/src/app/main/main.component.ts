@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {Eintrag} from "../Eintrag";
-import {ServiceEintrag} from "../service.eintrag";
+import {Eintrag} from "../Interfaces/Eintrag";
+import {ServiceEintrag} from "../Services/service.eintrag";
 import jsPDF from "jspdf";
 
 @Component({

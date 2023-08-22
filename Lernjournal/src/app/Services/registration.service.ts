@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {catchError, map, Observable, of} from "rxjs";
-import {Registration} from "./Registration";
+import {Registration} from "../Interfaces/Registration";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class RegistrationService {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  getHttpResponseEmail(email: string): Observable<any>{
+  getEmailExists(email: string): Observable<any>{
     return this.http.get<HttpResponse<any>>(`${this.baseUrl}/${email}/exists`);
   }
 
@@ -41,4 +41,11 @@ export class RegistrationService {
       return of(result as T);
     };
   }
+
+  registrateUser(email: string, password: string): Observable<any>{
+    return this.http.post('http://localhost:8080/registration', {
+      email: email,
+      password: password,
+  }
+  )}
 }

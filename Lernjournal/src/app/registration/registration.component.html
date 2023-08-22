@@ -19,9 +19,4 @@
       <button mat-raised-button color="primary" type="submit">Registrieren</button>
     </form>
   </div>
-  <div class="messages">
-    <p *ngIf="showErrorMessage" class="error-message">Email oder Passwort ist leer</p>
-    <p *ngIf="isSuccess" class="success-message">Du wurdest erfolgreich registriert</p>
-    <p *ngIf="registrationForm.controls['email'].hasError('emailUsed')" class="error-message-emailalreadyused">Diese Email wurde schon gebraucht</p>
-  </div>
 </div>
