@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegistrationService } from '../Services/registration.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from "../Services/snackbar.service";
 
 
 @Component({
@@ -11,10 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class RegistrationComponent {
   registrationForm: FormGroup;
-  showErrorMessage: boolean = false;
-  isSuccess: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService, private snackBar: MatSnackBar) {
+  constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService,  private snackBarService: SnackbarService) {
     this.registrationForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -23,14 +21,7 @@ export class RegistrationComponent {
 
   register(): void {
     if (this.registrationForm.invalid) {
-      this.showErrorMessage = true;
-      const snackBarRef = this.snackBar.open('Email oder Passwort ist leer', 'Schließen', {
-        duration: 3000,
-        verticalPosition: 'top',
-      });
-      snackBarRef.afterDismissed().subscribe(() => {
-        this.showErrorMessage = false;
-      });
+      this.snackBarService.openSnackbar('Email oder Passwort ist leer', 'Schließen', 3000);
     } else {
       this.checkIfEmailIsAlreadyInUse();
     }
@@ -44,28 +35,15 @@ export class RegistrationComponent {
       if (!exists) {
         this.createRegistration(email, password);
       } else {
-        const snackBarRef = this.snackBar.open('Email wurde schon gebraucht', 'Schließen', {
-          duration: 3000,
-          verticalPosition: 'top',
-        });
-        snackBarRef.afterDismissed().subscribe(() => {
-          this.showErrorMessage = false;
-        });
+        this.snackBarService.openSnackbar('User existiert schon', 'Schließen', 3000);
       }
     });
   }
 
   private createRegistration(email: string, password: string) {
     this.registrationService.registrateUser(email, password).subscribe(() => {
-        this.isSuccess = true;
-        const snackBarRef = this.snackBar.open('Du wurdest erfolgreich registriert', 'Schließen', {
-        duration: 3000,
-        verticalPosition: 'top',
-      });
-      snackBarRef.afterDismissed().subscribe(() => {
-        this.isSuccess = false;
-        this.registrationForm.reset();
-      });
+      this.snackBarService.openSnackbar('Du wurdest erfolgreich registriert', 'Schließen', 3000);
+      this.registrationForm.reset();
     });
   }
 }
