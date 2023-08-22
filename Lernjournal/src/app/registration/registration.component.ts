@@ -27,7 +27,7 @@ export class RegistrationComponent {
       this.showErrorMessage = true;
       const snackBarRef = this.snackBar.open('Email oder Passwort ist leer', 'Schließen', {
         duration: 3000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
       });
       snackBarRef.afterDismissed().subscribe(() => {
         this.showErrorMessage = false;
@@ -44,10 +44,9 @@ export class RegistrationComponent {
       if (!exists) {
         this.createRegistration();
       } else {
-       // this.registrationForm.controls['email'].setErrors({ emailUsed: true });
         const snackBarRef = this.snackBar.open('Email wurde schon gebraucht', 'Schließen', {
           duration: 3000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
         });
         snackBarRef.afterDismissed().subscribe(() => {
           this.showErrorMessage = false;
@@ -67,7 +66,7 @@ export class RegistrationComponent {
         this.isSuccess = true;
         const snackBarRef = this.snackBar.open('Du wurdest erfolgreich registriert', 'Schließen', {
         duration: 3000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
       });
       snackBarRef.afterDismissed().subscribe(() => {
         this.isSuccess = false;
