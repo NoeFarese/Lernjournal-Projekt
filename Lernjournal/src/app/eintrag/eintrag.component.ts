@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {Eintrag} from "../Eintrag";
-import {ServiceEintrag} from "../service.eintrag";
+import {Eintrag} from "../Interfaces/Eintrag";
+import {ServiceEintrag} from "../Services/service.eintrag";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({

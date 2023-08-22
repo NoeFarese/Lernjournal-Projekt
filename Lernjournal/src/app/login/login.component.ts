@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {RegistrationService} from "../registration.service";
+import {RegistrationService} from "../Services/registration.service";
 
 @Component({
   selector: 'app-login',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegistrationService } from '../registration.service';
+import { RegistrationService } from '../Services/registration.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 
