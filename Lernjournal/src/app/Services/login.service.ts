@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { ApiService } from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
+  constructor(private http: HttpClient, private apiService: ApiService) {}
 
-  constructor(private http: HttpClient) {}
-  private baseUrl = 'http://localhost:8080/registration';
-
-  checkIfUserInputIsValid(email: string, password: string): Observable<any>{
-    return this.http.get<HttpResponse<any>>(`${this.baseUrl}/userExists?email=${email}&password=${password}`);
+  checkIfUserInputIsValid(email: string, password: string): Observable<any> {
+    const baseUrl = this.apiService.getBaseUrl();
+    return this.http.get<HttpResponse<any>>(`${baseUrl}/userExists?email=${email}&password=${password}`);
   }
 }

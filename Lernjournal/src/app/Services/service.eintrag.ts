@@ -2,14 +2,15 @@ import { Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {catchError, Observable, of} from "rxjs";
 import {Eintrag} from "../Interfaces/Eintrag";
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ServiceEintrag{
-  constructor(private http: HttpClient) {}
-  private baseUrl = 'http://localhost:8080/eintrag';
+  constructor(private http: HttpClient, private apiService: ApiService) {}
+  private baseUrl = this.apiService.getBaseUrl();
 
   getEintragList(): Observable<any>{
     return this.http.get(`${this.baseUrl}/all`);
