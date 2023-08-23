@@ -10,7 +10,7 @@ import {ApiService} from "./api.service";
 
 export class ServiceEintrag{
   constructor(private http: HttpClient, private apiService: ApiService) {}
-  private baseUrl = this.apiService.getBaseUrl();
+  private baseUrl = this.apiService.getEintragUrl();
 
   getEintragList(): Observable<any>{
     return this.http.get(`${this.baseUrl}/all`);
