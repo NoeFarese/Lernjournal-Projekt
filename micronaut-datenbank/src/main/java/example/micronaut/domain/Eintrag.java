@@ -26,11 +26,15 @@ public class Eintrag {
     @Column(name = "text", nullable = true, unique = false, length = 1000000000)
     private String text;
 
+    @Column(name = "author_id", nullable = false, unique = false)
+    private int author_id;
+
     public Eintrag() {}
 
-    public Eintrag(@NotNull String titel, String text) {
+    public Eintrag(@NotNull String titel, String text, int author_id) {
         this.titel = titel;
         this.text = text;
+        this.author_id = author_id;
     }
 
     public Long getId() {
@@ -52,6 +56,10 @@ public class Eintrag {
     public String getText() { return text; }
 
     public void setText(String text) { this.text = text; }
+
+    public void setAuthor_id(int authorId) { this.author_id = authorId; }
+
+    public int getAuthor_id() { return author_id; }
 
     @Override
     public String toString() {

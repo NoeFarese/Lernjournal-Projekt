@@ -13,11 +13,14 @@ import io.micronaut.scheduling.annotation.ExecuteOn;
 import jakarta.persistence.PersistenceException;
 import jakarta.validation.Valid;
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
 import static io.micronaut.http.HttpHeaders.LOCATION;
 
-@ExecuteOn(TaskExecutors.IO)  // <1>
-@Controller("/eintrag")  // <2>
+@ExecuteOn(TaskExecutors.IO)
+@Controller("/eintrag")
 class EintragController {
 
     private final EintragRepository eintragRepository;
@@ -30,14 +33,43 @@ class EintragController {
     Eintrag show(Long id) {
         return eintragRepository
                 .findById(id)
-                .orElse(null); // <5>
+                .orElse(null);
     }
 
-    @Get("/all") // <4>
+
+    @Get("/findId/{email}")
+    int findId(String email){
+        return (eintragRepository.findIdByEmail(email));
+    }
+
+
+    @Get("/{authorId}")
+    Eintrag show(int authorId) {
+        return eintragRepository
+                .findByAuthorId(authorId)
+                .orElse(null);
+    }
+
+    @Get("/all/AuthorId")
+    List<Eintrag> allListe(int authorId) {
+        if (authorId != 0) {
+            return (List<Eintrag>) eintragRepository.findByAuthorId(authorId).orElse(null);
+        }
+        return eintragRepository.findAll(new SortingAndOrderArguments(0, 1000000000, "", "asc"));
+    }
+
+    @Get("/list")
+    List<Eintrag> list(int authorId) {
+        Optional<Eintrag> entryOptional = eintragRepository.findByAuthorId(authorId);
+        return entryOptional.map(Collections::singletonList).orElse(Collections.emptyList());
+    }
+
+
+    @Get("/all")
     List<Eintrag> allListe() {
         return eintragRepository
                 .findAll(new SortingAndOrderArguments(0, 1000000000, "", "asc"));
-                // <5>
+
     }
     @Put // <6>
     HttpResponse<?> update(@Body @Valid EintragUpdateCommand command) { // <7>
@@ -55,7 +87,7 @@ class EintragController {
 
     @Post // <10>
     HttpResponse<Eintrag> save(@Body @Valid EintragSaveCommand cmd) {
-        Eintrag eintrag = eintragRepository.save(cmd.getTitel(), cmd.getText());
+        Eintrag eintrag = eintragRepository.save(cmd.getTitel(), cmd.getText(), cmd.getAuthor_id());
 
         return HttpResponse
                 .created(eintrag)
@@ -65,7 +97,7 @@ class EintragController {
     @Post("/ex") // <11>
     HttpResponse<Eintrag> saveExceptions(@Body @Valid EintragSaveCommand cmd) {
         try {
-            Eintrag eintrag = eintragRepository.saveWithException(cmd.getTitel(), cmd.getText());
+            Eintrag eintrag = eintragRepository.saveWithException(cmd.getTitel(), cmd.getText(), cmd.getAuthor_id());
             return HttpResponse
                     .created(eintrag)
                     .headers(headers -> headers.location(location(eintrag.getId())));

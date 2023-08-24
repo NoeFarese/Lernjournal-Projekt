@@ -1,6 +1,7 @@
 package example.micronaut;
 
 import example.micronaut.domain.Eintrag;
+import example.micronaut.domain.Registration;
 import io.micronaut.transaction.annotation.ReadOnly;
 import jakarta.inject.Singleton;
 import jakarta.persistence.EntityManager;
@@ -30,10 +31,14 @@ public class EintragRepositoryImpl implements EintragRepository {
         return Optional.ofNullable(entityManager.find(Eintrag.class, id));
     }
 
+
+    @Override
+    public Optional<Eintrag> findByAuthorId(int authorId) { return Optional.ofNullable(entityManager.find(Eintrag.class, authorId)); }
+
     @Override
     @Transactional // <4>
-    public Eintrag save(@NotBlank String titel, @NotBlank String text) {
-        Eintrag eintrag = new Eintrag(titel, text);
+    public Eintrag save(@NotBlank String titel, @NotBlank String text, int authorId) {
+        Eintrag eintrag = new Eintrag(titel, text, authorId);
         entityManager.persist(eintrag);
         return eintrag;
     }
@@ -59,6 +64,20 @@ public class EintragRepositoryImpl implements EintragRepository {
     }
 
     @Override
+    @Transactional
+    public int findIdByEmail(String email) {
+        String qlString = "SELECT g FROM Registration as g WHERE g.email = :email";
+        TypedQuery<Registration> query = entityManager.createQuery(qlString, Registration.class);
+        query.setParameter("email", email);
+
+        try {
+            return query.getSingleResult().getId().intValue();
+        } catch (Exception e) {
+            return Integer.parseInt(null);
+        }
+    }
+
+    @Override
     public int update(long id, String name) {
         return 0;
     }
@@ -76,8 +95,8 @@ public class EintragRepositoryImpl implements EintragRepository {
 
     @Override
     @Transactional // <4>
-    public Eintrag saveWithException(@NotBlank String titel, @NotBlank String text) {
-        save(titel, text);
+    public Eintrag saveWithException(@NotBlank String titel, @NotBlank String text, int authorId) {
+        save(titel, text, authorId);
         throw new PersistenceException();
     }
 }
