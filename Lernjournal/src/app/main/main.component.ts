@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {Eintrag} from "../Interfaces/Eintrag";
 import {ServiceEintrag} from "../Services/service.eintrag";
 import jsPDF from "jspdf";
+import {LoginService} from "../Services/login.service";
 
 @Component({
   selector: 'app-main',
@@ -9,7 +10,7 @@ import jsPDF from "jspdf";
   styleUrls: ['./main.component.css']
 })
 export class MainComponent {
-  constructor(private eintragService: ServiceEintrag) {
+  constructor(private eintragService: ServiceEintrag, private loginService: LoginService) {
   }
 
   ngOnInit(): void {
@@ -18,8 +19,17 @@ export class MainComponent {
 
   eintragArr: Eintrag[] = [];
 
+  /*
   getEintragList(): void {
     this.eintragService.getEintragList().subscribe(eintragArr => this.eintragArr = eintragArr);
+  }
+   */
+
+  getEintragList(): void {
+    const authorId = this.loginService.getAuthorId();
+    if (authorId !== null) {
+      this.eintragService.getEintragListForUser(authorId).subscribe(eintragArr => this.eintragArr = eintragArr);
+    }
   }
 
   delete(eintrag: Eintrag): void {

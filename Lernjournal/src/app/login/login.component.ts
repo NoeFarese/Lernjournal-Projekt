@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {SnackbarService} from "../Services/snackbar.service";
-import {LoginService} from "../Services/login.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { SnackbarService } from "../Services/snackbar.service";
+import { LoginService } from "../Services/login.service";
 
 @Component({
   selector: 'app-login',
@@ -27,23 +27,27 @@ export class LoginComponent {
     }
   }
 
-  private checkIfLoginDataIsCorrect(): void{
+  private checkIfLoginDataIsCorrect(): void {
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
 
     this.loginService.checkIfUserInputIsValid(email, password).subscribe((exists) => {
-      console.log(exists);
       if (exists) {
-        this.createLogin(email, password);
+        this.loginUser(email);
       } else {
-        this.snackBarService.openSnackbar('User existiert nicht', 'Schliessen', 3000);
+        this.snackBarService.openSnackbar('Email oder Passwort ist falsch', 'Schliessen', 3000);
       }
     });
   }
 
-  private createLogin(email: string, password: string){
+  loginUser(email: string){
     this.isLoggendIn = true;
     this.snackBarService.openSnackbar('Du wurdest erfolgreich eingeloggt', 'Schliessen', 3000);
     this.loginForm.reset();
+
+    this.loginService.getAuthorIdByEmail(email).subscribe((authorId) => {
+      this.loginService.setAuthorId(authorId);
+      console.log(this.loginService.getAuthorId());
+    })
   }
 }

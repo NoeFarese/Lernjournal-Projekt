@@ -5,6 +5,7 @@ import {ServiceEintrag} from "../Services/service.eintrag";
 import {ActivatedRoute} from "@angular/router";
 import {Eintrag} from "../Interfaces/Eintrag";
 import {PdfExportService} from "../Services/pdf-export.service";
+import {LoginService} from "../Services/login.service";
 
 @Component({
   selector: 'app-edit',
@@ -12,7 +13,7 @@ import {PdfExportService} from "../Services/pdf-export.service";
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit{
-  constructor(private http : HttpClient, private eintragService: ServiceEintrag, private route: ActivatedRoute, private pdfExportService: PdfExportService ) {}
+  constructor(private http : HttpClient, private eintragService: ServiceEintrag, private route: ActivatedRoute, private pdfExportService: PdfExportService, private loginService: LoginService ) {}
 
  titel: string | undefined = "";
  text: string | undefined = "";
@@ -39,7 +40,8 @@ export class EditComponent implements OnInit{
   private insertEintrag() {
     this.http.post('http://localhost:8080/eintrag', {
       titel: this.titel,
-      text: this.text
+      text: this.text,
+      author_id: this.loginService.getAuthorId()
     }).subscribe(() => {
       this.isValidInput = true;
       this.isSaved = true;

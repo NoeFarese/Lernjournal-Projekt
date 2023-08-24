@@ -7,7 +7,21 @@ import { ApiService } from "./api.service";
   providedIn: 'root'
 })
 export class LoginService {
+  private authorId: number | null = null;
   constructor(private http: HttpClient, private apiService: ApiService) {}
+
+  setAuthorId(id: number) {
+    this.authorId = id;
+  }
+
+  getAuthorIdByEmail(email: string): Observable<any> {
+    const baseUrl = this.apiService.getEintragUrl();
+     return this.http.get<HttpResponse<number>>(`${baseUrl}/findId/${email}`);
+  }
+
+  getAuthorId(){
+    return this.authorId;
+  }
 
   checkIfUserInputIsValid(email: string, password: string): Observable<any> {
     const baseUrl = this.apiService.getBaseUrl();

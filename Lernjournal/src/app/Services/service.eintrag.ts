@@ -3,13 +3,14 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {catchError, Observable, of} from "rxjs";
 import {Eintrag} from "../Interfaces/Eintrag";
 import {ApiService} from "./api.service";
+import {LoginService} from "./login.service";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ServiceEintrag{
-  constructor(private http: HttpClient, private apiService: ApiService) {}
+  constructor(private http: HttpClient, private apiService: ApiService, private loginService: LoginService) {}
   private baseUrl = this.apiService.getEintragUrl();
 
   getEintragList(): Observable<any>{
@@ -36,5 +37,10 @@ export class ServiceEintrag{
       console.error(error);
       return of(result as T);
     };
+  }
+
+  getEintragListForUser(authorId: number): Observable<Eintrag[]> {
+    const url = this.apiService.getEintragUrl();
+    return this.http.get<Eintrag[]>(`${url}/list?authorId=${authorId}`);
   }
 }
