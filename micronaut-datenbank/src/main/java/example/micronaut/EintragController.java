@@ -16,7 +16,6 @@ import java.net.URI;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
 import static io.micronaut.http.HttpHeaders.LOCATION;
 
 @ExecuteOn(TaskExecutors.IO)
@@ -36,34 +35,15 @@ class EintragController {
                 .orElse(null);
     }
 
-
     @Get("/findId/{email}")
     int findId(String email){
         return (eintragRepository.findIdByEmail(email));
     }
 
-
-    @Get("/{authorId}")
-    Eintrag show(int authorId) {
-        return eintragRepository
-                .findByAuthorId(authorId)
-                .orElse(null);
-    }
-
-    @Get("/all/AuthorId")
-    List<Eintrag> allListe(int authorId) {
-        if (authorId != 0) {
-            return (List<Eintrag>) eintragRepository.findByAuthorId(authorId).orElse(null);
-        }
-        return eintragRepository.findAll(new SortingAndOrderArguments(0, 1000000000, "", "asc"));
-    }
-
-    @Get("/list")
+    @Get("/getEintraege/{authorId}")
     List<Eintrag> list(int authorId) {
-        Optional<Eintrag> entryOptional = eintragRepository.findByAuthorId(authorId);
-        return entryOptional.map(Collections::singletonList).orElse(Collections.emptyList());
+        return eintragRepository.findByAuthorId(authorId);
     }
-
 
     @Get("/all")
     List<Eintrag> allListe() {
@@ -71,6 +51,7 @@ class EintragController {
                 .findAll(new SortingAndOrderArguments(0, 1000000000, "", "asc"));
 
     }
+
     @Put // <6>
     HttpResponse<?> update(@Body @Valid EintragUpdateCommand command) { // <7>
         int numberOfEntitiesUpdated = eintragRepository.update(command.getId(), command.getTitel(), command.getText());
@@ -80,15 +61,10 @@ class EintragController {
                 .header(LOCATION, location(command.getId()).getPath()); // <8>
     }
 
-    @Get(value = "/list{?args*}") // <9>-
-    List<Eintrag> list(@Valid SortingAndOrderArguments args) {
-        return eintragRepository.findAll(args);
-    }
-
     @Post // <10>
     HttpResponse<Eintrag> save(@Body @Valid EintragSaveCommand cmd) {
         Eintrag eintrag = eintragRepository.save(cmd.getTitel(), cmd.getText(), cmd.getAuthor_id());
-
+        System.out.println(eintrag);
         return HttpResponse
                 .created(eintrag)
                 .headers(headers -> headers.location(location(eintrag.getId())));

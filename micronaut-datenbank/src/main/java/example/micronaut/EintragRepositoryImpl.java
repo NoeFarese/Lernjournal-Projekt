@@ -31,13 +31,9 @@ public class EintragRepositoryImpl implements EintragRepository {
         return Optional.ofNullable(entityManager.find(Eintrag.class, id));
     }
 
-
-    @Override
-    public Optional<Eintrag> findByAuthorId(int authorId) { return Optional.ofNullable(entityManager.find(Eintrag.class, authorId)); }
-
     @Override
     @Transactional // <4>
-    public Eintrag save(@NotBlank String titel, @NotBlank String text, int authorId) {
+    public Eintrag save(@NotBlank String titel, @NotBlank String text,@NotNull int authorId) {
         Eintrag eintrag = new Eintrag(titel, text, authorId);
         entityManager.persist(eintrag);
         return eintrag;
@@ -60,6 +56,7 @@ public class EintragRepositoryImpl implements EintragRepository {
         if (args.offset() != null) {
             query.setFirstResult(args.offset());
         }
+        System.out.println(query.getResultList());
         return query.getResultList();
     }
 
@@ -74,6 +71,20 @@ public class EintragRepositoryImpl implements EintragRepository {
             return query.getSingleResult().getId().intValue();
         } catch (Exception e) {
             return Integer.parseInt(null);
+        }
+    }
+
+    @Override
+    @Transactional
+    public List<Eintrag> findByAuthorId(int authorId) {
+        String qlString = "SELECT g FROM Eintrag AS g WHERE g.author_id = :authorId";
+        TypedQuery<Eintrag> query = entityManager.createQuery(qlString, Eintrag.class);
+        query.setParameter("authorId", authorId);
+
+        try {
+            return query.getResultList();
+        } catch (Exception e) {
+            return null;
         }
     }
 

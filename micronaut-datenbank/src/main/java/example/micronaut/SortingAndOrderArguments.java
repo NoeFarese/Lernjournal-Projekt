@@ -18,7 +18,7 @@ public record SortingAndOrderArguments(
         Integer max,
 
          @Nullable
-         @Pattern(regexp = "id|titel|text")  // <1>
+         @Pattern(regexp = "id|titel|text|authorId")  // <1>
          String sort,
 
          @Nullable

@@ -12,7 +12,7 @@ public interface EintragRepository {
 
     Optional<Eintrag> findById(long id);
 
-    Optional<Eintrag> findByAuthorId(int authorId);
+    List<Eintrag> findByAuthorId(int authorId);
 
     @Transactional // <4>
     int update(long id, @NotBlank String titel, @NotBlank String text);
