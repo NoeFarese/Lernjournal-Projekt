@@ -39,8 +39,8 @@ export class ServiceEintrag{
     };
   }
 
-  getEintragListForUser(authorId: number): Observable<Eintrag[]> {
+  getEintragListForUser(authorId: number): Observable<any> {
     const url = this.apiService.getEintragUrl();
-    return this.http.get<Eintrag[]>(`${url}/list?authorId=${authorId}`);
+    return this.http.get<any>(`${url}/getEintraege/${authorId}`);
   }
 }

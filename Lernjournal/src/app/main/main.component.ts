@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Eintrag} from "../Interfaces/Eintrag";
 import {ServiceEintrag} from "../Services/service.eintrag";
 import jsPDF from "jspdf";
@@ -9,9 +9,8 @@ import {LoginService} from "../Services/login.service";
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent {
-  constructor(private eintragService: ServiceEintrag, private loginService: LoginService) {
-  }
+export class MainComponent implements OnInit {
+  constructor(private eintragService: ServiceEintrag, private loginService: LoginService) {}
 
   ngOnInit(): void {
     this.getEintragList();
@@ -19,16 +18,11 @@ export class MainComponent {
 
   eintragArr: Eintrag[] = [];
 
-  /*
-  getEintragList(): void {
-    this.eintragService.getEintragList().subscribe(eintragArr => this.eintragArr = eintragArr);
-  }
-   */
-
   getEintragList(): void {
     const authorId = this.loginService.getAuthorId();
     if (authorId !== null) {
-      this.eintragService.getEintragListForUser(authorId).subscribe(eintragArr => this.eintragArr = eintragArr);
+      this.eintragService.getEintragListForUser(authorId).subscribe(eintragArr => {
+        this.eintragArr = eintragArr});
     }
   }
 
