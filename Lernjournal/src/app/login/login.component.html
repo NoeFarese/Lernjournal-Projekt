@@ -18,5 +18,14 @@
 
       <button mat-raised-button color="primary" type="submit">Login</button>
     </form>
+
+    <div *ngIf="isLoggedIn">
+      <button mat-raised-button color="warn" (click)="logout()" class="ausloggen-button">Ausloggen</button>
+    </div>
+    <div *ngIf="!isLoggedIn">
+      <p>Du bist nicht eingeloggt. Bitte melde dich an.</p>
+    </div>
+
+
   </div>
   </div>

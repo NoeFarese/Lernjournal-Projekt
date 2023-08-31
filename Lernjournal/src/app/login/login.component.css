@@ -20,6 +20,10 @@
   width: 100%;
 }
 
+.ausloggen-button {
+  margin-top: 20px;
+}
+
 label {
   margin-bottom: 5px;
 }
@@ -36,4 +40,13 @@ button {
 button:hover {
   background-color: lightgray;
   color: black;
+}
+
+p {
+  margin-top: 20px;
+  padding: 1rem;
+  display: inline-block;
+  background-color: #B90E0A;
+  color: white;
+  border-radius: 4px;
 }
