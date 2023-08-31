@@ -50,4 +50,14 @@ export class LoginComponent {
       console.log(this.loginService.getAuthorId());
     })
   }
+
+  get isLoggedIn(): boolean {
+    return this.loginService.getAuthorId() !== null;
+  }
+
+  logout(): void {
+    this.isLoggendIn = false;
+    this.loginService.clearAuthorId();
+    this.snackBarService.openSnackbar('Du wurdest ausgeloggt', 'Schließen', 3000);
+  }
 }

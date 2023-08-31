@@ -26,4 +26,9 @@ export class LoginService {
     const baseUrl = this.apiService.getBaseUrl();
     return this.http.get<HttpResponse<any>>(`${baseUrl}/userExists?email=${email}&password=${password}`);
   }
+
+  clearAuthorId(): void {
+    localStorage.removeItem('authorId');
+  }
+
 }
