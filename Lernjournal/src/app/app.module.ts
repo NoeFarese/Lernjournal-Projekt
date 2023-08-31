@@ -17,6 +17,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatCheckboxModule,
     ReactiveFormsModule,
     MatTooltipModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
