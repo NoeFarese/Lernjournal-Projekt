@@ -3,6 +3,7 @@ import {Eintrag} from "../Interfaces/Eintrag";
 import {ServiceEintrag} from "../Services/service.eintrag";
 import jsPDF from "jspdf";
 import {LoginService} from "../Services/login.service";
+import {SnackbarService} from "../Services/snackbar.service";
 
 @Component({
   selector: 'app-main',
@@ -10,7 +11,9 @@ import {LoginService} from "../Services/login.service";
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  constructor(private eintragService: ServiceEintrag, private loginService: LoginService) {}
+
+  isDownloading: boolean = false;
+  constructor(private eintragService: ServiceEintrag, private loginService: LoginService, private snackBarService: SnackbarService) {}
 
   ngOnInit(): void {
     this.getEintragList();
@@ -36,11 +39,39 @@ export class MainComponent implements OnInit {
 
   checkboxChanged(id: number): void {
     if (this.checkboxStates[id]) {
-      console.log('Checkbox wurde ausgewählt');
+      this.showProgressBarAndSnackbarForDownload();
       this.exportPdfForId(id);
-    } else {
-      console.log('Checkbox wurde abgewählt');
+
+      setTimeout(() => {
+        this.checkboxStates[id] = false
+      }, 1000);
     }
+  }
+
+  updateCheckboxStates(allChecked: boolean): void {
+    this.eintragArr.forEach(eintrag => {
+      this.checkboxStates[eintrag.id] = allChecked;
+      if (allChecked) {
+        this.showProgressBarAndSnackbarForDownload();
+        this.exportPdfForId(eintrag.id);
+
+        setTimeout(() => {
+          this.checkboxStates[eintrag.id] = false;
+          allChecked = false;
+        }, 1000);
+      }
+    });
+  }
+
+
+  showProgressBarAndSnackbarForDownload(){
+    this.isDownloading = true;
+
+    setTimeout(() => {
+      this.isDownloading = false
+    }, 1000);
+
+    this.snackBarService.openSnackbar('wird heruntergeladen','Schliessen',1000);
   }
 
   exportPdfForId(id: number): void {
@@ -53,15 +84,6 @@ export class MainComponent implements OnInit {
       doc.text(lines, 10, 20);
       doc.save(eintrag.titel + '.pdf');
     }
-  }
-
-  updateCheckboxStates(allChecked: boolean): void {
-    this.eintragArr.forEach(eintrag => {
-      this.checkboxStates[eintrag.id] = allChecked;
-      if (allChecked) {
-        this.exportPdfForId(eintrag.id);
-      }
-    });
   }
 
   searchTerm: string = '';
