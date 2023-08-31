@@ -1,6 +1,7 @@
 package example.micronaut;
 
 import example.micronaut.domain.Eintrag;
+import example.micronaut.domain.Registration;
 import io.micronaut.transaction.annotation.ReadOnly;
 import jakarta.inject.Singleton;
 import jakarta.persistence.EntityManager;
@@ -32,8 +33,8 @@ public class EintragRepositoryImpl implements EintragRepository {
 
     @Override
     @Transactional // <4>
-    public Eintrag save(@NotBlank String titel, @NotBlank String text) {
-        Eintrag eintrag = new Eintrag(titel, text);
+    public Eintrag save(@NotBlank String titel, @NotBlank String text,@NotNull int authorId) {
+        Eintrag eintrag = new Eintrag(titel, text, authorId);
         entityManager.persist(eintrag);
         return eintrag;
     }
@@ -55,7 +56,36 @@ public class EintragRepositoryImpl implements EintragRepository {
         if (args.offset() != null) {
             query.setFirstResult(args.offset());
         }
+        System.out.println(query.getResultList());
         return query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public int findIdByEmail(String email) {
+        String qlString = "SELECT g FROM Registration as g WHERE g.email = :email";
+        TypedQuery<Registration> query = entityManager.createQuery(qlString, Registration.class);
+        query.setParameter("email", email);
+
+        try {
+            return query.getSingleResult().getId().intValue();
+        } catch (Exception e) {
+            return Integer.parseInt(null);
+        }
+    }
+
+    @Override
+    @Transactional
+    public List<Eintrag> findByAuthorId(int authorId) {
+        String qlString = "SELECT g FROM Eintrag AS g WHERE g.author_id = :authorId";
+        TypedQuery<Eintrag> query = entityManager.createQuery(qlString, Eintrag.class);
+        query.setParameter("authorId", authorId);
+
+        try {
+            return query.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
@@ -76,8 +106,8 @@ public class EintragRepositoryImpl implements EintragRepository {
 
     @Override
     @Transactional // <4>
-    public Eintrag saveWithException(@NotBlank String titel, @NotBlank String text) {
-        save(titel, text);
+    public Eintrag saveWithException(@NotBlank String titel, @NotBlank String text, int authorId) {
+        save(titel, text, authorId);
         throw new PersistenceException();
     }
 }

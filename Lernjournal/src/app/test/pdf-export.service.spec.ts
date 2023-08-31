@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PdfExportService } from './pdf-export.service';
+import { PdfExportService } from '../Services/pdf-export.service';
 
 describe('PdfExportService', () => {
   let service: PdfExportService;

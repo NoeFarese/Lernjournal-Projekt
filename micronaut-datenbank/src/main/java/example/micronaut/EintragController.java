@@ -13,11 +13,13 @@ import io.micronaut.scheduling.annotation.ExecuteOn;
 import jakarta.persistence.PersistenceException;
 import jakarta.validation.Valid;
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import static io.micronaut.http.HttpHeaders.LOCATION;
 
-@ExecuteOn(TaskExecutors.IO)  // <1>
-@Controller("/eintrag")  // <2>
+@ExecuteOn(TaskExecutors.IO)
+@Controller("/eintrag")
 class EintragController {
 
     private final EintragRepository eintragRepository;
@@ -30,15 +32,26 @@ class EintragController {
     Eintrag show(Long id) {
         return eintragRepository
                 .findById(id)
-                .orElse(null); // <5>
+                .orElse(null);
     }
 
-    @Get("/all") // <4>
+    @Get("/findId/{email}")
+    int findId(String email){
+        return (eintragRepository.findIdByEmail(email));
+    }
+
+    @Get("/getEintraege/{authorId}")
+    List<Eintrag> list(int authorId) {
+        return eintragRepository.findByAuthorId(authorId);
+    }
+
+    @Get("/all")
     List<Eintrag> allListe() {
         return eintragRepository
                 .findAll(new SortingAndOrderArguments(0, 1000000000, "", "asc"));
-                // <5>
+
     }
+
     @Put // <6>
     HttpResponse<?> update(@Body @Valid EintragUpdateCommand command) { // <7>
         int numberOfEntitiesUpdated = eintragRepository.update(command.getId(), command.getTitel(), command.getText());
@@ -48,15 +61,10 @@ class EintragController {
                 .header(LOCATION, location(command.getId()).getPath()); // <8>
     }
 
-    @Get(value = "/list{?args*}") // <9>-
-    List<Eintrag> list(@Valid SortingAndOrderArguments args) {
-        return eintragRepository.findAll(args);
-    }
-
     @Post // <10>
     HttpResponse<Eintrag> save(@Body @Valid EintragSaveCommand cmd) {
-        Eintrag eintrag = eintragRepository.save(cmd.getTitel(), cmd.getText());
-
+        Eintrag eintrag = eintragRepository.save(cmd.getTitel(), cmd.getText(), cmd.getAuthor_id());
+        System.out.println(eintrag);
         return HttpResponse
                 .created(eintrag)
                 .headers(headers -> headers.location(location(eintrag.getId())));
@@ -65,7 +73,7 @@ class EintragController {
     @Post("/ex") // <11>
     HttpResponse<Eintrag> saveExceptions(@Body @Valid EintragSaveCommand cmd) {
         try {
-            Eintrag eintrag = eintragRepository.saveWithException(cmd.getTitel(), cmd.getText());
+            Eintrag eintrag = eintragRepository.saveWithException(cmd.getTitel(), cmd.getText(), cmd.getAuthor_id());
             return HttpResponse
                     .created(eintrag)
                     .headers(headers -> headers.location(location(eintrag.getId())));
