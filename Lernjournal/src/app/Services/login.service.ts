@@ -7,11 +7,10 @@ import { ApiService } from "./api.service";
   providedIn: 'root'
 })
 export class LoginService {
-  private authorId: number | null = null;
   constructor(private http: HttpClient, private apiService: ApiService) {}
 
   setAuthorId(id: number) {
-    this.authorId = id;
+    localStorage.setItem('authorId', id.toString());
   }
 
   getAuthorIdByEmail(email: string): Observable<any> {
@@ -20,7 +19,7 @@ export class LoginService {
   }
 
   getAuthorId(){
-    return this.authorId;
+    return localStorage.getItem('authorId');
   }
 
   checkIfUserInputIsValid(email: string, password: string): Observable<any> {

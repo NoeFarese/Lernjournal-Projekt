@@ -39,7 +39,7 @@ export class ServiceEintrag{
     };
   }
 
-  getEintragListForUser(authorId: number): Observable<any> {
+  getEintragListForUser(authorId: string): Observable<any> {
     const url = this.apiService.getEintragUrl();
     return this.http.get<any>(`${url}/getEintraege/${authorId}`);
   }
