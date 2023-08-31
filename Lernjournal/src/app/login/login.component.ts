@@ -10,7 +10,6 @@ import { LoginService } from "../Services/login.service";
 })
 export class LoginComponent {
   loginForm: FormGroup;
-  isLoggendIn: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private snackBarService: SnackbarService, private loginService: LoginService) {
     this.loginForm = this.formBuilder.group({
@@ -41,7 +40,6 @@ export class LoginComponent {
   }
 
   loginUser(email: string) {
-    this.isLoggendIn = true;
     this.snackBarService.openSnackbar('Du wurdest erfolgreich eingeloggt', 'Schliessen', 3000);
     this.loginForm.reset();
 
@@ -56,7 +54,6 @@ export class LoginComponent {
   }
 
   logout(): void {
-    this.isLoggendIn = false;
     this.loginService.clearAuthorId();
     this.snackBarService.openSnackbar('Du wurdest ausgeloggt', 'Schließen', 3000);
   }
