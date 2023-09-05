@@ -2,24 +2,37 @@
 <h1>Einträge:</h1>
 <div class="flex-container-liste">
   <input type="text" [(ngModel)]="searchTerm" placeholder="Suche nach Einträgen" class="suchleiste">
-  <mat-checkbox color="primary" class="exportAll-Checkbox" [(ngModel)]="exportAllChecked"
+  <mat-checkbox matTooltip="alle Einträge als PDF herunterladen" color="primary" class="exportAll-Checkbox" [(ngModel)]="exportAllChecked"
                 (change)="updateCheckboxStates(exportAllChecked)">Export all as PDF
   </mat-checkbox>
   <mat-list class="einträge">
     <mat-list-item *ngFor="let eintrag of filterEintraege()" class="eintrag-item">
-      <a routerLink="/eintrag/{{eintrag.id}}">{{eintrag.titel}}</a>
-      <a routerLink="/edit/{{eintrag.id}}">
-        <mat-icon>border_color</mat-icon>
-      </a>
-      <button type="button" class="delete" title="delete-eintrag" (click)="delete(eintrag)">
-        <mat-icon>delete</mat-icon>
-      </button>
-      <mat-checkbox color="primary" class="exportPDF-Checkbox" [(ngModel)]="checkboxStates[eintrag.id]"
-                    (change)="checkboxChanged(eintrag.id)">PDF exportieren
-      </mat-checkbox>
+      <div class="parent">
+        <div class="div1">
+          <a matTooltip="zum Eintrag" routerLink="/eintrag/{{eintrag.id}}">{{eintrag.titel}}</a>
+        </div>
+
+        <div class="div2">
+          <a matTooltip="eintrag bearbeiten" routerLink="/edit/{{eintrag.id}}">
+            <mat-icon>border_color</mat-icon>
+          </a>
+        </div>
+
+        <div class="div3">
+          <button matTooltip="Eintrag löschen" type="button" class="delete" title="delete-eintrag" (click)="delete(eintrag)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+
+        <div class="div4">
+          <mat-checkbox matTooltip="als PDF herunterladen" color="primary" class="exportPDF-Checkbox" [(ngModel)]="checkboxStates[eintrag.id]"
+                        (change)="checkboxChanged(eintrag.id)">
+            <mat-icon>download</mat-icon>
+          </mat-checkbox>
+        </div>
+      </div>
     </mat-list-item>
   </mat-list>
-
   <mat-spinner *ngIf="isDownloading"></mat-spinner>
 </div>
 </body>
