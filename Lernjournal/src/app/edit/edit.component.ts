@@ -6,6 +6,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Eintrag} from "../Interfaces/Eintrag";
 import {PdfExportService} from "../Services/pdf-export.service";
 import {LoginService} from "../Services/login.service";
+import {SnackbarService} from "../Services/snackbar.service";
 
 @Component({
   selector: 'app-edit',
@@ -18,14 +19,13 @@ export class EditComponent {
       private eintragService: ServiceEintrag,
       private route: ActivatedRoute,
       private pdfExportService: PdfExportService,
-      private loginService: LoginService
+      private loginService: LoginService,
+      private snackBarService: SnackbarService
   ) {}
 
  titel: string | undefined = "";
  text: string | undefined = "";
  eintrag: Eintrag | undefined;
- isValidInput: boolean = true;
- isSaved: boolean = false;
 
  submit(){
    // @ts-ignore
@@ -36,10 +36,7 @@ export class EditComponent {
        this.insertEintrag();
      }
     } else {
-      this.isValidInput = false;
-     setTimeout(() => {
-       this.isValidInput = true;
-     }, 3000);
+      this.snackBarService.openSnackbar('Text oder/und Titel sollten nicht leer sein', 'Schliesse', 3000);
     }
  }
 
@@ -49,12 +46,7 @@ export class EditComponent {
       text: this.text,
       author_id: this.loginService.getAuthorId()
     }).subscribe(() => {
-      this.isValidInput = true;
-      this.isSaved = true;
-
-      setTimeout(() => {
-        this.isSaved = false;
-      }, 3000);
+      this.snackBarService.openSnackbar('Der Eintrag wurde erflogreich gespeichert','Schliessen', 3000);
     });
   }
 
@@ -65,12 +57,7 @@ export class EditComponent {
       //@ts-ignore
       id: this.eintrag.id
     }).subscribe(() => {
-      this.isValidInput = true;
-      this.isSaved = true;
-
-      setTimeout(() => {
-        this.isSaved = false;
-      }, 3000);
+      this.snackBarService.openSnackbar('Der Eintrag wurde erflogreich gespeichert','Schliessen', 3000);
     });
   }
 
