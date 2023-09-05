@@ -1,8 +1,10 @@
 <div><h1>{{ title }}</h1></div>
 <body>
     <nav>
-      <a routerLink="/edit">neuer Eintrag erfassen</a>
-      <a routerLink="/main">zu den Einträgen</a>
+      <a routerLink="/edit" *ngIf="isLoggedIn">neuer Eintrag erfassen</a>
+      <a routerLink="/main" *ngIf="isLoggedIn">zu den Einträgen</a>
+      <a *ngIf="!isLoggedIn" id="button-disabled-one">neuer Eintrag erfassen</a>
+      <a *ngIf="!isLoggedIn" id="button-disabled-two">zu den Einträgen</a>
       <a routerLink="/login">Login</a>
       <a routerLink="/registration">Registrieren</a>
     </nav>
