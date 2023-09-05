@@ -100,6 +100,10 @@ button.delete:hover {
   border-radius: 8px;
 }
 
+.exportAll-Checkbox {
+  padding: 10px 15px 10px 10px;
+}
+
 .suchleiste {
   margin-bottom: 20px;
   border: 1px solid #ccc;
