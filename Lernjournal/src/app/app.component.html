@@ -3,8 +3,8 @@
     <nav>
       <a routerLink="/edit" *ngIf="isLoggedIn">neuer Eintrag erfassen</a>
       <a routerLink="/main" *ngIf="isLoggedIn">zu den Einträgen</a>
-      <a *ngIf="!isLoggedIn" id="button-disabled">neuer Eintrag erfassen</a>
-      <a *ngIf="!isLoggedIn" id="button-disabled">zu den Einträgen</a>
+      <a *ngIf="!isLoggedIn" id="button-disabled-one">neuer Eintrag erfassen</a>
+      <a *ngIf="!isLoggedIn" id="button-disabled-two">zu den Einträgen</a>
       <a routerLink="/login">Login</a>
       <a routerLink="/registration">Registrieren</a>
     </nav>
