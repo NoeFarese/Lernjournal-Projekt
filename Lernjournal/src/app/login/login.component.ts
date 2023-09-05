@@ -45,7 +45,6 @@ export class LoginComponent {
 
     this.loginService.getAuthorIdByEmail(email).subscribe((authorId) => {
       this.loginService.setAuthorId(authorId);
-      console.log(this.loginService.getAuthorId());
     })
   }
 
