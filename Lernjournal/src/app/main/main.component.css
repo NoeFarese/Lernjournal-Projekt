@@ -96,7 +96,7 @@ button.delete:hover {
 .exportAll-Checkbox, .exportPDF-Checkbox{
   background-color: lightgray;
   color: #333333;
-  padding: 4px;
+  padding: 4px 10px 4px 4px;
   border-radius: 8px;
 }
 
