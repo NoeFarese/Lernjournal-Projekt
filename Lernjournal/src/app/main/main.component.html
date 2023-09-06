@@ -25,10 +25,9 @@
         </div>
 
         <div class="div4">
-          <mat-checkbox matTooltip="als PDF herunterladen" color="primary" class="exportPDF-Checkbox" [(ngModel)]="checkboxStates[eintrag.id]"
-                        (change)="checkboxChanged(eintrag.id)">
+          <button mat-raised-button class="exportPDF-Button" (click)="downloadSelectedPDFs(eintrag.id)">
             <mat-icon>download</mat-icon>
-          </mat-checkbox>
+          </button>
         </div>
       </div>
     </mat-list-item>
