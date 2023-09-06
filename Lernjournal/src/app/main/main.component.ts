@@ -13,13 +13,14 @@ import {SnackbarService} from "../Services/snackbar.service";
 export class MainComponent implements OnInit {
 
   isDownloading: boolean = false;
+  eintragArr: Eintrag[] = [];
+  exportAllChecked = false;
+  checkboxStates: { [id: number]: boolean } = {};
   constructor(private eintragService: ServiceEintrag, private loginService: LoginService, private snackBarService: SnackbarService) {}
 
   ngOnInit(): void {
     this.getEintragList();
   }
-
-  eintragArr: Eintrag[] = [];
 
   getEintragList(): void {
     const authorId = this.loginService.getAuthorId();
@@ -32,20 +33,6 @@ export class MainComponent implements OnInit {
   delete(eintrag: Eintrag): void {
     this.eintragArr = this.eintragArr.filter(h => h !== eintrag);
     this.eintragService.deleteEintrag(eintrag.id).subscribe();
-  }
-
-  exportAllChecked = false;
-  checkboxStates: { [id: number]: boolean } = {};
-
-  checkboxChanged(id: number): void {
-    if (this.checkboxStates[id]) {
-      this.showProgressBarAndSnackbarForDownload();
-      this.exportPdfForId(id);
-
-      setTimeout(() => {
-        this.checkboxStates[id] = false
-      }, 1000);
-    }
   }
 
   updateCheckboxStates(allChecked: boolean): void {
@@ -63,6 +50,10 @@ export class MainComponent implements OnInit {
     });
   }
 
+  downloadSelectedPDFs(id: number): void {
+      this.showProgressBarAndSnackbarForDownload();
+      this.exportPdfForId(id);
+  }
 
   showProgressBarAndSnackbarForDownload(){
     this.isDownloading = true;
