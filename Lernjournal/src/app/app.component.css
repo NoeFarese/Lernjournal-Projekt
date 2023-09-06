@@ -12,6 +12,7 @@ div {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
+  position: relative;
 }
 
 h1 {
@@ -19,6 +20,16 @@ h1 {
   margin: 0;
   padding: 0;
   text-align: center;
+  display: inline-block;
+}
+
+.blob-fish-img {
+  height: 50px;
+  width: 70px;
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 h2 {
@@ -39,6 +50,7 @@ nav a:hover {
   color: black;
   background-color: lightgray;
 }
+
 nav a:active {
   background-color: lightgray;
 }
