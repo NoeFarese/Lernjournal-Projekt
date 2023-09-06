@@ -1,12 +1,12 @@
-import {Component, OnInit} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import { Component, OnInit } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 import jsPDF from "jspdf";
-import {ServiceEintrag} from "../Services/service.eintrag";
-import {ActivatedRoute} from "@angular/router";
-import {Eintrag} from "../Interfaces/Eintrag";
-import {PdfExportService} from "../Services/pdf-export.service";
-import {LoginService} from "../Services/login.service";
-import {SnackbarService} from "../Services/snackbar.service";
+import { ServiceEintrag } from "../Services/service.eintrag";
+import { ActivatedRoute } from "@angular/router";
+import { Eintrag } from "../Interfaces/Eintrag";
+import { PdfExportService } from "../Services/pdf-export.service";
+import { LoginService } from "../Services/login.service";
+import { SnackbarService } from "../Services/snackbar.service";
 
 @Component({
   selector: 'app-edit',
@@ -29,16 +29,20 @@ export class EditComponent {
 
  submit(){
    // @ts-ignore
-   if (this.text.trim() !== "" && this.titel.trim() !== "") {
+   if (this.isNotBlank(this.text, this.titel)) {
      if (this.eintrag) {
        this.updateEintrag();
      } else {
        this.insertEintrag();
      }
     } else {
-      this.snackBarService.openSnackbar('Text oder/und Titel sollten nicht leer sein', 'Schliesse', 3000);
-    }
+      this.snackBarService.openSnackbar('Text oder/und Titel sollten nicht leer sein', 'Schliessen', 3000);
+   }
  }
+
+  private isNotBlank(text: string, titel: string) {
+    return text.trim() !== "" && titel.trim() !== "";
+  }
 
   private insertEintrag() {
     this.http.post('http://localhost:8080/eintrag', {
@@ -46,7 +50,7 @@ export class EditComponent {
       text: this.text,
       author_id: this.loginService.getAuthorId()
     }).subscribe(() => {
-      this.snackBarService.openSnackbar('Der Eintrag wurde erflogreich gespeichert','Schliessen', 3000);
+      this.showEintragWurdeGespeichertSnackbar();
     });
   }
 
@@ -57,7 +61,7 @@ export class EditComponent {
       //@ts-ignore
       id: this.eintrag.id
     }).subscribe(() => {
-      this.snackBarService.openSnackbar('Der Eintrag wurde erflogreich gespeichert','Schliessen', 3000);
+      this.showEintragWurdeGespeichertSnackbar();
     });
   }
 
@@ -87,5 +91,9 @@ export class EditComponent {
       this.titel = eintrag?.titel;
       this.eintrag = eintrag;
     });
+  }
+
+  showEintragWurdeGespeichertSnackbar(): void {
+    this.snackBarService.openSnackbar('Der Eintrag wurde erflogreich gespeichert','Schliessen', 3000);
   }
 }
