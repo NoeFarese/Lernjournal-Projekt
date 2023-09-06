@@ -2,6 +2,7 @@ import {Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SnackbarService } from "../Services/snackbar.service";
 import { LoginService } from "../Services/login.service";
+import { Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { LoginService } from "../Services/login.service";
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private snackBarService: SnackbarService, private loginService: LoginService) {
+  constructor(private formBuilder: FormBuilder, private snackBarService: SnackbarService, private loginService: LoginService, private router: Router, private route: ActivatedRoute) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -46,6 +47,11 @@ export class LoginComponent {
     this.loginService.getAuthorIdByEmail(email).subscribe((authorId) => {
       this.loginService.setAuthorId(authorId);
     })
+
+    const targetRoute = '/main';
+    this.router.navigate([targetRoute], { relativeTo: this.route }).then(() => {
+      window.location.reload();
+    });
   }
 
   get isLoggedIn(): boolean {
