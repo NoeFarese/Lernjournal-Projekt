@@ -61,6 +61,7 @@ export class LoginComponent {
 
   logout(): void {
     this.loginService.clearAuthorId();
+    this.loginService.clearUserEmail();
     this.snackBarService.openSnackbar('Du wurdest ausgeloggt', 'Schließen', 3000);
   }
 }
