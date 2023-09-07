@@ -42,7 +42,7 @@ button:hover {
   color: black;
 }
 
-p {
+.not-logged-in-error-message {
   margin-top: 20px;
   padding: 1rem;
   display: inline-block;
