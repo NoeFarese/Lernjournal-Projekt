@@ -32,6 +32,17 @@ h1 {
   transform: translateY(-50%);
 }
 
+.logged-in-info {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(+50%);
+}
+
+.user-email {
+  font-weight: bold;
+}
+
 h2 {
   text-align: center;
 }
