@@ -1,7 +1,7 @@
 <div>
   <h1>{{ title }}</h1>
   <img class="blob-fish-img" src="assets/blob.png" alt="bild von blobb-fisch">
-  <p class="logged-in-info"> angemeldet als: <span class="user-email">{{ userEmail }}</span></p>
+  <p *ngIf="isLoggedIn" class="logged-in-info"> angemeldet als: <span class="user-email">{{ userEmail }}</span></p>
 </div>
 <body>
     <nav>
