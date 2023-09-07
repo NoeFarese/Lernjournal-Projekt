@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginService } from "./Services/login.service";
 
 @Component({
@@ -7,12 +7,17 @@ import { LoginService } from "./Services/login.service";
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+  userEmail: string | null = '';
   constructor(private loginService: LoginService) {}
 
   title = 'Lernjournal';
 
   get isLoggedIn(): boolean {
     return this.loginService.getAuthorId() !== null;
+  }
+
+  ngOnInit() {
+    this.userEmail = this.loginService.getUserEmail();
   }
 }
