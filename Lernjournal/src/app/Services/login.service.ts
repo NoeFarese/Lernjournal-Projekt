@@ -38,4 +38,8 @@ export class LoginService {
   clearAuthorId(): void {
     localStorage.removeItem('authorId');
   }
+
+  clearUserEmail(): void {
+    localStorage.removeItem('userEmail');
+  }
 }
