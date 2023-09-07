@@ -9,6 +9,14 @@ import { ApiService } from "./api.service";
 export class LoginService {
   constructor(private http: HttpClient, private apiService: ApiService) {}
 
+  setUserEmail(email: string) {
+    localStorage.setItem('userEmail', email);
+  }
+
+  getUserEmail() {
+    return localStorage.getItem('userEmail');
+  }
+
   setAuthorId(id: number) {
     localStorage.setItem('authorId', id.toString());
   }
@@ -30,5 +38,4 @@ export class LoginService {
   clearAuthorId(): void {
     localStorage.removeItem('authorId');
   }
-
 }

@@ -46,6 +46,7 @@ export class LoginComponent {
 
     this.loginService.getAuthorIdByEmail(email).subscribe((authorId) => {
       this.loginService.setAuthorId(authorId);
+      this.loginService.setUserEmail(email);
     })
 
     const targetRoute = '/main';
