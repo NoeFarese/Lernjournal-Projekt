@@ -1,11 +1,16 @@
 <body>
 <div class="flex-container">
   <div class="flex-container-input-felder">
-    <label for="titel" class="label-titel">Titel</label>
-    <textarea placeholder="Titel" id="titel" [(ngModel)]="titel"></textarea>
 
-    <label for="text" class="label-text">Text</label>
-    <textarea placeholder="Inhalttext" id="text" [(ngModel)]="text"></textarea>
+    <mat-form-field>
+      <mat-label class="label-titel">Titel</mat-label>
+      <textarea matInput placeholder="Titel" id="titel" [(ngModel)]="titel"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label class="label-text">Text</mat-label>
+      <textarea matInput placeholder="Inhalttext" id="text" [(ngModel)]="text"></textarea>
+    </mat-form-field>
   </div>
 
   <button matTooltip="speichern" mat-raised-button color="primary" type="button" class="save-button" (click)="submit()">
@@ -15,6 +20,5 @@
           (click)="exportPdf()">
     <mat-icon>save_alt</mat-icon>
   </button>
-  <a routerLink="/main">go back</a>
 </div>
 </body>
