@@ -11,6 +11,7 @@ import { Router, ActivatedRoute} from "@angular/router";
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  passwordHidden: boolean = true;
 
   constructor(private formBuilder: FormBuilder, private snackBarService: SnackbarService, private loginService: LoginService, private router: Router, private route: ActivatedRoute) {
     this.loginForm = this.formBuilder.group({
@@ -62,5 +63,9 @@ export class LoginComponent {
   logout(): void {
     this.loginService.clearAuthorId();
     this.snackBarService.openSnackbar('Du wurdest ausgeloggt', 'Schließen', 3000);
+  }
+
+  togglePasswordVisibility(): void {
+    this.passwordHidden = !this.passwordHidden;
   }
 }
