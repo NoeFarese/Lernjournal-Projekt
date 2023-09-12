@@ -7,6 +7,15 @@ body {
   margin: 0;
 }
 
+mat-form-field.text-form-field{
+  width: 650px !important;
+  height: auto !important;
+}
+
+mat-form-field.titel-form-field {
+  height: auto;
+}
+
 .flex-container {
   display: flex;
   flex-direction: column;
@@ -46,54 +55,20 @@ a:active {
   background-color: black;
 }
 
-#text {
-  height: 500px;
-  width: 800px;
-  margin: 10px;
-}
-
-#titel {
-  height: auto;
-  width: 400px;
-  margin: 10px 10px 20px;
-}
-
-#text-bearbeitung{
-  height: 500px;
-  width: 800px;
-  margin: 10px;
-}
-
-#titel-bearbeitung{
-  height: auto;
-  width: 400px;
-  margin: 10px 10px 20px;
-}
-
 .label-text, .label-titel {
-  font-size: xx-large;
+  font-size: large;
 }
 
-.exportPdf-button:hover{
+.exportPdf-button:hover, .save-button:hover {
   color: white;
   background-color: #42545C;
 }
 
-.exportPdf-button:active{
+.exportPdf-button:active, .save-button:active {
   background-color: black;
 }
 
-.save-button:hover {
-  color: white;
-  background-color: #42545C;
-}
-
-.save-button:active {
-  background-color: black;
-}
-
-.save-button,
-.exportPdf-button {
+.save-button, .exportPdf-button {
   margin: 10px;
   padding: 25px 50px;
   display: flex;
