@@ -7,6 +7,15 @@ body {
   margin: 0;
 }
 
+mat-form-field.text-form-field{
+  width: 650px !important;
+  height: auto !important;
+}
+
+mat-form-field.titel-form-field {
+  height: auto;
+}
+
 .flex-container {
   display: flex;
   flex-direction: column;
@@ -46,12 +55,8 @@ a:active {
   background-color: black;
 }
 
-.mdc-text-field {
-  height: 120px;
-}
-
 .label-text, .label-titel {
-  font-size: x-large;
+  font-size: large;
 }
 
 .exportPdf-button:hover, .save-button:hover {
