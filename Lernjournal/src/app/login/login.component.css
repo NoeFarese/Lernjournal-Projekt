@@ -42,6 +42,10 @@ button:hover {
   color: black;
 }
 
+mat-icon {
+  color:black;
+}
+
 .not-logged-in-error-message {
   margin-top: 20px;
   padding: 1rem;

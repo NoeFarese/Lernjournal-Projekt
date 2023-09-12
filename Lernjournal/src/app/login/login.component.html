@@ -12,7 +12,9 @@
       <div class="input-container">
         <mat-form-field>
           <mat-label>Passwort:</mat-label>
-          <input matInput type="password" formControlName="password">
+          <input matInput [type]="passwordHidden ? 'password' : 'text'" formControlName="password">
+          <mat-icon matSuffix
+                    (click)="togglePasswordVisibility()">{{ passwordHidden ? 'visibility_off' : 'visibility' }}</mat-icon>
         </mat-form-field>
       </div>
 
@@ -22,8 +24,9 @@
     <div *ngIf="isLoggedIn">
       <button mat-raised-button color="warn" (click)="logout()" class="ausloggen-button">Ausloggen</button>
     </div>
+
     <div *ngIf="!isLoggedIn">
-      <p class="not-logged-in-error-message">Du bist nicht eingeloggt. Bitte melde dich an.</p>
+      <mat-error class="not-logged-in-error-message">Du bist nicht eingeloggt. Bitte melde dich an.</mat-error>
     </div>
   </div>
-  </div>
+</div>
