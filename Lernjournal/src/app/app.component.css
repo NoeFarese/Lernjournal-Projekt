@@ -43,6 +43,10 @@ h1 {
   font-weight: bold;
 }
 
+.not-logged-in {
+  font-weight: bold;
+}
+
 h2 {
   text-align: center;
 }
