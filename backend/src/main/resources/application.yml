@@ -1,0 +1,32 @@
+micronaut:
+  application:
+    name: micronautguide
+  server:
+    cors:
+      enabled: true
+---
+#tag::application[]
+application:
+  max: 50
+    #end::application[]
+---
+#tag::datasource[]
+datasources:
+  default:
+    url: ${JDBC_URL}
+    password: ${JDBC_ROOT_PASSWORD}
+    driverClassName: ${JDBC_DRIVER}
+    dialect: MYSQL
+
+
+#end::datasource[]
+---
+#tag::jpa[]
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        show_sql: true
+#end::jpa[]
