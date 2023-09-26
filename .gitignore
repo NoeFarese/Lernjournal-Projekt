@@ -1,2 +1,7 @@
 .idea/
 .mvn/
+frontend/node_modules/
+backend/target/
+frontend/dist/
+backend/.idea/
+frontend/.angular/**

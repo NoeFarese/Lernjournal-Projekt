@@ -1,0 +1,22 @@
+<div>
+  <h1>{{ title }}</h1>
+  <p *ngIf="isLoggedIn" class="logged-in-info"> angemeldet als: <span class="user-email">{{ userEmail }}</span></p>
+  <p *ngIf="!isLoggedIn" class="logged-in-info"><span class="not-logged-in">nicht angemeldet</span></p>
+</div>
+<body>
+    <nav>
+      <a routerLink="/edit" *ngIf="isLoggedIn">neuer Eintrag erfassen</a>
+      <a routerLink="/main" *ngIf="isLoggedIn">zu den Einträgen</a>
+      <a *ngIf="!isLoggedIn" id="button-disabled-one">neuer Eintrag erfassen</a>
+      <a *ngIf="!isLoggedIn" id="button-disabled-two">zu den Einträgen</a>
+      <a routerLink="/login">Login</a>
+      <a routerLink="/registration">Registrieren</a>
+    </nav>
+  <router-outlet></router-outlet>
+  <footer>
+
+    <a href="https://www.css.ch/de/privatkunden.html" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Css-versicherung-logo.svg/2560px-Css-versicherung-logo.svg.png" alt="CSS Versicherungs Logo Bild" class="logo">
+    </a>
+  </footer>
+</body>
