@@ -48,12 +48,12 @@ export class LoginComponent {
     this.loginService.getAuthorIdByEmail(email).subscribe((authorId) => {
       this.loginService.setAuthorId(authorId);
       this.loginService.setUserEmail(email);
-    })
 
-    const targetRoute = '/main';
-    this.router.navigate([targetRoute], { relativeTo: this.route }).then(() => {
-      window.location.reload();
-    });
+      const targetRoute = '/main';
+      this.router.navigate([targetRoute], { relativeTo: this.route }).then(() => {
+        window.location.reload();
+      });
+    })
   }
 
   get isLoggedIn(): boolean {
