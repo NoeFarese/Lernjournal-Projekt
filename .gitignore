@@ -5,3 +5,4 @@ backend/target/
 frontend/dist/
 backend/.idea/
 frontend/.angular/**
+.env
