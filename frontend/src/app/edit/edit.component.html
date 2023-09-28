@@ -7,18 +7,21 @@
       <textarea matInput placeholder="maximal 40 Zeichen" id="titel" [(ngModel)]="titel"></textarea>
     </mat-form-field>
 
+    <div class="editor-menubar">
+      <button mat-icon-button (click)="insertBoldText()" matTooltip="Fett">
+        <mat-icon>format_bold</mat-icon>
+      </button>
+
+      <button mat-icon-button (click)="insertItalicText()" matTooltip="Kursiv">
+        <mat-icon>format_italic</mat-icon>
+      </button>
+    </div>
+
     <mat-form-field class="text-form-field">
       <mat-label class="label-text">Text</mat-label>
       <textarea matInput placeholder="Inhalttext" id="text" [(ngModel)]="text"></textarea>
     </mat-form-field>
-
-  <!--
-    <div class="NgxEditor_Wrapper">
-      <ngx-editor-menu [editor]="editor" class="ngx_editor_menu"> </ngx-editor-menu>
-      <ngx-editor [editor]="editor" [(ngModel)]="text" [disabled]="false" class="ngx_editor"></ngx-editor>
-    </div>
   </div>
-  -->
 
   <button matTooltip="speichern" mat-raised-button color="primary" type="button" class="save-button" (click)="submit()">
     <mat-icon>save</mat-icon>
@@ -29,3 +32,10 @@
   </button>
 </div>
 </body>
+
+<!--
+    <div class="NgxEditor_Wrapper">
+      <ngx-editor-menu [editor]="editor" class="ngx_editor_menu"> </ngx-editor-menu>
+      <ngx-editor [editor]="editor" [(ngModel)]="text" [disabled]="false" class="ngx_editor"></ngx-editor>
+    </div>
+  -->
