@@ -7,6 +7,7 @@ import { Eintrag } from "../Interfaces/Eintrag";
 import { PdfExportService } from "../Services/pdf-export.service";
 import { LoginService } from "../Services/login.service";
 import { SnackbarService } from "../Services/snackbar.service";
+// import { Editor } from "ngx-editor";
 
 @Component({
   selector: 'app-edit',
@@ -26,6 +27,7 @@ export class EditComponent {
  titel: string | undefined = "";
  text: string | undefined = "";
  eintrag: Eintrag | undefined;
+ // editor: Editor = new Editor();
 
  submit(){
    // @ts-ignore
@@ -82,6 +84,7 @@ export class EditComponent {
         this.exportPdf();
       }
     });
+  //  this.editor = new Editor();
   }
 
   getEintrag():void {
