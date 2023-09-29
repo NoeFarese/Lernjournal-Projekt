@@ -118,4 +118,14 @@ export class EditComponent {
             textarea.value = updatedText;
         }
     }
+
+    insertHeadlineText() {
+        const textarea = document.getElementById("text") as HTMLTextAreaElement;
+        const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
+        if(selectedText) {
+            const newText = `<h1>${selectedText}</h1>`;
+            const updatedText = textarea.value.substring(0, textarea.selectionStart) + newText + textarea.value.substring(textarea.selectionEnd);
+            textarea.value = updatedText;
+        }
+    }
 }
