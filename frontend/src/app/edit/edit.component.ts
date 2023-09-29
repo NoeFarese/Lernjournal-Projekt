@@ -128,4 +128,14 @@ export class EditComponent {
             textarea.value = updatedText;
         }
     }
+
+    insertImage() {
+        const textarea = document.getElementById("text") as HTMLTextAreaElement;
+        const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
+        if(selectedText) {
+            const newText = '<img src=""${selectedText}>';
+            const updatedText = textarea.value.substring(0, textarea.selectionStart) + newText + textarea.value.substring(textarea.selectionEnd);
+            textarea.value = updatedText;
+        }
+    }
 }
