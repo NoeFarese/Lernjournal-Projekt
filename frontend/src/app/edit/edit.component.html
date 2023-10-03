@@ -19,21 +19,18 @@
       <button mat-icon-button (click)="insertHeadlineText()" matTooltip="Titel">
         <mat-icon>title</mat-icon>
       </button>
-
-      <button mat-icon-button (click)="insertImage()" matTooltip="Insert Image">
-        <mat-icon>image</mat-icon>
-      </button>
     </div>
 
-    <mat-form-field class="text-form-field">
-      <mat-label class="label-text">Text</mat-label>
-      <textarea matInput placeholder="Inhalttext" id="text" [(ngModel)]="text"></textarea>
-    </mat-form-field>
+      <mat-form-field class="text-form-field">
+        <mat-label class="label-text">Text</mat-label>
+        <textarea matInput placeholder="Inhalttext" id="text" [(ngModel)]="text"></textarea>
+      </mat-form-field>
   </div>
 
   <button matTooltip="speichern" mat-raised-button color="primary" type="button" class="save-button" (click)="submit()">
     <mat-icon>save</mat-icon>
   </button>
+
   <button matTooltip="als PDF herunterladen" mat-raised-button color="primary" type="button" class="exportPdf-button"
           (click)="exportPdf()">
     <mat-icon>save_alt</mat-icon>

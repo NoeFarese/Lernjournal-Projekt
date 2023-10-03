@@ -99,6 +99,7 @@ export class EditComponent {
   showEintragWurdeGespeichertSnackbar(): void {
     this.snackBarService.openSnackbar('Der Eintrag wurde erflogreich gespeichert','Schliessen', 3000);
   }
+
     insertBoldText() {
         const textarea = document.getElementById("text") as HTMLTextAreaElement;
         const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
@@ -124,16 +125,6 @@ export class EditComponent {
         const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
         if(selectedText) {
             const newText = `<h1>${selectedText}</h1>`;
-            const updatedText = textarea.value.substring(0, textarea.selectionStart) + newText + textarea.value.substring(textarea.selectionEnd);
-            textarea.value = updatedText;
-        }
-    }
-
-    insertImage() {
-        const textarea = document.getElementById("text") as HTMLTextAreaElement;
-        const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
-        if(selectedText) {
-            const newText = '<img src=""${selectedText}>';
             const updatedText = textarea.value.substring(0, textarea.selectionStart) + newText + textarea.value.substring(textarea.selectionEnd);
             textarea.value = updatedText;
         }
