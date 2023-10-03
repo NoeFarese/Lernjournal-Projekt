@@ -7,15 +7,30 @@
       <textarea matInput placeholder="maximal 40 Zeichen" id="titel" [(ngModel)]="titel"></textarea>
     </mat-form-field>
 
-    <mat-form-field class="text-form-field">
-      <mat-label class="label-text">Text</mat-label>
-      <textarea matInput placeholder="Inhalttext" id="text" [(ngModel)]="text"></textarea>
-    </mat-form-field>
+    <div class="editor-menubar">
+      <button mat-icon-button (click)="insertBoldText()" matTooltip="Fett">
+        <mat-icon>format_bold</mat-icon>
+      </button>
+
+      <button mat-icon-button (click)="insertItalicText()" matTooltip="Kursiv">
+        <mat-icon>format_italic</mat-icon>
+      </button>
+
+      <button mat-icon-button (click)="insertHeadlineText()" matTooltip="Titel">
+        <mat-icon>title</mat-icon>
+      </button>
+    </div>
+
+      <mat-form-field class="text-form-field">
+        <mat-label class="label-text">Text</mat-label>
+        <textarea matInput placeholder="Inhalttext" id="text" [(ngModel)]="text"></textarea>
+      </mat-form-field>
   </div>
 
   <button matTooltip="speichern" mat-raised-button color="primary" type="button" class="save-button" (click)="submit()">
     <mat-icon>save</mat-icon>
   </button>
+
   <button matTooltip="als PDF herunterladen" mat-raised-button color="primary" type="button" class="exportPdf-button"
           (click)="exportPdf()">
     <mat-icon>save_alt</mat-icon>
