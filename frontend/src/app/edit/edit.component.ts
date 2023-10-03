@@ -8,8 +8,6 @@ import { PdfExportService } from "../Services/pdf-export.service";
 import { LoginService } from "../Services/login.service";
 import { SnackbarService } from "../Services/snackbar.service";
 
-// import { Editor } from "ngx-editor";
-
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -84,7 +82,6 @@ export class EditComponent {
         this.exportPdf();
       }
     });
-  //  this.editor = new Editor();
   }
 
   getEintrag():void {
