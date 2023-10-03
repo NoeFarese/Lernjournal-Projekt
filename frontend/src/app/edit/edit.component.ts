@@ -107,6 +107,7 @@ export class EditComponent {
             const newText = `<b>${selectedText}</b>`;
             const updatedText = textarea.value.substring(0, textarea.selectionStart) + newText + textarea.value.substring(textarea.selectionEnd);
             textarea.value = updatedText;
+            this.text = textarea.value;
         }
     }
 
@@ -117,6 +118,7 @@ export class EditComponent {
             const newText = `<i>${selectedText}</i>`;
             const updatedText = textarea.value.substring(0, textarea.selectionStart) + newText + textarea.value.substring(textarea.selectionEnd);
             textarea.value = updatedText;
+            this.text = textarea.value;
         }
     }
 
@@ -127,6 +129,7 @@ export class EditComponent {
             const newText = `<h1>${selectedText}</h1>`;
             const updatedText = textarea.value.substring(0, textarea.selectionStart) + newText + textarea.value.substring(textarea.selectionEnd);
             textarea.value = updatedText;
+            this.text = textarea.value;
         }
     }
 }
