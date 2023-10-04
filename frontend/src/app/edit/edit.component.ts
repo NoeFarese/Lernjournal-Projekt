@@ -13,7 +13,7 @@ import { SnackbarService } from "../Services/snackbar.service";
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
-export class EditComponent {
+export class EditComponent implements OnInit{
   constructor(
       private http : HttpClient,
       private eintragService: ServiceEintrag,
@@ -101,8 +101,7 @@ export class EditComponent {
         const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
         if (selectedText) {
             const newText = `<${format}>${selectedText}</${format}>`;
-            const updatedText = textarea.value.substring(0, textarea.selectionStart) + newText + textarea.value.substring(textarea.selectionEnd);
-            textarea.value = updatedText;
+            textarea.value = textarea.value.substring(0, textarea.selectionStart) + newText + textarea.value.substring(textarea.selectionEnd);
             this.text = textarea.value;
         }
     }
