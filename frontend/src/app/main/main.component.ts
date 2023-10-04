@@ -16,6 +16,7 @@ export class MainComponent implements OnInit {
   eintragArr: Eintrag[] = [];
   exportAllChecked = false;
   checkboxStates: { [id: number]: boolean } = {};
+  searchTerm: string = '';
   constructor(private eintragService: ServiceEintrag, private loginService: LoginService, private snackBarService: SnackbarService) {}
 
   ngOnInit(): void {
@@ -30,7 +31,7 @@ export class MainComponent implements OnInit {
     }
   }
 
-  delete(eintrag: Eintrag): void {
+  delteEintrag(eintrag: Eintrag): void {
     this.eintragArr = this.eintragArr.filter(h => h !== eintrag);
     this.eintragService.deleteEintrag(eintrag.id).subscribe();
   }
@@ -39,8 +40,7 @@ export class MainComponent implements OnInit {
     this.eintragArr.forEach(eintrag => {
       this.checkboxStates[eintrag.id] = allChecked;
       if (allChecked) {
-        this.showProgressBarAndSnackbarForDownload();
-        this.exportPdfForId(eintrag.id);
+        this.downloadSelectedPDFs(eintrag.id);
 
         setTimeout(() => {
           this.checkboxStates[eintrag.id] = false;
@@ -71,13 +71,12 @@ export class MainComponent implements OnInit {
       const doc = new jsPDF();
       doc.text(eintrag.titel, 10, 10);
       const maxWidth = 190;
-      const lines = doc.splitTextToSize(eintrag.text, maxWidth);
+      const textWithoutHtmlTags = eintrag.text.replace(/<[^>]*>/g, '');
+      const lines = doc.splitTextToSize(textWithoutHtmlTags, maxWidth);
       doc.text(lines, 10, 20);
       doc.save(eintrag.titel + '.pdf');
     }
   }
-
-  searchTerm: string = '';
 
   filterEintraege(): Eintrag[] {
     return this.eintragArr.filter(eintrag =>
