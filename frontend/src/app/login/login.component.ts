@@ -1,4 +1,4 @@
-import {Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SnackbarService } from "../Services/snackbar.service";
 import { LoginService } from "../Services/login.service";
@@ -21,12 +21,19 @@ export class LoginComponent {
   }
 
   login(): void {
-    if (this.loginForm.invalid) {
-      this.snackBarService.openSnackbar('Email oder Passwort nicht gültig', 'Schliessen', 3000);
-    } else {
+    if (this.isLoginFormValid()) {
       this.checkIfLoginDataIsCorrect();
     }
   }
+
+  private isLoginFormValid(): boolean {
+    if (this.loginForm.invalid) {
+      this.snackBarService.openSnackbar('Email oder Passwort nicht gültig', 'Schliessen', 3000);
+      return false;
+    }
+    return true;
+  }
+
 
   private checkIfLoginDataIsCorrect(): void {
     const email = this.loginForm.value.email;
