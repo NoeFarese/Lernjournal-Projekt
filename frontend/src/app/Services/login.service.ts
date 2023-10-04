@@ -9,16 +9,19 @@ import { ApiService } from "./api.service";
 export class LoginService {
   constructor(private http: HttpClient, private apiService: ApiService) {}
 
+  private readonly USER_EMAIL = 'userEmail';
+  private readonly AUTHOR_ID = 'authorId';
+
   setUserEmail(email: string) {
-    localStorage.setItem('userEmail', email);
+    localStorage.setItem(this.USER_EMAIL, email);
   }
 
   getUserEmail() {
-    return localStorage.getItem('userEmail');
+    return localStorage.getItem(this.USER_EMAIL);
   }
 
   setAuthorId(id: number) {
-    localStorage.setItem('authorId', id.toString());
+    localStorage.setItem(this.AUTHOR_ID, id.toString());
   }
 
   getAuthorIdByEmail(email: string): Observable<any> {
@@ -27,7 +30,7 @@ export class LoginService {
   }
 
   getAuthorId(){
-    return localStorage.getItem('authorId');
+    return localStorage.getItem(this.AUTHOR_ID);
   }
 
   checkIfUserInputIsValid(email: string, password: string): Observable<any> {
@@ -36,6 +39,6 @@ export class LoginService {
   }
 
   clearAuthorId(): void {
-    localStorage.removeItem('authorId');
+    localStorage.removeItem(this.AUTHOR_ID);
   }
 }
