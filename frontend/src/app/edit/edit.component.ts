@@ -68,7 +68,6 @@ export class EditComponent {
     const maxWidth = 190;
     doc.text(<string>this.titel, 10, 10);
     const textWithoutHtmlTags = this.text?.replace(/<[^>]*>/g, '');
-    console.log("Text ohne HTML-Tags:", textWithoutHtmlTags);
     const lines = doc.splitTextToSize(<string>textWithoutHtmlTags, maxWidth);
     doc.text(lines, 10, 20);
     doc.save(this.titel)
