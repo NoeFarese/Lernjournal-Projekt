@@ -66,6 +66,7 @@ export class EditComponent implements OnInit{
   exportPdf(){
     const doc = new jsPDF;
     const maxWidth = 190;
+    doc.setFont("Arial");
     doc.text(<string>this.titel, 10, 10);
     const textWithoutHtmlTags = this.text?.replace(/<[^>]*>/g, '');
     const lines = doc.splitTextToSize(<string>textWithoutHtmlTags, maxWidth);
