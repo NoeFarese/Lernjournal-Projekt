@@ -13,10 +13,6 @@ export class ServiceEintrag{
   constructor(private http: HttpClient, private apiService: ApiService, private loginService: LoginService) {}
   private baseUrl = this.apiService.getEintragUrl();
 
-  getEintragList(): Observable<any>{
-    return this.http.get(`${this.baseUrl}/all`);
-  }
-
   getEintrag(id: number): Observable<any>{
     return this.http.get(`${this.baseUrl}/${id}`);
   }

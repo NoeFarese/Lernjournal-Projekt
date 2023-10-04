@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Eintrag} from "../Interfaces/Eintrag";
 import {ServiceEintrag} from "../Services/service.eintrag";
 import {ActivatedRoute} from "@angular/router";
@@ -9,7 +9,7 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./eintrag.component.css']
 })
 
-export class EintragComponent {
+export class EintragComponent implements OnInit{
   constructor(private eintragService: ServiceEintrag, private route: ActivatedRoute,) {}
 
   ngOnInit(): void {
