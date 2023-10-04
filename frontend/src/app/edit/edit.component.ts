@@ -23,12 +23,11 @@ export class EditComponent {
       private snackBarService: SnackbarService
   ) {}
 
- titel: string | undefined = "";
- text: string | undefined = "";
+ titel: string = "";
+ text: string = "";
  eintrag: Eintrag | undefined;
 
  submit(){
-   // @ts-ignore
    if (this.isNotBlank(this.text, this.titel)) {
      if (this.eintrag) {
        this.updateEintrag();
@@ -58,8 +57,7 @@ export class EditComponent {
     this.http.put('http://localhost:8080/eintrag', {
       titel: this.titel,
       text: this.text,
-      //@ts-ignore
-      id: this.eintrag.id
+      id: this.eintrag?.id
     }).subscribe(() => {
       this.showEintragWurdeGespeichertSnackbar();
     });
@@ -69,7 +67,9 @@ export class EditComponent {
     const doc = new jsPDF;
     const maxWidth = 190;
     doc.text(<string>this.titel, 10, 10);
-    const lines = doc.splitTextToSize(<string>this.text, maxWidth);
+    const textWithoutHtmlTags = this.text?.replace(/<[^>]*>/g, '');
+    console.log("Text ohne HTML-Tags:", textWithoutHtmlTags);
+    const lines = doc.splitTextToSize(<string>textWithoutHtmlTags, maxWidth);
     doc.text(lines, 10, 20);
     doc.save(this.titel)
   }
@@ -97,33 +97,11 @@ export class EditComponent {
     this.snackBarService.openSnackbar('Der Eintrag wurde erflogreich gespeichert','Schliessen', 3000);
   }
 
-    insertBoldText() {
+    insertTextWithFormat(format: string) {
         const textarea = document.getElementById("text") as HTMLTextAreaElement;
         const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
         if (selectedText) {
-            const newText = `<b>${selectedText}</b>`;
-            const updatedText = textarea.value.substring(0, textarea.selectionStart) + newText + textarea.value.substring(textarea.selectionEnd);
-            textarea.value = updatedText;
-            this.text = textarea.value;
-        }
-    }
-
-    insertItalicText() {
-        const textarea = document.getElementById("text") as HTMLTextAreaElement;
-        const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
-        if (selectedText) {
-            const newText = `<i>${selectedText}</i>`;
-            const updatedText = textarea.value.substring(0, textarea.selectionStart) + newText + textarea.value.substring(textarea.selectionEnd);
-            textarea.value = updatedText;
-            this.text = textarea.value;
-        }
-    }
-
-    insertHeadlineText() {
-        const textarea = document.getElementById("text") as HTMLTextAreaElement;
-        const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
-        if(selectedText) {
-            const newText = `<h1>${selectedText}</h1>`;
+            const newText = `<${format}>${selectedText}</${format}>`;
             const updatedText = textarea.value.substring(0, textarea.selectionStart) + newText + textarea.value.substring(textarea.selectionEnd);
             textarea.value = updatedText;
             this.text = textarea.value;

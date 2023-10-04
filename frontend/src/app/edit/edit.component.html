@@ -8,15 +8,15 @@
     </mat-form-field>
 
     <div class="editor-menubar">
-      <button mat-icon-button (click)="insertBoldText()" matTooltip="Fett">
+      <button mat-icon-button (click)="insertTextWithFormat('b')" matTooltip="Fett">
         <mat-icon>format_bold</mat-icon>
       </button>
 
-      <button mat-icon-button (click)="insertItalicText()" matTooltip="Kursiv">
+      <button mat-icon-button (click)="insertTextWithFormat('i')" matTooltip="Kursiv">
         <mat-icon>format_italic</mat-icon>
       </button>
 
-      <button mat-icon-button (click)="insertHeadlineText()" matTooltip="Titel">
+      <button mat-icon-button (click)="insertTextWithFormat('h1')" matTooltip="Titel">
         <mat-icon>title</mat-icon>
       </button>
     </div>
