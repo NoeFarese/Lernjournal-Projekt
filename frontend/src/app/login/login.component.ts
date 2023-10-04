@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SnackbarService } from "../Services/snackbar.service";
 import { LoginService } from "../Services/login.service";
 import { Router, ActivatedRoute} from "@angular/router";
+import { interval } from "rxjs";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   passwordHidden: boolean = true;
 
@@ -17,6 +18,12 @@ export class LoginComponent {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
+    });
+  }
+
+  ngOnInit(): void {
+    interval(5000).subscribe(() => {
+      this.checkInactivity();
     });
   }
 
@@ -74,5 +81,23 @@ export class LoginComponent {
 
   togglePasswordVisibility(): void {
     this.passwordHidden = !this.passwordHidden;
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnloadHandler(event: Event): void {
+    this.logout();
+  }
+
+  @HostListener('window:mousemove') onMouseMove() {
+    this.loginService.updateLastActivity();
+  }
+
+  checkInactivity() {
+    if (this.loginService.isInactive()) {
+      const targetRoute = '/login';
+      this.router.navigate([targetRoute], { relativeTo: this.route }).then(() => {
+        this.logout();
+      })
+    }
   }
 }
