@@ -12,6 +12,7 @@ export class RegistrationComponent {
   registrationForm: FormGroup;
   isPasswordHidden: boolean = true;
   isConfirmPasswordHidden: boolean = true;
+  private readonly DURATION_MS = 3000;
 
   constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService,  private snackBarService: SnackbarService) {
     this.registrationForm = this.formBuilder.group({
@@ -23,9 +24,9 @@ export class RegistrationComponent {
 
   register(): void {
     if (this.registrationForm.invalid) {
-      this.snackBarService.openSnackbar('Bitte füllen Sie alle Felder aus', 'Schließen', 3000);
+      this.snackBarService.openSnackbar('Bitte füllen Sie alle Felder aus', 'Schließen', this.DURATION_MS);
     } else if (this.registrationForm.value.password !== this.registrationForm.value.confirmPassword) {
-      this.snackBarService.openSnackbar('Passwörter stimmen nicht überein', 'Schließen', 3000);
+      this.snackBarService.openSnackbar('Passwörter stimmen nicht überein', 'Schließen', this.DURATION_MS);
     } else {
       this.checkIfEmailIsAlreadyInUse();
     }
@@ -39,14 +40,14 @@ export class RegistrationComponent {
       if (!exists) {
         this.createRegistration(email, password);
       } else {
-        this.snackBarService.openSnackbar('User existiert schon', 'Schließen', 3000);
+        this.snackBarService.openSnackbar('User existiert schon', 'Schließen', this.DURATION_MS);
       }
     });
   }
 
   private createRegistration(email: string, password: string) {
     this.registrationService.registrateUser(email, password).subscribe(() => {
-      this.snackBarService.openSnackbar('Du wurdest erfolgreich registriert', 'Schließen', 3000);
+      this.snackBarService.openSnackbar('Du wurdest erfolgreich registriert', 'Schließen', this.DURATION_MS);
       this.registrationForm.reset();
     });
   }
