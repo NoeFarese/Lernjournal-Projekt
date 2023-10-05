@@ -43,6 +43,19 @@ export class LoginService {
     localStorage.removeItem(this.AUTHOR_ID);
   }
 
+  setLoggedInState(isLoggedIn: boolean) {
+    sessionStorage.setItem('isLoggedIn', isLoggedIn.toString());
+  }
+
+  isLoggedIn(): boolean {
+    const loggedInState = sessionStorage.getItem('isLoggedIn');
+    return loggedInState === 'true';
+  }
+
+  clearLoggedInState() {
+    sessionStorage.removeItem('isLoggedIn');
+  }
+
   updateLastActivity() {
     this.lastActivity = Date.now();
   }

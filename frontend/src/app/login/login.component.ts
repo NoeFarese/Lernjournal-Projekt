@@ -26,12 +26,17 @@ export class LoginComponent implements OnInit {
     interval(5000).subscribe(() => {
       this.checkInactivity();
     });
+
+    if (!this.loginService.isLoggedIn()) {
+      this.logout();
+    }
   }
 
   login(): void {
-    if (this.isLoginFormValid() && !this.isLoggedIn) {
+    if (this.isLoginFormValid() && !this.loginService.isLoggedIn()) {
       this.checkIfLoginDataIsCorrect();
-    } else if(this.isLoginFormValid() && this.isLoggedIn){
+      this.loginService.setLoggedInState(true);
+    } else if (this.isLoginFormValid() && this.loginService.isLoggedIn()) {
       this.snackBarService.openSnackbar('Sie sind schon angemeldet mit einem User.', 'Schliessen', this.DURATION_MS);
     }
   }
@@ -79,6 +84,7 @@ export class LoginComponent implements OnInit {
 
   logout(): void {
     this.loginService.clearAuthorId();
+    this.loginService.clearLoggedInState();
     this.snackBarService.openSnackbar('Du wurdest ausgeloggt', 'Schliessen', this.DURATION_MS);
   }
 
