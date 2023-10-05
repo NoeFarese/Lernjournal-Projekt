@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegistrationService } from '../Services/registration.service';
 import { SnackbarService } from "../Services/snackbar.service";
 
-
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -11,18 +10,22 @@ import { SnackbarService } from "../Services/snackbar.service";
 })
 export class RegistrationComponent {
   registrationForm: FormGroup;
-  passwordHidden: boolean = true;
+  isPasswordHidden: boolean = true;
+  isConfirmPasswordHidden: boolean = true;
 
   constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService,  private snackBarService: SnackbarService) {
     this.registrationForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
     });
   }
 
   register(): void {
     if (this.registrationForm.invalid) {
-      this.snackBarService.openSnackbar('Email oder Passwort ist leer', 'Schließen', 3000);
+      this.snackBarService.openSnackbar('Bitte füllen Sie alle Felder aus', 'Schließen', 3000);
+    } else if (this.registrationForm.value.password !== this.registrationForm.value.confirmPassword) {
+      this.snackBarService.openSnackbar('Passwörter stimmen nicht überein', 'Schließen', 3000);
     } else {
       this.checkIfEmailIsAlreadyInUse();
     }
@@ -49,6 +52,10 @@ export class RegistrationComponent {
   }
 
   togglePasswordVisibility(): void {
-    this.passwordHidden = !this.passwordHidden;
+    this.isPasswordHidden = !this.isPasswordHidden;
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.isConfirmPasswordHidden = !this.isConfirmPasswordHidden;
   }
 }
