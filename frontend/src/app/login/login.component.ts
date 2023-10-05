@@ -13,6 +13,7 @@ import { interval } from "rxjs";
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   passwordHidden: boolean = true;
+  private readonly DURATION_MS = 3000;
 
   constructor(private formBuilder: FormBuilder, private snackBarService: SnackbarService, private loginService: LoginService, private router: Router, private route: ActivatedRoute) {
     this.loginForm = this.formBuilder.group({
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
 
   private isLoginFormValid(): boolean {
     if (this.loginForm.invalid) {
-      this.snackBarService.openSnackbar('Email oder Passwort nicht gültig', 'Schliessen', 3000);
+      this.snackBarService.openSnackbar('Email oder Passwort nicht gültig', 'Schliessen', this.DURATION_MS);
       return false;
     }
     return true;
@@ -50,13 +51,13 @@ export class LoginComponent implements OnInit {
       if (exists) {
         this.loginUser(email);
       } else {
-        this.snackBarService.openSnackbar('Email oder Passwort ist falsch', 'Schliessen', 3000);
+        this.snackBarService.openSnackbar('Email oder Passwort ist falsch', 'Schliessen', this.DURATION_MS);
       }
     });
   }
 
   loginUser(email: string) {
-    this.snackBarService.openSnackbar('Du wurdest erfolgreich eingeloggt', 'Schliessen', 3000);
+    this.snackBarService.openSnackbar('Du wurdest erfolgreich eingeloggt', 'Schliessen', this.DURATION_MS);
     this.loginForm.reset();
 
     this.loginService.getAuthorIdByEmail(email).subscribe((authorId) => {
@@ -76,7 +77,7 @@ export class LoginComponent implements OnInit {
 
   logout(): void {
     this.loginService.clearAuthorId();
-    this.snackBarService.openSnackbar('Du wurdest ausgeloggt', 'Schliessen', 3000);
+    this.snackBarService.openSnackbar('Du wurdest ausgeloggt', 'Schliessen', this.DURATION_MS);
   }
 
   togglePasswordVisibility(): void {
