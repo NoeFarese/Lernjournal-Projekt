@@ -29,8 +29,10 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    if (this.isLoginFormValid()) {
+    if (this.isLoginFormValid() && !this.isLoggedIn) {
       this.checkIfLoginDataIsCorrect();
+    } else if(this.isLoginFormValid() && this.isLoggedIn){
+      this.snackBarService.openSnackbar('Sie sind schon angemeldet mit einem User.', 'Schliessen', this.DURATION_MS);
     }
   }
 
