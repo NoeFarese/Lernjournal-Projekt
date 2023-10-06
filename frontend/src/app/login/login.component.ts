@@ -26,10 +26,6 @@ export class LoginComponent implements OnInit {
     interval(5000).subscribe(() => {
       this.checkInactivity();
     });
-
-    if (!this.loginService.isLoggedIn()) {
-      this.logout();
-    }
   }
 
   login(): void {
