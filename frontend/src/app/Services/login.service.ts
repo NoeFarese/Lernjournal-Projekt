@@ -63,6 +63,6 @@ export class LoginService {
   isInactive(): boolean {
     const currentTime: number = Date.now();
     const inactiveTime: number = currentTime - this.lastActivity;
-    return inactiveTime > 300000;
+    return inactiveTime > 1200000;
   }
 }
