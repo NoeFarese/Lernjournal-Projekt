@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
-import { LoginService } from "./Services/login.service";
+import { LoginService } from "./login.service";
 
 @Injectable({
   providedIn: 'root'
