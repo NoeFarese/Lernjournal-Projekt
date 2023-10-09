@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { ApiService } from "./api.service";
+import { SnackbarService } from "./snackbar.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  constructor(private http: HttpClient, private apiService: ApiService) { this.updateLastActivity(); }
+  constructor(private http: HttpClient, private apiService: ApiService, private snackBarService: SnackbarService) {}
 
   private readonly USER_EMAIL = 'userEmail';
   private readonly AUTHOR_ID = 'authorId';
-  private lastActivity: number = Date.now();
 
   setUserEmail(email: string) {
     localStorage.setItem(this.USER_EMAIL, email);
@@ -56,13 +56,9 @@ export class LoginService {
     sessionStorage.removeItem('isLoggedIn');
   }
 
-  updateLastActivity() {
-    this.lastActivity = Date.now();
-  }
-
-  isInactive(): boolean {
-    const currentTime: number = Date.now();
-    const inactiveTime: number = currentTime - this.lastActivity;
-    return inactiveTime > 300000;
+  logout(): void {
+    this.clearAuthorId();
+    this.clearLoggedInState();
+    this.snackBarService.openSnackbar('Du wurdest ausgeloggt', 'Schliessen', 3000);
   }
 }

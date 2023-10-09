@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { LoginService } from "./Services/login.service";
+import { InactivityService } from "./Services/inactivity.service";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { LoginService } from "./Services/login.service";
 
 export class AppComponent implements OnInit {
   userEmail: string | null = '';
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService, private inactivityService: InactivityService) {}
 
   title = 'Lernjournal';
 
@@ -19,5 +20,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.userEmail = this.loginService.getUserEmail();
+    this.inactivityService.startWatching();
   }
 }
