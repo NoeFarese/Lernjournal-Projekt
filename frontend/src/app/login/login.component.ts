@@ -73,7 +73,6 @@ export class LoginComponent {
 
   logout(): void {
     this.loginService.logout();
-    this.snackBarService.openSnackbar('Du wurdest ausgeloggt', 'Schliessen', this.DURATION_MS);
   }
 
   togglePasswordVisibility(): void {
