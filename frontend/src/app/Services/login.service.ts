@@ -7,11 +7,10 @@ import { ApiService } from "./api.service";
   providedIn: 'root'
 })
 export class LoginService {
-  constructor(private http: HttpClient, private apiService: ApiService) { this.updateLastActivity(); }
+  constructor(private http: HttpClient, private apiService: ApiService) {}
 
   private readonly USER_EMAIL = 'userEmail';
   private readonly AUTHOR_ID = 'authorId';
-  private lastActivity: number = Date.now();
 
   setUserEmail(email: string) {
     localStorage.setItem(this.USER_EMAIL, email);
@@ -56,13 +55,8 @@ export class LoginService {
     sessionStorage.removeItem('isLoggedIn');
   }
 
-  updateLastActivity() {
-    this.lastActivity = Date.now();
-  }
-
-  isInactive(): boolean {
-    const currentTime: number = Date.now();
-    const inactiveTime: number = currentTime - this.lastActivity;
-    return inactiveTime > 1200000;
+  logout(): void {
+    this.clearAuthorId();
+    this.clearLoggedInState();
   }
 }

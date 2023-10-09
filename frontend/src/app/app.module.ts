@@ -18,7 +18,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { NgxEditorModule } from "ngx-editor";
+import { NgIdleModule } from "@ng-idle/core";
 
 @NgModule({
   declarations: [
@@ -44,7 +44,8 @@ import { NgxEditorModule } from "ngx-editor";
     MatTooltipModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    NgxEditorModule
+    NgIdleModule.forRoot()
+
   ],
   providers: [],
   bootstrap: [AppComponent]
