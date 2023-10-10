@@ -1,10 +1,17 @@
 <body>
 <h1>Einträge:</h1>
 <div class="flex-container-liste">
-  <input type="text" [(ngModel)]="searchTerm" placeholder="Suche nach Einträgen" class="suchleiste">
+
+  <mat-form-field appearance="fill">
+    <mat-label>Suche nach Einträgen</mat-label>
+    <input type="text" matInput [(ngModel)]="searchTerm">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
   <mat-checkbox matTooltip="alle Einträge als PDF herunterladen" color="primary" class="exportAll-Checkbox" [(ngModel)]="exportAllChecked"
                 (change)="updateCheckboxStates(exportAllChecked)">Export all as PDF
   </mat-checkbox>
+
   <mat-list class="einträge">
     <mat-list-item *ngFor="let eintrag of filterEintraege()" class="eintrag-item">
       <div class="parent">

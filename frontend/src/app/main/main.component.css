@@ -17,6 +17,10 @@ mat-mdc-raised-button mat-icon {
   vertical-align: middle;
 }
 
+mat-icon {
+  color: black;
+}
+
 a {
   display: flex;
   justify-content: center;
