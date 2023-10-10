@@ -73,6 +73,7 @@ export class MainComponent implements OnInit {
       const margin = 10;
       let yPosition = margin;
       const pageHeight = doc.internal.pageSize.height;
+      doc.setFont("Arial");
 
       const textWithoutHtmlTags = eintrag.text.replace(/<[^>]*>/g, '');
       const lines = doc.splitTextToSize(textWithoutHtmlTags, maxWidth);
