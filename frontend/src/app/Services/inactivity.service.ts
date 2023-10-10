@@ -10,7 +10,7 @@ export class InactivityService {
     this.idle.setIdle(900);
     this.idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
-    this.idle.onTimeout.subscribe(() => {
+    this.idle.onIdleStart.subscribe(() => {
       this.loginService.logout();
     });
   }
