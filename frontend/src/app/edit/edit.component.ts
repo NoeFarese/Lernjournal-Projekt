@@ -27,7 +27,15 @@ export class EditComponent implements OnInit{
  text: string = "";
  eintrag: Eintrag | undefined;
 
+ sanitizeInput(input: string): string {
+     input = input.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+     return input;
+ }
+
  submit(){
+   this.titel = this.sanitizeInput(this.titel);
+   this.text = this.sanitizeInput(this.text);
+
    if (this.isNotBlank(this.text, this.titel)) {
      if (this.eintrag) {
        this.updateEintrag();
