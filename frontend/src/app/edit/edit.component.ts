@@ -28,6 +28,7 @@ export class EditComponent implements OnInit{
  eintrag: Eintrag | undefined;
 
  sanitizeInput(input: string): string {
+     input = input.replace(/<(?!\/?(i|b|h1)>)[^>]*>/g, '');
      input = input.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
      return input;
  }
