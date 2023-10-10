@@ -3,12 +3,13 @@ import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { ApiService } from "./api.service";
 import { SnackbarService } from "./snackbar.service";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  constructor(private http: HttpClient, private apiService: ApiService, private snackBarService: SnackbarService) {}
+  constructor(private http: HttpClient, private apiService: ApiService, private snackBarService: SnackbarService, private router: Router, private route: ActivatedRoute) {}
 
   private readonly USER_EMAIL = 'userEmail';
   private readonly AUTHOR_ID = 'authorId';
@@ -59,6 +60,12 @@ export class LoginService {
   logout(): void {
     this.clearAuthorId();
     this.clearLoggedInState();
+
+    const targetRoute = '/login';
+    this.router.navigate([targetRoute], { relativeTo: this.route}).then(() => {
+      window.location.reload();
+    })
+
     this.snackBarService.openSnackbar('Du wurdest ausgeloggt', 'Schliessen', 3000);
   }
 }
