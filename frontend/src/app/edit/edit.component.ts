@@ -81,7 +81,7 @@ export class EditComponent implements OnInit{
 
         doc.setFont("Arial");
         doc.text(<string>this.titel, 10, yPosition);
-        yPosition += 10; // Abstand nach dem Titel
+        yPosition += 10;
 
         const textWithoutHtmlTags = this.text?.replace(/<[^>]*>/g, '');
         const lines = doc.splitTextToSize(<string>textWithoutHtmlTags, maxWidth);
@@ -92,7 +92,7 @@ export class EditComponent implements OnInit{
                 yPosition = margin;
             }
             doc.text(lines[i], margin, yPosition);
-            yPosition += doc.getTextDimensions(lines[i]).h + 2; // Zeilenabstand
+            yPosition += doc.getTextDimensions(lines[i]).h + 2;
         }
 
         doc.save(this.titel + '.pdf');
