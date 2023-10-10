@@ -72,18 +72,34 @@ export class EditComponent implements OnInit{
     });
   }
 
-  exportPdf(){
-    const doc = new jsPDF;
-    const maxWidth = 190;
-    doc.setFont("Arial");
-    doc.text(<string>this.titel, 10, 10);
-    const textWithoutHtmlTags = this.text?.replace(/<[^>]*>/g, '');
-    const lines = doc.splitTextToSize(<string>textWithoutHtmlTags, maxWidth);
-    doc.text(lines, 10, 20);
-    doc.save(this.titel)
-  }
+    exportPdf(): void {
+        const doc = new jsPDF();
+        const maxWidth = 190;
+        const margin = 10;
+        let yPosition = margin;
+        const pageHeight = doc.internal.pageSize.height;
 
-  ngOnInit(): void {
+        doc.setFont("Arial");
+        doc.text(<string>this.titel, 10, yPosition);
+        yPosition += 10; // Abstand nach dem Titel
+
+        const textWithoutHtmlTags = this.text?.replace(/<[^>]*>/g, '');
+        const lines = doc.splitTextToSize(<string>textWithoutHtmlTags, maxWidth);
+
+        for (let i = 0; i < lines.length; i++) {
+            if (yPosition + doc.getTextDimensions(lines[i]).h > pageHeight) {
+                doc.addPage();
+                yPosition = margin;
+            }
+            doc.text(lines[i], margin, yPosition);
+            yPosition += doc.getTextDimensions(lines[i]).h + 2; // Zeilenabstand
+        }
+
+        doc.save(this.titel + '.pdf');
+    }
+
+
+    ngOnInit(): void {
    this.getEintrag();
 
     this.pdfExportService.exportRequested$.subscribe(ids => {
