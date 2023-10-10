@@ -69,14 +69,28 @@ export class MainComponent implements OnInit {
     const eintrag = this.eintragArr.find(e => e.id === id);
     if (eintrag) {
       const doc = new jsPDF();
-      doc.text(eintrag.titel, 10, 10);
       const maxWidth = 190;
+      const margin = 10;
+      let yPosition = margin;
+      const pageHeight = doc.internal.pageSize.height;
+      doc.setFont("Arial");
+
       const textWithoutHtmlTags = eintrag.text.replace(/<[^>]*>/g, '');
       const lines = doc.splitTextToSize(textWithoutHtmlTags, maxWidth);
-      doc.text(lines, 10, 20);
+
+      for (let i = 0; i < lines.length; i++) {
+        if (yPosition + 10 + doc.getTextDimensions(lines[i]).h > pageHeight) {
+          doc.addPage();
+          yPosition = margin;
+        }
+        doc.text(lines[i], margin, yPosition);
+        yPosition += doc.getTextDimensions(lines[i]).h + 2;
+      }
+
       doc.save(eintrag.titel + '.pdf');
     }
   }
+
 
   filterEintraege(): Eintrag[] {
     return this.eintragArr.filter(eintrag =>
