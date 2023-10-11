@@ -6,6 +6,7 @@ import { EintragComponent } from "./eintrag/eintrag.component";
 import { RegistrationComponent } from "./registration/registration.component";
 import { LoginComponent } from "./login/login.component";
 import { ProfilComponent } from "./profil/profil.component";
+import {PasswordResetComponent} from "./password-reset/password-reset.component";
 
 const routes: Routes = [
   { path: 'edit', component: EditComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profil', component: ProfilComponent },
+  { path: 'changePassword', component: PasswordResetComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 

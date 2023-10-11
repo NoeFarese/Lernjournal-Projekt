@@ -6,6 +6,7 @@ import io.micronaut.transaction.annotation.ReadOnly;
 import jakarta.inject.Singleton;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceException;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotBlank;
@@ -111,5 +112,21 @@ public class RegistrationRepositoryImpl implements RegistrationRepository {
     public Repository saveWithException(@NotBlank String email, @NotBlank String passwort) {
         save(email, passwort);
         throw new PersistenceException();
+    }
+
+    @Transactional
+    public boolean updatePassword(String email, String newPassword) {
+        Query query = entityManager.createQuery("SELECT r FROM Registration r WHERE r.email = :email");
+        query.setParameter("email", email);
+
+        Registration user = (Registration) query.getSingleResult();
+
+        if (user != null) {
+            user.setPassword(newPassword);
+            entityManager.merge(user);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

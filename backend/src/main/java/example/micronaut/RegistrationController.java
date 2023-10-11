@@ -50,6 +50,17 @@ public class RegistrationController {
                 .header(LOCATION, location(command.getId()).getPath());
     }
 
+    @Put("/updatePassword")
+    public HttpResponse<?> updatePassword(@QueryValue("email") String email, @QueryValue("newPassword") String newPassword) {
+        boolean success = registrationRepository.updatePassword(email, newPassword);
+        if (success) {
+            return HttpResponse.noContent();
+        } else {
+            return HttpResponse.status(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
     @Get(value = "/list{?args*}")
     List<Registration> list(@Valid SortingAndOrderArguments args) {
         return registrationRepository.findAll(args);
