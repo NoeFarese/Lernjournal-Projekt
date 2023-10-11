@@ -35,7 +35,7 @@ export class LoginService {
     return localStorage.getItem(this.AUTHOR_ID);
   }
 
-  checkIfUserInputIsValid(email: string, password: string): Observable<any> {
+  checkIfUserInputIsValid(email: string | null, password: string): Observable<any> {
     const baseUrl = this.apiService.getBaseUrl();
     return this.http.get<HttpResponse<any>>(`${baseUrl}/userExists?email=${email}&password=${password}`);
   }
@@ -67,5 +67,11 @@ export class LoginService {
     })
 
     this.snackBarService.openSnackbar('Du wurdest ausgeloggt', 'Schliessen', 3000);
+  }
+
+  updatePassword(userEmail: string | null, newPassword: string): Observable<any> {
+    const baseUrl = this.apiService.getBaseUrl();
+    const url = `${baseUrl}/updatePassword?email=${userEmail}&newPassword=${newPassword}`;
+    return this.http.put<HttpResponse<any>>(url, null);
   }
 }
