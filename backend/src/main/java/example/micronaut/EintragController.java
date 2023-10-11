@@ -2,14 +2,12 @@ package example.micronaut;
 
 import example.micronaut.domain.Eintrag;
 import io.micronaut.http.HttpResponse;
-import io.micronaut.http.annotation.Body;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Delete;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.Post;
-import io.micronaut.http.annotation.Put;
+import io.micronaut.http.annotation.*;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
+import io.micronaut.transaction.annotation.Transactional;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceException;
 import jakarta.validation.Valid;
 import java.net.URI;
@@ -90,5 +88,17 @@ class EintragController {
 
     private URI location(Long id) {
         return URI.create("/eintrag/" + id);
+    }
+
+    @Inject
+    private EntityManager entityManager;
+
+    @Get("/getEintraege/{authorId}/count")
+    @Transactional
+    public Long getAnzahlEintraege(@PathVariable Long authorId) {
+        String query = "SELECT COUNT(e) FROM Eintrag e WHERE e.author_id = :authorId";
+        return entityManager.createQuery(query, Long.class)
+                .setParameter("authorId", authorId)
+                .getSingleResult();
     }
 }
