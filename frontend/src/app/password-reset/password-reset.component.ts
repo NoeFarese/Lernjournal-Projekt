@@ -23,43 +23,74 @@ export class PasswordResetComponent {
     });
   }
 
-  changeToNewPassword() {
-    if (this.form.invalid) {
-      this.snackBarService.openSnackbar('Bitte füllen Sie alle Felder aus', 'Schliessen', this.DURATION_MS);
-    } else {
-      const userEmail  = this.loginService.getUserEmail();
-      const actualPassword = this.form.value.actualPassword;
+  isFormValid() {
+    return !this.form.invalid;
+  }
 
-      this.loginService.checkIfUserInputIsValid(userEmail, actualPassword).subscribe(
+  isNewPasswordDifferentFromCurrentPassword() {
+    const newPassword = this.form.value.newPassword;
+    const actualPassword = this.form.value.actualPassword;
+    return newPassword !== actualPassword;
+  }
+
+  isNewPasswordMatchingConfirmation() {
+    const newPassword = this.form.value.newPassword;
+    const confirmNewPassword = this.form.value.confirmNewPassword;
+    return newPassword === confirmNewPassword;
+  }
+
+  showSnackbar(message: string) {
+    this.snackBarService.openSnackbar(message, 'Schliessen', this.DURATION_MS);
+  }
+
+  updatePassword(userEmail: string | null, newPassword: string) {
+    return this.loginService.updatePassword(userEmail, newPassword);
+  }
+
+  checkUserInput() {
+    const userEmail = this.loginService.getUserEmail();
+    const actualPassword = this.form.value.actualPassword;
+
+    return this.loginService.checkIfUserInputIsValid(userEmail, actualPassword);
+  }
+
+  changeToNewPassword() {
+    if (this.isFormValid()) {
+      this.checkUserInput().subscribe(
           (isValid: boolean) => {
             if (isValid) {
-              const newPassword = this.form.value.newPassword;
-              const confirmNewPassword = this.form.value.confirmNewPassword;
+              if (this.isNewPasswordDifferentFromCurrentPassword()) {
+                if (this.isNewPasswordMatchingConfirmation()) {
+                  const userEmail = this.loginService.getUserEmail();
+                  const newPassword = this.form.value.newPassword;
 
-              if (newPassword === actualPassword) {
-                this.snackBarService.openSnackbar('Das neue Passwort sollte sich vom aktuellen Passwort unterscheiden', 'Schliessen', this.DURATION_MS);
-              } else if (newPassword === confirmNewPassword) {
-                this.snackBarService.openSnackbar('Das neue Passwort stimmt nicht mit der Bestätigung überein', 'Schliessen', this.DURATION_MS);
+                  this.updatePassword(userEmail, newPassword).subscribe(
+                      () => {
+                        this.showSnackbar('Passwort erfolgreich geändert');
+                      },
+                      (error: any) => {
+                        console.error('Fehler beim Aktualisieren des Passworts', error);
+                      }
+                  );
+                } else {
+                  this.showSnackbar('Das neue Passwort stimmt nicht mit der Bestätigung überein');
+                }
               } else {
-                this.loginService.updatePassword(userEmail, newPassword).subscribe(
-                    () => {
-                      this.snackBarService.openSnackbar('Passwort erfolgreich geändert', 'Schliessen', this.DURATION_MS);
-                    },
-                    (error: any) => {
-                      console.error('Fehler beim Aktualisieren des Passworts', error);
-                    }
-                );
+                this.showSnackbar('Das neue Passwort sollte sich vom aktuellen Passwort unterscheiden');
               }
             } else {
-              this.snackBarService.openSnackbar('Das aktuelle Passwort ist nicht korrekt', 'Schliessen', this.DURATION_MS);
+              this.showSnackbar('Das aktuelle Passwort ist nicht korrekt');
             }
           },
           (error) => {
             console.error('Fehler beim Überprüfen des aktuellen Passworts', error);
           }
       );
+    } else {
+      this.showSnackbar('Bitte füllen Sie alle Felder aus');
     }
   }
+
 
   toggleActualPasswordVisibility(): void {
     this.isActualPasswordHidden = !this.isActualPasswordHidden;
