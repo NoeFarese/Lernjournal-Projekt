@@ -37,4 +37,6 @@ public interface RegistrationRepository {
 
     @Transactional // <4>
     Repository saveWithException(@NotBlank String email, @NotBlank String password);
+
+    boolean updatePassword(String email, String newPassword);
 }
