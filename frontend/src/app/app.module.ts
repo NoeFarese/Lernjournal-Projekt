@@ -19,6 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { NgIdleModule } from "@ng-idle/core";
+import { ProfilComponent } from './profil/profil.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { NgIdleModule } from "@ng-idle/core";
     EintragComponent,
     RegistrationComponent,
     LoginComponent,
+    ProfilComponent,
   ],
   imports: [
     BrowserModule,
