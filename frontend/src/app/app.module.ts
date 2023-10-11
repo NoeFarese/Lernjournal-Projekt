@@ -20,6 +20,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { NgIdleModule } from "@ng-idle/core";
 import { ProfilComponent } from './profil/profil.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ProfilComponent } from './profil/profil.component';
     RegistrationComponent,
     LoginComponent,
     ProfilComponent,
+    PasswordResetComponent,
   ],
   imports: [
     BrowserModule,
