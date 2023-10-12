@@ -1,1 +1,15 @@
-<p>admin-gui-home works!</p>
+<h1>Für Praxisbildner</h1>
+
+<mat-form-field appearance="fill" class="searchbar">
+    <mat-label>Suche nach Personen</mat-label>
+    <input type="text" matInput [(ngModel)]="searchTerm">
+    <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
+
+<mat-list class="personen">
+    <mat-list-item *ngFor="let person of filterPersonen()" class="person-item">
+            <div class="div1">
+             <!--   <a matTooltip="Zu den Einträgen der Persono" routerLink="">{{ person.email }}</a> -->
+            </div>
+    </mat-list-item>
+</mat-list>
