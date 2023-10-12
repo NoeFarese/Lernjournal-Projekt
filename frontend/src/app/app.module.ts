@@ -21,6 +21,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { NgIdleModule } from "@ng-idle/core";
 import { ProfilComponent } from './profil/profil.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { AdminGuiHomeComponent } from './admin-gui-home/admin-gui-home.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
     LoginComponent,
     ProfilComponent,
     PasswordResetComponent,
+    AdminGuiHomeComponent,
   ],
   imports: [
     BrowserModule,
