@@ -47,6 +47,7 @@ export class LoginComponent {
       if (exists) {
         this.loginUser(email);
       } else {
+        this.loginService.setLoggedInState(false);
         this.snackBarService.openSnackbar('Email oder Passwort ist falsch', 'Schliessen', this.DURATION_MS);
       }
     });
