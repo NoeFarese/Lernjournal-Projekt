@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { LoginService } from "./Services/login.service";
 import { InactivityService } from "./Services/inactivity.service";
+import { AdminService } from "./Services/admin.service";
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,8 @@ import { InactivityService } from "./Services/inactivity.service";
 
 export class AppComponent implements OnInit {
   userEmail: string | null = '';
-  constructor(private loginService: LoginService, private inactivityService: InactivityService) {}
+  isAdmin: boolean | undefined;
+  constructor(private loginService: LoginService, private inactivityService: InactivityService, private adminService: AdminService) {}
 
   title = 'Lernjournal';
 
@@ -21,5 +23,11 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.userEmail = this.loginService.getUserEmail();
     this.inactivityService.startWatching();
+
+    this.adminService.isUserAdmin(this.userEmail).subscribe((isUserAdmin) => {
+      if (isUserAdmin) {
+        this.isAdmin = isUserAdmin;
+      }
+    });
   }
 }
