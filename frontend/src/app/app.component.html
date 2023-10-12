@@ -24,6 +24,7 @@
       <a *ngIf="!isLoggedIn" id="button-disabled-two">zu den Einträgen</a>
       <a routerLink="/login">Login</a>
       <a routerLink="/registration">Registrieren</a>
+      <a routerLink="/admin/home" *ngIf="isAdmin">Admin GUI - Home</a>
     </nav>
   <router-outlet></router-outlet>
 </body>
