@@ -79,7 +79,7 @@ export class MainComponent implements OnInit {
       doc.setFont("Arial");
       doc.setFontSize(titleFontSize);
       doc.text(eintrag.titel, 10, yPosition);
-      yPosition += titleFontSize + 5;
+      yPosition += titleFontSize - 8;
 
       doc.setFontSize(textFontSize);
 
