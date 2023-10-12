@@ -12,6 +12,6 @@ export class AdminService {
 
   isUserAdmin(email: string | null): Observable<any> {
     const baseUrl = this.apiService.getBaseUrl();
-    return this.http.get<HttpResponse<any>>(`${baseUrl}/isUserAdmin?email=${email}`);
+    return this.http.get<HttpResponse<any>>(`${baseUrl}/isAdmin?email=${email}`);
   }
 }
