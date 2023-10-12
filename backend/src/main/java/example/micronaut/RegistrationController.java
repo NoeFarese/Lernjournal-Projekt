@@ -36,6 +36,11 @@ public class RegistrationController {
         return registrationRepository.findByUser(email, password);
     }
 
+    @Get("/isAdmin")
+    boolean showByEmail(@QueryValue("email") String email) {
+        return registrationRepository.isAdmin(email);
+    }
+
     @Get("/all")
     List<Registration> allListe() {
         return registrationRepository
