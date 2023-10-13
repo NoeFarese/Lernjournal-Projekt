@@ -43,6 +43,12 @@ class EintragController {
         return eintragRepository.findByAuthorId(authorId);
     }
 
+    @Get("/getEintraegeByEmail/{email}")
+    List<Eintrag> list(String email) {
+        int authorId = eintragRepository.findIdByEmail(email);
+        return eintragRepository.findByAuthorId(authorId);
+    }
+
     @Get("/all")
     List<Eintrag> allListe() {
         return eintragRepository
