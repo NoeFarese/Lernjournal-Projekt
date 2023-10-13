@@ -8,6 +8,7 @@ import { LoginComponent } from "./login/login.component";
 import { ProfilComponent } from "./profil/profil.component";
 import {PasswordResetComponent} from "./password-reset/password-reset.component";
 import {AdminGuiHomeComponent} from "./admin-gui-home/admin-gui-home.component";
+import {AdminGuiEintraegeComponent} from "./admin-gui-eintraege/admin-gui-eintraege.component";
 
 const routes: Routes = [
   { path: 'edit', component: EditComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'profil', component: ProfilComponent },
   { path: 'changePassword', component: PasswordResetComponent },
-  { path: 'admin/home', component: AdminGuiHomeComponent},
+  { path: 'admin/home', component: AdminGuiHomeComponent },
+  { path: 'admin/eintraege', component: AdminGuiEintraegeComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 

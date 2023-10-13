@@ -22,6 +22,7 @@ import { NgIdleModule } from "@ng-idle/core";
 import { ProfilComponent } from './profil/profil.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { AdminGuiHomeComponent } from './admin-gui-home/admin-gui-home.component';
+import { AdminGuiEintraegeComponent } from './admin-gui-eintraege/admin-gui-eintraege.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { AdminGuiHomeComponent } from './admin-gui-home/admin-gui-home.component
     ProfilComponent,
     PasswordResetComponent,
     AdminGuiHomeComponent,
+    AdminGuiEintraegeComponent,
   ],
   imports: [
     BrowserModule,
