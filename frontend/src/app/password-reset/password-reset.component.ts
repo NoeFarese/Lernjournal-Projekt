@@ -67,23 +67,29 @@ export class PasswordResetComponent {
                   this.updatePassword(userEmail, newPassword).subscribe(
                       () => {
                         this.showSnackbar('Passwort erfolgreich geändert');
+                        this.form.reset();
                       },
                       (error: any) => {
                         console.error('Fehler beim Aktualisieren des Passworts', error);
+                        this.form.reset();
                       }
                   );
                 } else {
                   this.showSnackbar('Das neue Passwort stimmt nicht mit der Bestätigung überein');
+                  this.form.reset();
                 }
               } else {
                 this.showSnackbar('Das neue Passwort sollte sich vom aktuellen Passwort unterscheiden');
+                this.form.reset();
               }
             } else {
               this.showSnackbar('Das aktuelle Passwort ist nicht korrekt');
+              this.form.reset();
             }
           },
           (error) => {
             console.error('Fehler beim Überprüfen des aktuellen Passworts', error);
+            this.form.reset();
           }
       );
     } else {
