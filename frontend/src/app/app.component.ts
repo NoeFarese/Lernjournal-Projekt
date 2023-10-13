@@ -21,7 +21,5 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.userEmail = this.loginService.getUserEmail();
     this.inactivityService.startWatching();
-
-    console.log('test');
   }
 }
