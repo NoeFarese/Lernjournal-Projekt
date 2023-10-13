@@ -1,0 +1,111 @@
+mat-list-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 40px;
+    background-color: #6545a2;
+    border-radius: 8px;
+}
+
+mat-list{
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+mat-mdc-raised-button mat-icon {
+    vertical-align: middle;
+}
+
+mat-icon {
+    color: black;
+}
+
+a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    padding: 12px;
+    background-color: white;
+    color: #333333;
+    margin-right: 20px;
+    border-radius: 8px;
+}
+
+a:hover{
+    color: black;
+    background-color: lightgray;
+}
+
+a:active{
+    background-color: grey;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+.flex-container-liste {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 12px 0 50px;
+}
+
+
+.einträge {
+    list-style-type: none;
+    text-align: center;
+}
+
+.parent {
+    display: grid;
+    grid-template-columns: 3fr repeat(1, 0.5fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+}
+
+.div1 { grid-area: 1 / 1 / 2 / 2; }
+.div2 { grid-area: 1 / 4 / 2 / 5; }
+
+
+.exportAll-Checkbox {
+    background-color: lightgray;
+    color: #333333;
+    padding: 10px 15px 10px 10px;
+    border-radius: 8px;
+}
+
+.exportPDF-Button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0 26px 9px;
+}
+
+.exportPDF-Button mat-icon {
+    font-size: 23px;
+}
+
+.suchleiste {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 3px 5px;
+    width: 90%;
+    height: 40px;
+    box-sizing: border-box;
+}
