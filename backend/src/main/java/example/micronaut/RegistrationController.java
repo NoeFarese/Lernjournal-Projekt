@@ -78,7 +78,7 @@ public class RegistrationController {
 
     @Post
     HttpResponse<Registration> save(@Body @Valid RegistrationSaveCommand cmd) {
-       Registration registration = registrationRepository.save(cmd.getEmail(), cmd.getPassword());
+       Registration registration = registrationRepository.save(cmd.getEmail(), cmd.getPassword(), cmd.getIsAdmin());
 
         return HttpResponse
                 .created(registration)
