@@ -11,9 +11,13 @@ public class RegistrationSaveCommand {
     @NotBlank
     private String password;
 
-    public RegistrationSaveCommand(String email, String password){
+    @NotBlank
+    private boolean isAdmin;
+
+    public RegistrationSaveCommand(String email, String password, boolean isAdmin){
         this.setEmail(email);
         this.setPassword(password);
+        this.setIsAdmin(isAdmin);
     }
 
     public String getEmail() {
@@ -31,4 +35,8 @@ public class RegistrationSaveCommand {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean getIsAdmin() { return isAdmin; }
+
+    public void setIsAdmin(boolean isAdmin) { this.isAdmin = isAdmin; }
 }
