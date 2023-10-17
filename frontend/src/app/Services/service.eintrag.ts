@@ -40,6 +40,11 @@ export class ServiceEintrag{
     return this.http.get<any>(`${url}/getEintraege/${authorId}`);
   }
 
+  getEintragListForAdmin(email: string): Observable<any> {
+    const url = this.apiService.getEintragUrl();
+    return this.http.get<any>(`${url}/getEintraegeByEmail/${email}`);
+  }
+
   getAnzahlEintraege(authorId: string): Observable<number> {
     const url = `${this.apiService.getEintragUrl()}/getEintraege/${authorId}/count`;
     return this.http.get<number>(url);

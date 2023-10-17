@@ -64,9 +64,28 @@ public class RegistrationRepositoryImpl implements RegistrationRepository {
     }
 
     @Override
+    @Transactional
+    public boolean isAdmin(String email) {
+        String qlString = "SELECT r FROM Registration as r WHERE r.email = :email AND r.isAdmin = true";
+        TypedQuery<Registration> query = entityManager.createQuery(qlString, Registration.class);
+        query.setParameter("email", email);
+
+        try {
+            return query.getSingleResult().getIsAdmin();
+        } catch(Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public Registration save(String email, String password) {
+        return null;
+    }
+    
+    @Override
     @Transactional // <4>
-    public Registration save(@NotBlank String email, @NotBlank String passwort) {
-        Registration registration = new Registration(email, passwort);
+    public Registration save(@NotBlank String email, @NotBlank String passwort, @NotBlank boolean isAdmin) {
+        Registration registration = new Registration(email, passwort, isAdmin);
         entityManager.persist(registration);
         return registration;
     }

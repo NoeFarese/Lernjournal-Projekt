@@ -1,0 +1,15 @@
+<h1>Für Praxisbildner</h1>
+
+<div class="flex-container-liste"></div>
+<mat-form-field appearance="fill" class="searchbar">
+    <mat-label>Suche nach Personen</mat-label>
+    <input type="text" matInput [(ngModel)]="searchTerm">
+    <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
+
+<mat-list class="personen">
+    <mat-list-item *ngFor="let person of filterPersonen()">
+        <a matTooltip="Zu den Einträgen der Person" [routerLink]="['/admin/eintraege', person.email]">{{ person.email }}</a>
+    </mat-list-item>
+
+</mat-list>

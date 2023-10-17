@@ -29,6 +29,9 @@ public interface RegistrationRepository {
         // <4>
     Registration save(@NotBlank String email, @NotBlank String password);
 
+    @Transactional // <4>
+    Registration save(@NotBlank String email, @NotBlank String passwort, @NotBlank boolean isAdmin);
+
     void deleteById(long id);
 
     List<Registration> findAll(@NotNull SortingAndOrderArguments args);
@@ -39,4 +42,6 @@ public interface RegistrationRepository {
     Repository saveWithException(@NotBlank String email, @NotBlank String password);
 
     boolean updatePassword(String email, String newPassword);
+
+    boolean isAdmin(String email);
 }

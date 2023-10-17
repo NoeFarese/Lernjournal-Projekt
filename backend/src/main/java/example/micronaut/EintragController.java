@@ -22,11 +22,11 @@ class EintragController {
 
     private final EintragRepository eintragRepository;
 
-    EintragController(EintragRepository eintragRepository) { // <3>
+    EintragController(EintragRepository eintragRepository) {
         this.eintragRepository = eintragRepository;
     }
 
-    @Get("/{id}") // <4>
+    @Get("/{id}")
     Eintrag show(Long id) {
         return eintragRepository
                 .findById(id)
@@ -43,6 +43,12 @@ class EintragController {
         return eintragRepository.findByAuthorId(authorId);
     }
 
+    @Get("/getEintraegeByEmail/{email}")
+    List<Eintrag> list(String email) {
+        int authorId = eintragRepository.findIdByEmail(email);
+        return eintragRepository.findByAuthorId(authorId);
+    }
+
     @Get("/all")
     List<Eintrag> allListe() {
         return eintragRepository
@@ -50,16 +56,16 @@ class EintragController {
 
     }
 
-    @Put // <6>
-    HttpResponse<?> update(@Body @Valid EintragUpdateCommand command) { // <7>
+    @Put
+    HttpResponse<?> update(@Body @Valid EintragUpdateCommand command) {
         int numberOfEntitiesUpdated = eintragRepository.update(command.getId(), command.getTitel(), command.getText());
 
         return HttpResponse
                 .noContent()
-                .header(LOCATION, location(command.getId()).getPath()); // <8>
+                .header(LOCATION, location(command.getId()).getPath());
     }
 
-    @Post // <10>
+    @Post
     HttpResponse<Eintrag> save(@Body @Valid EintragSaveCommand cmd) {
         Eintrag eintrag = eintragRepository.save(cmd.getTitel(), cmd.getText(), cmd.getAuthor_id());
         System.out.println(eintrag);
@@ -68,7 +74,7 @@ class EintragController {
                 .headers(headers -> headers.location(location(eintrag.getId())));
     }
 
-    @Post("/ex") // <11>
+    @Post("/ex")
     HttpResponse<Eintrag> saveExceptions(@Body @Valid EintragSaveCommand cmd) {
         try {
             Eintrag eintrag = eintragRepository.saveWithException(cmd.getTitel(), cmd.getText(), cmd.getAuthor_id());
@@ -80,7 +86,7 @@ class EintragController {
         }
     }
 
-    @Delete("/{id}") // <12>
+    @Delete("/{id}")
     HttpResponse<?> delete(Long id) {
         eintragRepository.deleteById(id);
         return HttpResponse.noContent();

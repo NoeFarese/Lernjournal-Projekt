@@ -22,11 +22,16 @@ public class Registration {
     @Column(name = "password", nullable = true, unique = false, length = 1000000000)
     private String password;
 
+    @NotNull
+    @Column(name = "isAdmin", nullable = true, unique = false)
+    private boolean isAdmin;
+
     public Registration() {}
 
-    public Registration(@NotNull String email, String password) {
+    public Registration(@NotNull String email, String password, boolean isAdmin) {
         this.email = email;
         this.password = password;
+        this.isAdmin = isAdmin;
     }
 
     public Long getId() {
@@ -49,12 +54,17 @@ public class Registration {
 
     public void setPassword(String text) { this.password = text; }
 
+    public boolean getIsAdmin() { return isAdmin; }
+
+    public void setIsAdmin(boolean isAdmin) { this.isAdmin = isAdmin; }
+
     @Override
     public String toString() {
         return "Registration{" +
                 "id=" + id +
                 ", email='" + email +
-                ", password='" + password + '\'' +
+                ", password='" + password +
+                ", isAdmin='" + isAdmin + '\'' +
                 '}';
     }
 }
