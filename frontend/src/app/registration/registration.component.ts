@@ -46,7 +46,8 @@ export class RegistrationComponent {
   }
 
   private createRegistration(email: string, password: string) {
-    this.registrationService.registrateUser(email, password).subscribe(() => {
+    const isAdmin = false;
+    this.registrationService.registrateUser(email, password, isAdmin).subscribe(() => {
       this.snackBarService.openSnackbar('Du wurdest erfolgreich registriert', 'Schließen', this.DURATION_MS);
       this.registrationForm.reset();
     });

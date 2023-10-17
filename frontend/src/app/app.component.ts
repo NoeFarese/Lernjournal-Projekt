@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginService } from "./Services/login.service";
 import { InactivityService } from "./Services/inactivity.service";
 import { AdminService } from "./Services/admin.service";
@@ -24,10 +24,12 @@ export class AppComponent implements OnInit {
     this.userEmail = this.loginService.getUserEmail();
     this.inactivityService.startWatching();
 
-    this.adminService.isUserAdmin(this.userEmail).subscribe((isUserAdmin) => {
-      if (isUserAdmin) {
-        this.isAdmin = isUserAdmin;
-      }
-    });
+    if(this.isLoggedIn){
+      this.adminService.isUserAdmin(this.userEmail).subscribe((isUserAdmin) => {
+        if (isUserAdmin) {
+          this.isAdmin = isUserAdmin;
+        }
+      });
+    }
   }
 }
