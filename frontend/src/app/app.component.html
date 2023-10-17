@@ -18,7 +18,7 @@
     <nav>
       <a routerLink="/profil" *ngIf="isLoggedIn">Profil</a>
       <a routerLink="/edit" *ngIf="isLoggedIn">neuer Eintrag erfassen</a>
-      <a routerLink="/main" *ngIf="isLoggedIn">zu den Einträgen</a>
+      <a routerLink="/home" *ngIf="isLoggedIn">zu den Einträgen</a>
       <a *ngIf="!isLoggedIn" id="button-disabled-three">Profil</a>
       <a *ngIf="!isLoggedIn" id="button-disabled-one">neuer Eintrag erfassen</a>
       <a *ngIf="!isLoggedIn" id="button-disabled-two">zu den Einträgen</a>

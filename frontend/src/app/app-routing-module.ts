@@ -13,7 +13,7 @@ import {AdminGuiEintraegeComponent} from "./admin-gui-eintraege/admin-gui-eintra
 const routes: Routes = [
   { path: 'edit', component: EditComponent },
   { path: 'edit/:id', component: EditComponent },
-  { path: 'main', component: MainComponent },
+  { path: 'home', component: MainComponent },
   { path: 'eintrag/:id', component: EintragComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
