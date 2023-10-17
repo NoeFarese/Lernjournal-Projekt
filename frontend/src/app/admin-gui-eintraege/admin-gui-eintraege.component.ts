@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {LoginService} from "../Services/login.service";
-import {ServiceEintrag} from "../Services/service.eintrag";
-import {SnackbarService} from "../Services/snackbar.service";
-import {Eintrag} from "../Interfaces/Eintrag";
+import { ServiceEintrag } from "../Services/service.eintrag";
+import { SnackbarService } from "../Services/snackbar.service";
+import { Eintrag } from "../Interfaces/Eintrag";
 import jsPDF from "jspdf";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-admin-gui-eintraege',
@@ -18,20 +18,21 @@ export class AdminGuiEintraegeComponent implements OnInit {
   exportAllChecked = false;
   checkboxStates: { [id: number]: boolean } = {};
   searchTerm: string = '';
-  constructor(private loginService: LoginService, private eintragService: ServiceEintrag, private snackBarService: SnackbarService) {}
+
+  constructor (private eintragService: ServiceEintrag, private snackBarService: SnackbarService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.userEmail = this.loginService.getUserEmail();
-    this.getEintragList();
+    this.route.params.subscribe(params => {
+      const selectedEmail = params['email'];
+      this.userEmail = selectedEmail;
+      this.getEintragList(selectedEmail);
+    });
   }
 
-  getEintragList(): void {
-    const email = this.loginService.getUserEmail();
-    if (email !== null){
-      this.eintragService.getEintragListForAdmin(email).subscribe(eintragArr => {
-        this.eintragArr = eintragArr;
-      });
-    }
+  getEintragList(email: string): void {
+    this.eintragService.getEintragListForAdmin(email).subscribe(eintragArr => {
+      this.eintragArr = eintragArr;
+    });
   }
 
   updateCheckboxStates(allChecked: boolean): void {

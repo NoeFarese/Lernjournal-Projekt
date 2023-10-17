@@ -9,6 +9,7 @@
 
 <mat-list class="personen">
     <mat-list-item *ngFor="let person of filterPersonen()">
-        <a matTooltip="Zu den Einträgen der Person" routerLink="/admin/eintraege">{{ person.email }}</a>
+        <a matTooltip="Zu den Einträgen der Person" [routerLink]="['/admin/eintraege', person.email]">{{ person.email }}</a>
     </mat-list-item>
+
 </mat-list>

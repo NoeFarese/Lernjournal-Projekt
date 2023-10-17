@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'profil', component: ProfilComponent },
   { path: 'changePassword', component: PasswordResetComponent },
   { path: 'admin/home', component: AdminGuiHomeComponent },
-  { path: 'admin/eintraege', component: AdminGuiEintraegeComponent },
+  { path: 'admin/eintraege/:email', component: AdminGuiEintraegeComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
