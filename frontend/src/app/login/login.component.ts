@@ -61,7 +61,7 @@ export class LoginComponent {
       this.loginService.setAuthorId(authorId);
       this.loginService.setUserEmail(email);
 
-      const targetRoute = '/main';
+      const targetRoute = '/home';
       this.router.navigate([targetRoute], { relativeTo: this.route }).then(() => {
         window.location.reload();
       });
