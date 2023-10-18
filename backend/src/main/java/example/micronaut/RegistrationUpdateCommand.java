@@ -13,17 +13,18 @@ public class RegistrationUpdateCommand {
 
     @NotBlank
     private String password;
+    private boolean isAdmin = false;
 
-    public RegistrationUpdateCommand(long id, String email, String password){
+    public RegistrationUpdateCommand(long id, String email, String password, boolean isAdmin){
         this.id = id;
         this.setEmail(email);
         this.setPassword(password);
+        this.setIsAdmin(isAdmin);
     }
 
     public long getId() { return id; }
 
     public void setId(long id){ this.id = id;}
-
 
     public String getEmail() {
         return email;
@@ -40,4 +41,7 @@ public class RegistrationUpdateCommand {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean getIsAdmin() { return isAdmin; }
+    public void setIsAdmin(boolean isAdmin) { this.isAdmin = isAdmin; }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Observable } from "rxjs";
-import {ApiService} from "./api.service";
+import { ApiService } from "./api.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +15,11 @@ export class RegistrationService {
     return this.http.get<HttpResponse<any>>(`${baseUrl}/${email}/exists`);
   }
 
-  registrateUser(email: string, password: string): Observable<any>{
+  registrateUser(email: string, password: string, isAdmin: boolean): Observable<any> {
     return this.http.post('http://localhost:8080/registration', {
       email: email,
       password: password,
+      isAdmin: isAdmin
+    });
   }
-  )}
 }
