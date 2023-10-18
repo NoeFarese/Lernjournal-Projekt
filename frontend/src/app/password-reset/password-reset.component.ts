@@ -59,29 +59,7 @@ export class PasswordResetComponent {
       this.checkUserInput().subscribe(
           (isValid: boolean) => {
             if (isValid) {
-              if (this.isNewPasswordDifferentFromCurrentPassword()) {
-                if (this.isNewPasswordMatchingConfirmation()) {
-                  const userEmail = this.loginService.getUserEmail();
-                  const newPassword = this.form.value.newPassword;
-
-                  this.updatePassword(userEmail, newPassword).subscribe(
-                      () => {
-                        this.showSnackbar('Passwort erfolgreich geändert');
-                        this.form.reset();
-                      },
-                      (error: any) => {
-                        console.error('Fehler beim Aktualisieren des Passworts', error);
-                        this.form.reset();
-                      }
-                  );
-                } else {
-                  this.showSnackbar('Das neue Passwort stimmt nicht mit der Bestätigung überein');
-                  this.form.reset();
-                }
-              } else {
-                this.showSnackbar('Das neue Passwort sollte sich vom aktuellen Passwort unterscheiden');
-                this.form.reset();
-              }
+              this.changePasswordIfValid();
             } else {
               this.showSnackbar('Das aktuelle Passwort ist nicht korrekt');
               this.form.reset();
@@ -97,6 +75,33 @@ export class PasswordResetComponent {
     }
   }
 
+  changePasswordIfValid() {
+    if (this.isNewPasswordDifferentFromCurrentPassword()) {
+      if (this.isNewPasswordMatchingConfirmation()) {
+        const userEmail = this.loginService.getUserEmail();
+        const newPassword = this.form.value.newPassword;
+        this.updatePassword(userEmail, newPassword).subscribe(
+            () => {
+              this.showSnackbar('Passwort erfolgreich geändert');
+              setTimeout(() => {
+                this.form.reset();
+              }, this.DURATION_MS);
+            },
+            (error: any) => {
+              console.error('Fehler beim Aktualisieren des Passworts', error);
+              this.form.reset();
+            }
+        );
+      } else {
+        this.showSnackbar('Das neue Passwort stimmt nicht mit der Bestätigung überein');
+        this.form.reset();
+      }
+    } else {
+      this.showSnackbar('Das neue Passwort sollte sich vom aktuellen Passwort unterscheiden');
+      this.form.reset();
+    }
+  }
+
 
   toggleActualPasswordVisibility(): void {
     this.isActualPasswordHidden = !this.isActualPasswordHidden;
@@ -109,5 +114,4 @@ export class PasswordResetComponent {
   toggleConfirmNewPasswordVisibility(): void {
     this.isConfirmNewPasswordHidden = !this.isConfirmNewPasswordHidden;
   }
-
 }
