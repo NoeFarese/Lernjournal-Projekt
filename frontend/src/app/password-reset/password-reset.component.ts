@@ -67,7 +67,10 @@ export class PasswordResetComponent {
                   this.updatePassword(userEmail, newPassword).subscribe(
                       () => {
                         this.showSnackbar('Passwort erfolgreich geändert');
-                        this.form.reset();
+
+                        setTimeout(() => {
+                          this.form.reset();
+                        }, 3500);
                       },
                       (error: any) => {
                         console.error('Fehler beim Aktualisieren des Passworts', error);
