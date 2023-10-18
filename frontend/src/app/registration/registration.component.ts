@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegistrationService } from '../Services/registration.service';
 import { SnackbarService } from "../Services/snackbar.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-registration',
@@ -14,7 +15,7 @@ export class RegistrationComponent {
   isConfirmPasswordHidden: boolean = true;
   private readonly DURATION_MS = 3000;
 
-  constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService,  private snackBarService: SnackbarService) {
+  constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService,  private snackBarService: SnackbarService, private route: ActivatedRoute, private router: Router) {
     this.registrationForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -50,6 +51,13 @@ export class RegistrationComponent {
     this.registrationService.registrateUser(email, password, isAdmin).subscribe(() => {
       this.snackBarService.openSnackbar('Du wurdest erfolgreich registriert', 'Schließen', this.DURATION_MS);
       this.registrationForm.reset();
+
+      setTimeout(() => {
+        const targetRoute = '/login';
+        this.router.navigate([targetRoute], { relativeTo: this.route }).then(() => {
+          window.location.reload();
+        });
+      }, 3500);
     });
   }
 
