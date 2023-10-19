@@ -123,3 +123,12 @@ button.delete:hover {
   height: 40px;
   box-sizing: border-box;
 }
+
+.keine-eintraege-vorhanden-error-message {
+  margin-top: 50px;
+  padding: 1rem;
+  display: inline-block;
+  background-color: #B90E0A;
+  color: white;
+  border-radius: 4px;
+}

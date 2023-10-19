@@ -17,10 +17,14 @@ export class MainComponent implements OnInit {
   exportAllChecked = false;
   checkboxStates: { [id: number]: boolean } = {};
   searchTerm: string = '';
+  anzahlEintraege: number | null = null;
+  hatKeineEintraege: boolean = false;
+
   constructor(private eintragService: ServiceEintrag, private loginService: LoginService, private snackBarService: SnackbarService) {}
 
   ngOnInit(): void {
     this.getEintragList();
+    this.getAnzahlEintraege();
   }
 
   getEintragList(): void {
@@ -104,5 +108,16 @@ export class MainComponent implements OnInit {
     return this.eintragArr.filter(eintrag =>
       eintrag.titel.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+  }
+
+  getAnzahlEintraege(): void {
+    const authorId = this.loginService.getAuthorId();
+
+    if (authorId) {
+      this.eintragService.getAnzahlEintraege(authorId).subscribe(count => {
+        this.anzahlEintraege = count;
+        this.hatKeineEintraege = count === 0;
+      });
+    }
   }
 }

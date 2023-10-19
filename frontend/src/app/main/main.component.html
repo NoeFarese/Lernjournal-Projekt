@@ -12,6 +12,8 @@
                 (change)="updateCheckboxStates(exportAllChecked)">Export all as PDF
   </mat-checkbox>
 
+  <mat-error *ngIf="hatKeineEintraege" class="keine-eintraege-vorhanden-error-message">Noch keine Einträge vorhanden</mat-error>
+
   <mat-list class="einträge">
     <mat-list-item *ngFor="let eintrag of filterEintraege()" class="eintrag-item">
       <div class="parent">
