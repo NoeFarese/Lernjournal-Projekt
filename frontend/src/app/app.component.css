@@ -78,27 +78,7 @@ nav a:active {
   background-color: lightgray;
 }
 
-#button-disabled-one {
-  padding: 1rem;
-  text-decoration: none;
-  display: inline-block;
-  background-color: grey;
-  color: white;
-  border-radius: 10px;
-  margin: 10px 10px 20px;
-}
-
-#button-disabled-two {
-  padding: 1rem;
-  text-decoration: none;
-  display: inline-block;
-  background-color: grey;
-  color: white;
-  border-radius: 10px;
-  margin: 10px 10px 20px;
-}
-
-#button-disabled-three {
+#button-disabled-one, #button-disabled-two, #button-disabled-three {
   padding: 1rem;
   text-decoration: none;
   display: inline-block;
