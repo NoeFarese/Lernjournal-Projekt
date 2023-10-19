@@ -103,15 +103,14 @@ export class EditComponent implements OnInit{
         doc.save(this.titel + '.pdf');
     }
 
+  ngOnInit():void {
+      this.getEintrag();
 
-    ngOnInit(): void {
-   this.getEintrag();
-
-    this.pdfExportService.exportRequested$.subscribe(ids => {
-      if (ids.includes(<number>this.eintrag?.id)) {
-        this.exportPdf();
-      }
-    });
+      this.pdfExportService.exportRequested$.subscribe(ids => {
+          if(ids.includes(<number>this.eintrag?.id)) {
+              this.exportPdf();
+          }
+      });
   }
 
   getEintrag():void {
