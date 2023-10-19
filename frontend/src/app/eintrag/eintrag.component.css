@@ -9,3 +9,27 @@
   word-wrap: break-word;
   text-align: left;
 }
+
+.redirect-to-home-button {
+  margin: 10px;
+  padding: 25px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.redirect-to-home-button:hover {
+  color: white;
+  background-color: #42545C;
+}
+
+.redirect-to-home-button:active {
+  background-color: black;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
