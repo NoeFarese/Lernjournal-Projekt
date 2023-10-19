@@ -22,6 +22,7 @@
 
 .ausloggen-button {
   margin-top: 20px;
+  background-color: #B90E0A !important;
 }
 
 label {
@@ -30,7 +31,7 @@ label {
 
 button {
   padding: 10px;
-  background-color: #673AB7;
+  background-color: #403BB8 !important;
   color: white;
   border: none;
   border-radius: 3px;
