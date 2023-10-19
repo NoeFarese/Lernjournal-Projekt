@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import jsPDF from "jspdf";
 import { ServiceEintrag } from "../Services/service.eintrag";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Eintrag } from "../Interfaces/Eintrag";
 import { PdfExportService } from "../Services/pdf-export.service";
 import { LoginService } from "../Services/login.service";
@@ -20,7 +20,8 @@ export class EditComponent implements OnInit{
       private route: ActivatedRoute,
       private pdfExportService: PdfExportService,
       private loginService: LoginService,
-      private snackBarService: SnackbarService
+      private snackBarService: SnackbarService,
+      private router: Router
   ) {}
 
  titel: string = "";
@@ -59,6 +60,7 @@ export class EditComponent implements OnInit{
       author_id: this.loginService.getAuthorId()
     }).subscribe(() => {
       this.showEintragWurdeGespeichertSnackbar();
+      this.redirectToHomePage();
     });
   }
 
@@ -69,6 +71,7 @@ export class EditComponent implements OnInit{
       id: this.eintrag?.id
     }).subscribe(() => {
       this.showEintragWurdeGespeichertSnackbar();
+      this.redirectToHomePage();
     });
   }
 
@@ -134,5 +137,14 @@ export class EditComponent implements OnInit{
             textarea.value = textarea.value.substring(0, textarea.selectionStart) + newText + textarea.value.substring(textarea.selectionEnd);
             this.text = textarea.value;
         }
+    }
+
+    redirectToHomePage(): void {
+        setTimeout(() => {
+            const targetRoute = '/home';
+            this.router.navigate([targetRoute], { relativeTo: this.route }).then(() => {
+                window.location.reload();
+            });
+        }, 1000);
     }
 }
