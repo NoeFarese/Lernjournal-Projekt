@@ -16,7 +16,7 @@ public class Eintrag {
     private Long id;
 
     @NotNull
-    @Column(name = "titel", nullable = false, unique = true, length = 40)
+    @Column(name = "titel", nullable = false, length = 40)
     private String titel;
 
     @NotNull
