@@ -44,4 +44,7 @@ public interface RegistrationRepository {
     boolean updatePassword(String email, String newPassword);
 
     boolean isAdmin(String email);
+
+    @Transactional
+    void deleteByEmail(String email);
 }

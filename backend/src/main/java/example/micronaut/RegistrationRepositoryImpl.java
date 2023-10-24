@@ -96,6 +96,12 @@ public class RegistrationRepositoryImpl implements RegistrationRepository {
         findById(id).ifPresent(entityManager::remove);
     }
 
+    @Override
+    @Transactional
+    public void deleteByEmail(String email){
+        entityManager.remove(findByEmail(email));
+    }
+
     @ReadOnly // <3>
     public List<Registration> findAll(@NotNull SortingAndOrderArguments args) {
         String qlString = "SELECT g FROM Registration as g";

@@ -92,6 +92,12 @@ public class RegistrationController {
         return HttpResponse.noContent();
     }
 
+    @Delete("/deleteUserByEmail/{email}")
+    HttpResponse<?> delete(String email) {
+        registrationRepository.deleteByEmail(email);
+        return HttpResponse.noContent();
+    }
+
     private URI location(Long id) {
         return URI.create("/eintrag/" + id);
     }
