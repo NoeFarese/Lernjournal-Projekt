@@ -2,6 +2,7 @@ package example.micronaut;
 
 import example.micronaut.domain.Eintrag;
 
+import io.micronaut.transaction.annotation.ReadOnly;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,4 +33,7 @@ public interface EintragRepository {
 
     @Transactional // <4>
     Eintrag saveWithException(@NotBlank String titel, @NotBlank String text, int authorId);
+
+    @ReadOnly
+    boolean checkTitleExists(@NotBlank String titel);
 }

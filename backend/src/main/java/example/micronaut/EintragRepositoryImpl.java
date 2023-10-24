@@ -110,4 +110,15 @@ public class EintragRepositoryImpl implements EintragRepository {
         save(titel, text, authorId);
         throw new PersistenceException();
     }
+
+    @Override
+    @ReadOnly
+    public boolean checkTitleExists(@NotBlank String titel) {
+        String qlString = "SELECT COUNT(e) FROM Eintrag e WHERE e.titel = :titel";
+        TypedQuery<Long> query = entityManager.createQuery(qlString, Long.class);
+        query.setParameter("titel", titel);
+        Long count = query.getSingleResult();
+
+        return count > 0;
+    }
 }

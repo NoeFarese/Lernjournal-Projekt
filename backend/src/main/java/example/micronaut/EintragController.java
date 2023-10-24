@@ -56,6 +56,12 @@ class EintragController {
 
     }
 
+    @Get("/checkTitle")
+    public boolean checkTitle(@QueryValue String title) {
+        boolean titleExists = eintragRepository.checkTitleExists(title);
+        return titleExists;
+    }
+
     @Put
     HttpResponse<?> update(@Body @Valid EintragUpdateCommand command) {
         int numberOfEntitiesUpdated = eintragRepository.update(command.getId(), command.getTitel(), command.getText());
