@@ -69,6 +69,16 @@ export class LoginService {
     this.snackBarService.openSnackbar('Du wurdest ausgeloggt', 'Schliessen', 3000);
   }
 
+  logoutWhenAccountDeleted(): void {
+    this.clearAuthorId();
+    this.clearLoggedInState();
+
+    const targetRoute = '/registration';
+    this.router.navigate([targetRoute], { relativeTo: this.route}).then(() => {
+      window.location.reload();
+    })
+  }
+
   updatePassword(userEmail: string | null, newPassword: string): Observable<any> {
     const baseUrl = this.apiService.getBaseUrl();
     const url = `${baseUrl}/updatePassword?email=${userEmail}&newPassword=${newPassword}`;
