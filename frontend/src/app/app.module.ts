@@ -23,6 +23,7 @@ import { ProfilComponent } from './profil/profil.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { AdminGuiHomeComponent } from './admin-gui-home/admin-gui-home.component';
 import { AdminGuiEintraegeComponent } from './admin-gui-eintraege/admin-gui-eintraege.component';
+import { DeleteAccountComponent } from './delete-account/delete-account.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AdminGuiEintraegeComponent } from './admin-gui-eintraege/admin-gui-eint
     PasswordResetComponent,
     AdminGuiHomeComponent,
     AdminGuiEintraegeComponent,
+    DeleteAccountComponent,
   ],
   imports: [
     BrowserModule,
