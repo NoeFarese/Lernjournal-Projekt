@@ -49,4 +49,9 @@ export class ServiceEintrag{
     const url = `${this.apiService.getEintragUrl()}/getEintraege/${authorId}/count`;
     return this.http.get<number>(url);
   }
+
+  checkTitleExists(title: string): Observable<boolean> {
+    const url = `${this.apiService.getEintragUrl()}/checkTitle?title=${title}`;
+    return this.http.get<boolean>(url);
+  }
 }

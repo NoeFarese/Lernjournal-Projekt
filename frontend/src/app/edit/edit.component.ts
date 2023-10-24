@@ -34,19 +34,23 @@ export class EditComponent implements OnInit{
      return input;
  }
 
- submit(){
-   this.titel = this.sanitizeInput(this.titel);
-   this.text = this.sanitizeInput(this.text);
+ submit(): void {
+     this.titel = this.sanitizeInput(this.titel);
+     this.text = this.sanitizeInput(this.text);
 
-   if (this.isNotBlank(this.text, this.titel)) {
-     if (this.eintrag) {
-       this.updateEintrag();
-     } else {
-       this.insertEintrag();
+     if (this.isNotBlank(this.text, this.titel)) {
+         if (this.eintrag) {
+             this.updateEintrag();
+         } else {
+             this.eintragService.checkTitleExists(this.titel).subscribe((titleExists: boolean) => {
+                if (titleExists) {
+                    this.snackBarService.openSnackbar('Ein Eintrag mit diesem Titel existiert bereits', 'Schliessen', 3000);
+                } else {
+                    this.insertEintrag();
+                }
+             });
+         }
      }
-    } else {
-      this.snackBarService.openSnackbar('Text oder/und Titel sollten nicht leer sein', 'Schliessen', 3000);
-   }
  }
 
   private isNotBlank(text: string, titel: string) {
