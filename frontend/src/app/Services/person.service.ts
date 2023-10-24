@@ -15,4 +15,9 @@ export class PersonService {
     const url = this.apiService.getBaseUrl();
     return this.http.get<Person[]>(`${url}/getPersonenListe`);
   }
+
+  deletePerson(email: string | null): Observable<any> {
+    const url = this.apiService.getBaseUrl();
+    return this.http.get<any>(`${url}/deleteUserByEmail/${email}`);
+  }
 }
