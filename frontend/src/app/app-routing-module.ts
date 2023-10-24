@@ -9,6 +9,7 @@ import { ProfilComponent } from "./profil/profil.component";
 import {PasswordResetComponent} from "./password-reset/password-reset.component";
 import {AdminGuiHomeComponent} from "./admin-gui-home/admin-gui-home.component";
 import {AdminGuiEintraegeComponent} from "./admin-gui-eintraege/admin-gui-eintraege.component";
+import {DeleteAccountComponent} from "./delete-account/delete-account.component";
 
 const routes: Routes = [
   { path: 'edit', component: EditComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'changePassword', component: PasswordResetComponent },
   { path: 'admin/home', component: AdminGuiHomeComponent },
   { path: 'admin/eintraege/:email', component: AdminGuiEintraegeComponent },
+  { path: 'deleteAccount', component: DeleteAccountComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
