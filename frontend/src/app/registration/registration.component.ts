@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegistrationService } from '../Services/registration.service';
 import { SnackbarService } from "../Services/snackbar.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-registration',
@@ -18,16 +18,21 @@ export class RegistrationComponent {
   constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService,  private snackBarService: SnackbarService, private route: ActivatedRoute, private router: Router) {
     this.registrationForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', Validators.required,  Validators.minLength(8)],
       confirmPassword: ['', Validators.required]
     });
   }
 
   register(): void {
+    const password = this.registrationForm.get('password');
+    const confirmPassword = this.registrationForm.get('confirmPassword');
+
     if (this.registrationForm.invalid) {
       this.snackBarService.openSnackbar('Bitte füllen Sie alle Felder aus', 'Schließen', this.DURATION_MS);
-    } else if (this.registrationForm.value.password !== this.registrationForm.value.confirmPassword) {
+    } else if (password?.value !== confirmPassword?.value) {
       this.snackBarService.openSnackbar('Passwörter stimmen nicht überein', 'Schließen', this.DURATION_MS);
+    } else if (password?.value.length < 8) {
+      this.snackBarService.openSnackbar('Passwort muss mindestens 8 Zeichen haben', 'Schließen', this.DURATION_MS);
     } else {
       this.checkIfEmailIsAlreadyInUse();
     }
