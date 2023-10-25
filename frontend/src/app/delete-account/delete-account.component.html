@@ -2,6 +2,15 @@
     <h1>Account löschen</h1>
     <div class="form-container">
         <form [formGroup]="form" (ngSubmit)="deleteAccount()">
+
+            <div class="input-container">
+                <mat-form-field>
+                    <mat-label>E-Mail</mat-label>
+                    <input matInput formControlName="email">
+                    <mat-icon matSuffix>email</mat-icon>
+                </mat-form-field>
+            </div>
+
             <div class="input-container">
                 <mat-form-field>
                     <mat-label>Passwort</mat-label>
