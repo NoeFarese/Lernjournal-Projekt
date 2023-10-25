@@ -94,7 +94,8 @@ public class RegistrationController {
 
     @Delete("/deleteUserByEmail/{email}")
     HttpResponse<?> delete(String email) {
-        registrationRepository.deleteByEmail(email);
+        Long userId = registrationRepository.findIdByEmail(email);
+        registrationRepository.deleteById(userId);
         return HttpResponse.noContent();
     }
 

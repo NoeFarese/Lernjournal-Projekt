@@ -47,4 +47,7 @@ public interface RegistrationRepository {
 
     @Transactional
     void deleteByEmail(String email);
+
+    @ReadOnly
+    Long findIdByEmail(String email);
 }
