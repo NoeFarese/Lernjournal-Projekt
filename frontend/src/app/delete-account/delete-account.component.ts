@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SnackbarService } from "../Services/snackbar.service";
 import { LoginService } from "../Services/login.service";
 import { PersonService } from "../Services/person.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ServiceEintrag } from "../Services/service.eintrag";
 
 @Component({
   selector: 'app-delete-account',
@@ -16,8 +16,9 @@ export class DeleteAccountComponent implements OnInit {
   isConfirmPasswordHidden: boolean = true;
   private readonly DURATION_MS = 3000;
   userEmail: string | null = '';
+  authorId: string | null = '';
 
-  constructor(private formBuilder: FormBuilder, private snackBarService: SnackbarService, private loginService: LoginService, private personService: PersonService, private router: Router, private route: ActivatedRoute) {
+  constructor(private formBuilder: FormBuilder, private snackBarService: SnackbarService, private loginService: LoginService, private personService: PersonService, private eintragService: ServiceEintrag) {
     this.form = this.formBuilder.group({
       email: ['', Validators.required, Validators.email],
       password: ['', Validators.required],
@@ -27,6 +28,7 @@ export class DeleteAccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.userEmail = this.loginService.getUserEmail();
+    this.authorId = this.loginService.getAuthorId();
   }
 
   deleteAccount(): void {
@@ -35,9 +37,11 @@ export class DeleteAccountComponent implements OnInit {
     const confirmPassword = this.form.get('confirmPassword');
 
     if (this.form.invalid) {
-      this.snackBarService.openSnackbar('Bitte füllen Sie alle Felder aus', 'Schließen', this.DURATION_MS);
+      this.snackBarService.openSnackbar('Bitte füllen Sie alle Felder aus', 'Schliessen', this.DURATION_MS);
     } else if (password?.value !== confirmPassword?.value) {
-      this.snackBarService.openSnackbar('Passwörter stimmen nicht überein', 'Schließen', this.DURATION_MS);
+      this.snackBarService.openSnackbar('Passwörter stimmen nicht überein', 'Schliessen', this.DURATION_MS);
+    } else if (email?.value !== this.userEmail) {
+      this.snackBarService.openSnackbar('Die eingegebene E-Mail stimmt nicht mit der aktuellen E-Mail überein', 'Schliessen', this.DURATION_MS);
     } else {
       this.loginService.checkIfUserInputIsValid(email?.value, password?.value).subscribe((isValid) => {
         if (isValid) {
@@ -52,6 +56,7 @@ export class DeleteAccountComponent implements OnInit {
 
   deleteAndLogoutUser(): void {
     setTimeout(() => {
+      this.eintragService.deleteAlleEintraege(this.authorId);
       this.personService.deletePerson(this.userEmail);
       this.loginService.logoutWhenAccountDeleted();
     }, 3000);

@@ -3,14 +3,13 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {catchError, Observable, of} from "rxjs";
 import {Eintrag} from "../Interfaces/Eintrag";
 import {ApiService} from "./api.service";
-import {LoginService} from "./login.service";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ServiceEintrag{
-  constructor(private http: HttpClient, private apiService: ApiService, private loginService: LoginService) {}
+  constructor(private http: HttpClient, private apiService: ApiService) {}
   private baseUrl = this.apiService.getEintragUrl();
 
   getEintrag(id: number): Observable<any>{
@@ -23,6 +22,13 @@ export class ServiceEintrag{
       catchError(this.handleError<Eintrag>('deleteEintrag'))
     );
   }
+
+  deleteAlleEintraege(authorId: string | null): Observable<any> {
+    console.log("eintrag service wird geloggt");
+    const url = `${this.baseUrl}/deleteAlleEintraege/${authorId}`;
+    return this.http.delete<any>(url, this.httpOptions);
+  }
+
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
