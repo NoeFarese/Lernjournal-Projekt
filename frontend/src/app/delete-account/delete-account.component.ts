@@ -19,6 +19,7 @@ export class DeleteAccountComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private snackBarService: SnackbarService, private loginService: LoginService, private personService: PersonService, private router: Router, private route: ActivatedRoute) {
     this.form = this.formBuilder.group({
+      email: ['', Validators.required, Validators.email],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
     });
@@ -29,6 +30,7 @@ export class DeleteAccountComponent implements OnInit {
   }
 
   deleteAccount(): void {
+    const email = this.form.get('email');
     const password = this.form.get('password');
     const confirmPassword = this.form.get('confirmPassword');
 
@@ -37,8 +39,14 @@ export class DeleteAccountComponent implements OnInit {
     } else if (password?.value !== confirmPassword?.value) {
       this.snackBarService.openSnackbar('Passwörter stimmen nicht überein', 'Schließen', this.DURATION_MS);
     } else {
-      this.snackBarService.openSnackbar('Ihr Account wird jetzt gelöscht', 'Schliessen', this.DURATION_MS);
-      this.deleteAndLogoutUser();
+      this.loginService.checkIfUserInputIsValid(email?.value, password?.value).subscribe((isValid) => {
+        if (isValid) {
+          this.snackBarService.openSnackbar('Ihr Account wird jetzt gelöscht', 'Schliessen', this.DURATION_MS);
+          this.deleteAndLogoutUser();
+        } else {
+          this.snackBarService.openSnackbar('E-Mail oder Passwort ist falsch', 'Schliessen', this.DURATION_MS);
+        }
+      });
     }
   }
 
