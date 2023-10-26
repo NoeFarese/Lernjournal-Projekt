@@ -24,7 +24,6 @@ export class ServiceEintrag{
   }
 
   deleteAlleEintraege(authorId: string | null): Observable<any> {
-    console.log("eintrag service wird geloggt");
     const url = `${this.baseUrl}/deleteAlleEintraege/${authorId}`;
     return this.http.delete<any>(url, this.httpOptions);
   }
