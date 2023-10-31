@@ -96,7 +96,7 @@ class EintragController {
         return HttpResponse.noContent();
     }
 
-    @Get("/deleteAlleEintraege/{authorId}")
+    @Delete("/deleteAlleEintraege/{authorId}")
     HttpResponse<?> deleteAlleEintraege(int authorId){
         eintragRepository.deleteAllEntriesByAuthorId(authorId);
         return HttpResponse.noContent();
