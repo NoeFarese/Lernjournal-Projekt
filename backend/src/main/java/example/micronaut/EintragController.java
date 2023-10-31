@@ -11,9 +11,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceException;
 import jakarta.validation.Valid;
 import java.net.URI;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import static io.micronaut.http.HttpHeaders.LOCATION;
 
 @ExecuteOn(TaskExecutors.IO)
@@ -95,6 +93,12 @@ class EintragController {
     @Delete("/{id}")
     HttpResponse<?> delete(Long id) {
         eintragRepository.deleteById(id);
+        return HttpResponse.noContent();
+    }
+
+    @Delete("/deleteAlleEintraege/{authorId}")
+    HttpResponse<?> deleteAlleEintraege(int authorId){
+        eintragRepository.deleteAllEntriesByAuthorId(authorId);
         return HttpResponse.noContent();
     }
 

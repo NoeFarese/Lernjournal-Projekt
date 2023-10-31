@@ -24,6 +24,8 @@ public interface EintragRepository {
 
     void deleteById(long id);
 
+    void deleteAllEntriesByAuthorId(int authorId);
+
     List<Eintrag> findAll(@NotNull SortingAndOrderArguments args);
 
     @Transactional

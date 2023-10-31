@@ -45,6 +45,15 @@ public class EintragRepositoryImpl implements EintragRepository {
         findById(id).ifPresent(entityManager::remove);
     }
 
+    @Override
+    @Transactional // <4>
+    public void deleteAllEntriesByAuthorId(int authorId) {
+        List<Eintrag> entriesToDelete = findByAuthorId(authorId);
+        for (Eintrag entry : entriesToDelete) {
+            deleteById(entry.getId());
+        }
+    }
+
     @ReadOnly // <3>
     public List<Eintrag> findAll(@NotNull SortingAndOrderArguments args) {
         String qlString = "SELECT g FROM Eintrag as g";

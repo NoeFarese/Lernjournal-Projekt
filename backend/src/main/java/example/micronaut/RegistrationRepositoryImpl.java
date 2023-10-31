@@ -4,10 +4,7 @@ import example.micronaut.domain.Registration;
 import io.micronaut.data.annotation.Repository;
 import io.micronaut.transaction.annotation.ReadOnly;
 import jakarta.inject.Singleton;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceException;
-import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -63,6 +60,20 @@ public class RegistrationRepositoryImpl implements RegistrationRepository {
         }
     }
 
+    @ReadOnly
+    public Long findIdByEmail(String email) {
+        String qlString = "SELECT r.id FROM Registration r WHERE r.email = :email";
+        TypedQuery<Long> query = entityManager.createQuery(qlString, Long.class);
+        query.setParameter("email", email);
+
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+
     @Override
     @Transactional
     public boolean isAdmin(String email) {
@@ -94,6 +105,12 @@ public class RegistrationRepositoryImpl implements RegistrationRepository {
     @Transactional // <4>
     public void deleteById(long id) {
         findById(id).ifPresent(entityManager::remove);
+    }
+
+    @Override
+    @Transactional
+    public void deleteByEmail(String email){
+        entityManager.remove(findByEmail(email));
     }
 
     @ReadOnly // <3>
