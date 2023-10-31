@@ -18,6 +18,6 @@ export class PersonService {
 
   deletePerson(email: string | null): Observable<any> {
     const url = this.apiService.getBaseUrl();
-    return this.http.get<any>(`${url}/deleteUserByEmail/${email}`);
+    return this.http.delete<any>(`${url}/deleteUserByEmail/${email}`);
   }
 }

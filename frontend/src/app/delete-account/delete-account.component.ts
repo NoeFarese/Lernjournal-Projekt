@@ -56,9 +56,11 @@ export class DeleteAccountComponent implements OnInit {
 
   deleteAndLogoutUser(): void {
     setTimeout(() => {
-      this.eintragService.deleteAlleEintraege(this.authorId);
-      this.personService.deletePerson(this.userEmail);
-      this.loginService.logoutWhenAccountDeleted();
+      this.eintragService.deleteAlleEintraege(this.authorId).subscribe(() => {
+        this.personService.deletePerson(this.userEmail).subscribe(() => {
+          this.loginService.logoutWhenAccountDeleted();
+        });
+      });
     }, 3000);
   }
 
