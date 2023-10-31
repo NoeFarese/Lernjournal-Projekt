@@ -24,6 +24,7 @@ jobs:
 
     - name: Run Tests
       run: |
+        cp .env .env
         cd frontend
         npm install
         npm test
