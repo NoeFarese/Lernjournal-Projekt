@@ -18,6 +18,7 @@ jobs:
 
       - name: Build and Start Backend and Frontend
         run: |
+          cd ../..
           docker-compose up --build -d
           docker-compose ps
           sleep 10
@@ -28,14 +29,12 @@ jobs:
           npm install
           npm test
           
-          cd ..
+          cd ../..
           
           cd backend
           ./mvnw test
           
           cd ..
-          
-          echo "Running tests"
 
       - name: Stop Docker Compose
         run: |
