@@ -19,7 +19,8 @@ jobs:
     - name: Build and Start Backend and Frontend
       run: |
         cd ..
-        cd documents/css/tonno/lernjournalprojekt
+        # cd documents/css/tonno/lernjournalprojekt
+        cd C:\Users\Noe Farese\Documents\Lernjournal-Projekt\Lernjournal-Projekt
         cp .env /.github/workflows
         
         docker-compose up --build -d
