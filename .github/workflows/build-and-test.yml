@@ -10,40 +10,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Set up Docker Compose
-      run: docker-compose --version
+      - name: Set up Docker Compose
+        run: docker-compose --version
 
-    - name: Build and Start Backend and Frontend
-      run: |
-        cd ..
-        # cd documents/css/tonno/lernjournalprojekt
-        cd C:\Users\Noe Farese\Documents\Lernjournal-Projekt\Lernjournal-Projekt
-        cp .env /.github/workflows
-        
-        docker-compose up --build -d
-        docker-compose ps
-        sleep 10
+      - name: Copy .env File
+        run: cp ../.env .github/workflows
 
-    - name: Run Tests
-      run: |
-        cd frontend
-        npm install
-        npm test
+      - name: Build and Start Backend and Frontend
+        run: |
+          docker-compose up --build -d
+          docker-compose ps
+          sleep 10
 
-        cd ..
+      - name: Run Tests
+        run: |
+          cd frontend
+          npm install
+          npm test
+          
+          cd ..
+          
+          cd backend
+          ./mvnw test
+          
+          cd ..
+          
+          echo "Running tests"
 
-        cd backend
-        ./mvnw test
-
-        cd ..
-
-        echo "Running tests"
-        
-
-    - name: Stop Docker Compose
-      run: |
-        docker-compose stop
-        docker-compose down
+      - name: Stop Docker Compose
+        run: |
+          docker-compose stop
+          docker-compose down
