@@ -17,7 +17,7 @@ jobs:
         run: docker-compose --version
 
       - name: Copy .env File
-        run: cp Lernjournal-Projekt/.env Lernjournal-Projekt/.github/workflows
+        run: cp C:\Users\Noe Farese\Documents\Lernjournal-Projekt\Lernjournal-Projekt\.env C:\Users\Noe Farese\Documents\Lernjournal-Projekt\Lernjournal-Projekt\.github\workflows
 
       - name: Build and Start Backend and Frontend
         run: |
