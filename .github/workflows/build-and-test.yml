@@ -18,8 +18,9 @@ jobs:
 
       - name: Build and Start Backend and Frontend
         run: |
-          docker-compose -f documents/css/tonno/lernjournal_projekt/docker-compose.yml up --build -d
-          docker-compose -f documents/css/tonno/lernjournal_projekt/docker-compose.yml ps
+          pwd
+          docker-compose up --build -d
+          docker-compose ps
 
       - name: Run Tests
         run: |
@@ -36,5 +37,5 @@ jobs:
 
       - name: Stop Docker Compose
         run: |
-          docker-compose -f  docker-compose -f documents/css/tonno/lernjournal_projekt/docker-compose.yml stop
-          docker-compose -f  docker-compose -f documents/css/tonno/lernjournal_projekt/docker-compose.yml down
+          docker-compose stop
+          docker-compose down
