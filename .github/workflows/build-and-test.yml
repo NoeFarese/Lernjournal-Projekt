@@ -39,9 +39,6 @@ jobs:
 
         cd ..
 
-        echo "Running tests"
-        
-
     - name: Stop Docker Compose
       run: |
         docker-compose stop
