@@ -21,9 +21,7 @@ jobs:
           COMPOSE_ENV: ${{ secrets.ENV }}
         run: |
           echo "$COMPOSE_ENV" > .env
-          # docker-compose up --build -d
-          docker-compose up -d
-          docker-compose logs mysql-server
+          docker-compose up --build -d
           docker-compose ps
 
       - name: Run Tests
