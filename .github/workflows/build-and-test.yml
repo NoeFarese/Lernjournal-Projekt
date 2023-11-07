@@ -17,8 +17,11 @@ jobs:
         run: docker-compose --version
 
       - name: Build and Start Backend and Frontend
+        env:
+          COMPOSE_ENV: ${{ secrets.ENV }}
         run: |
           pwd
+          ehco "$COMPOSE_ENV" > .env
           docker-compose up --build -d
           docker-compose ps
 
