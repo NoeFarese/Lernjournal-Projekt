@@ -23,6 +23,7 @@ jobs:
           echo "$COMPOSE_ENV" > .env
           docker-compose up --build -d
           docker-compose ps
+          docker logs backend
 
       - name: Run Tests
         run: |
@@ -36,9 +37,6 @@ jobs:
           ./mvnw test
           
           cd ..
-
-      - name: Check micronaut-backend logs
-        run: docker logs backend || true
 
       - name: Stop Docker Compose
         run: |
