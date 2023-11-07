@@ -21,7 +21,7 @@ jobs:
           COMPOSE_ENV: ${{ secrets.ENV }}
         run: |
           pwd
-          ehco "$COMPOSE_ENV" > .env
+          echo "$COMPOSE_ENV" > .env
           docker-compose up --build -d
           docker-compose ps
 
