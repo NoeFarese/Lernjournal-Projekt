@@ -23,6 +23,8 @@ jobs:
           echo "$COMPOSE_ENV" > .env
           docker-compose up --build -d
           docker-compose ps
+          
+          sleep 10
 
       - name: Run Tests
         run: |
