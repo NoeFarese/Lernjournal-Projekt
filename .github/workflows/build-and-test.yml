@@ -37,6 +37,9 @@ jobs:
           
           cd ..
 
+      - name: Check micronaut-backend logs
+        run: docker logs backend
+
       - name: Stop Docker Compose
         run: |
           docker-compose stop
