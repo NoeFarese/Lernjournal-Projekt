@@ -18,6 +18,8 @@ jobs:
 
       - name: Build and Start Backend and Frontend
         run: |
+          cd ..
+          cd ..
           docker-compose up --build -d
           docker-compose ps
 
