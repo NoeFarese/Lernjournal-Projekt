@@ -35,3 +35,17 @@
 //     }
 //   }
 // }
+
+import Chainable = Cypress.Chainable;
+
+declare namespace Cypress {
+    interface Chainable {
+        getMatSnackbar(): Chainable<string>;
+    }
+}
+
+function getMatSnackbar(): Chainable<string> {
+    return cy.get('.mat-simple-snackbar').invoke('text');
+}
+
+Cypress.Commands.add('getMatSnackbar', getMatSnackbar);

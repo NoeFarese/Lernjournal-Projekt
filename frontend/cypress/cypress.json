@@ -1,0 +1,4 @@
+{
+  "baseUrl": "http://localhost:80",
+  "supportFile": "cypress/support/commands.ts"
+}
