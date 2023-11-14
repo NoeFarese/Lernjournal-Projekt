@@ -5,7 +5,7 @@ describe('Registration Test', () => {
 
     it('visits the registration page', () => {
         cy.visit('http://localhost:80/registration');
-        cy.contains('Login');
+        cy.contains('Registration');
     });
 
     it('should display registration form', () => {
