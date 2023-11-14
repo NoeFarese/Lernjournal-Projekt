@@ -4,12 +4,18 @@ describe('Login Test', () => {
         cy.visit('http://localhost:80');
     });
 
-    it('Visits the home page', () => {
+    it('visits the home page', () => {
         cy.visit('http://localhost:80/login');
         cy.contains('Login');
     });
 
-    it('Login with valid data', () => {
+    it('should display login form', () => {
+        cy.get('.login-container').should('exist');
+        cy.get('.form-container').should('exist');
+        cy.get('form').should('exist');
+    });
+
+    it('should login with valid data', () => {
         cy.get('input[formControlName="email"]').type('test@css.ch');
         cy.get('input[formControlName="password"]').type('testcss');
         cy.get('button[type="submit"]').click();
@@ -33,14 +39,15 @@ describe('Login Test', () => {
         cy.get('input[formControlName="password"]').type('1234567890');
         cy.get('button[type="submit"]').click();
 
+        cy.contains('Email oder Passwort ist falsch').should('exist');
         cy.contains('Du bist nicht eingeloggt. Bitte melde dich an.').should('be.visible');
     });
 
     it('Login form invalid', () => {
         cy.get('input[formControlName="email"]').type('a@a.ch')
-        cy.get('input[formControlName="password"]').type(' ');
         cy.get('button[type="submit"]').click();
 
+        cy.contains('Email oder Passwort nicht gültig').should('exist');
         cy.contains('Du bist nicht eingeloggt. Bitte melde dich an.').should('be.visible');
     });
 });
