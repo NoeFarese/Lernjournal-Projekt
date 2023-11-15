@@ -5,8 +5,10 @@ describe('Login Test', () => {
     });
 
     it('visits the home page', () => {
-        cy.visit('http://localhost:80/login');
         cy.contains('Login');
+        cy.get('.login-container').should('exist');
+        cy.get('.form-container').should('exist');
+        cy.get('.input-container').should('exist');
     });
 
     it('should display login form', () => {
