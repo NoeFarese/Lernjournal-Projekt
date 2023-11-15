@@ -6,14 +6,12 @@ describe('Login Test', () => {
 
     it('visits the home page', () => {
         cy.contains('Login');
-        cy.get('.login-container').should('exist');
-        cy.get('.form-container').should('exist');
-        cy.get('.input-container').should('exist');
     });
 
     it('should display login form', () => {
         cy.get('.login-container').should('exist');
         cy.get('.form-container').should('exist');
+        cy.get('.input-container').should('exist');
         cy.get('form').should('exist');
     });
 
