@@ -13,12 +13,12 @@ describe('Login Test', () => {
     });
 
     it('should click the Eintrag', () => {
-        cy.get('.div1 a').click();
+        cy.get('.div1 a:first-child').click();
         cy.url().should('include', '/eintrag/');
     });
 
     it('should click the edit Eintrag button', () => {
-       cy.get('.div2 a').click();
+       cy.get('.div2 a:first-child').click();
        cy.url().should('include', '/edit/');
     });
 
@@ -44,6 +44,19 @@ describe('Login Test', () => {
     it('should delete Eintrag', () => {
         cy.get('.delete').first().click();
         cy.get('.eintrag-item').should('have.length', 0);
+    });
+
+    it('should create Eintrag after delete', () => {
+       cy.visit('http://localhost:80/edit');
+        cy.url().should('eq', 'http://localhost/edit');
+
+        const titel = 'Test Eintrag';
+        const text = 'This is a test.';
+        cy.get('#titel').type(titel);
+        cy.get('#text').type(text);
+        cy.get('.save-button').click();
+        cy.contains('Der Eintrag wurde erflogreich gespeichert').should('exist');
+        cy.url().should('eq', 'http://localhost/home');
     });
 
 });
