@@ -11,6 +11,7 @@ describe('ApiService', () => {
   });
 
   it('should be created', () => {
+    // @ts-ignore
     expect(service).toBeTruthy();
   });
 });

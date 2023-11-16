@@ -11,6 +11,7 @@ describe('AdminService', () => {
   });
 
   it('should be created', () => {
+    // @ts-ignore
     expect(service).toBeTruthy();
   });
 });
