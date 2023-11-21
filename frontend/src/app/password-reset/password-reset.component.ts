@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SnackbarService } from "../Services/snackbar.service";
 import { LoginService } from "../Services/login.service";
+import { Location } from "@angular/common";
 
 @Component({
   selector: 'app-password-reset',
@@ -15,7 +16,7 @@ export class PasswordResetComponent {
   isConfirmNewPasswordHidden: boolean = true;
   private readonly DURATION_MS = 3000;
 
-  constructor(private formBuilder: FormBuilder, private snackBarService: SnackbarService, private loginService: LoginService) {
+  constructor(private formBuilder: FormBuilder, private snackBarService: SnackbarService, private loginService: LoginService, private location: Location) {
     this.form = this.formBuilder.group({
       actualPassword: ['', [Validators.required]],
       newPassword: ['', Validators.required],
@@ -113,5 +114,9 @@ export class PasswordResetComponent {
 
   toggleConfirmNewPasswordVisibility(): void {
     this.isConfirmNewPasswordHidden = !this.isConfirmNewPasswordHidden;
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
