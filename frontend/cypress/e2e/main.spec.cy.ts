@@ -1,4 +1,4 @@
-describe('Login Test', () => {
+describe('Main Test', () => {
     beforeEach(() => {
         cy.visit('http://localhost:80/login');
         cy.get('input[formControlName="email"]').type('test@css.ch');
