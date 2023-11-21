@@ -1,10 +1,7 @@
 describe('Admin-GUI-Home Page Test', () => {
     beforeEach(() => {
         cy.visit('http://localhost:80/login');
-        cy.get('input[formControlName="email"]').type('test@css.ch');
-        cy.get('input[formControlName="password"]').type('testcss');
-        cy.get('button[type="submit"]').click();
-
+        cy.login('test@css.ch', 'testcss');
         cy.url().should('eq', 'http://localhost/home');
 
         cy.visit('http://localhost/admin/eintraege/b@b.ch');
