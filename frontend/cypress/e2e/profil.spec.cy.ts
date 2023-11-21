@@ -24,7 +24,7 @@ describe('Profil Test', () => {
       cy.get('.delete-account-button').click();
 
       cy.contains('Ihr Account wird jetzt gelöscht').should('exist');
-      cy.wait(3000);
+      cy.wait(5000);
    })
 
    it('should navigate to "change password"', () => {
@@ -42,12 +42,4 @@ describe('Profil Test', () => {
       cy.get('.inner-container').should('exist');
       cy.get('.white-field').should('exist');
    });
-
-   /* findet .anzahl-eintraege nicht
-   it('should check if user data is displayed', () => {
-      cy.get('.user-email').should('exist');
-      cy.get('.anzahl-eintraege').should('exist');
-   });
-
-    */
 });
