@@ -32,14 +32,11 @@ describe('Main Test', () => {
         cy.get('.eintrag-item:first-child .exportPDF-Button').click();
     });
 
-    /*
-    GEHT NOCH NICHT
     it('should download PDF for all Einträge', () => {
         cy.get('.exportAll-Checkbox').should('not.be.checked');
         cy.get('.exportAll-Checkbox').click();
-        cy.get('.exportAll-Checkbox').should('be.checked');
+        cy.get('.exportAll-Checkbox').get('input').should('be.checked');
     });
-     */
 
     it('should delete Eintrag', () => {
         cy.get('.delete').first().click();
