@@ -31,10 +31,6 @@ export class EintragComponent implements OnInit{
     return text;
   }
 
-  redirectToHome() {
-    this.router.navigate(['/home']);
-  }
-
   goBack(): void {
     this.location.back();
   }
