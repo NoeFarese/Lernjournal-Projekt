@@ -1,34 +1,21 @@
 describe('Delete-Account Page Test', () => {
    beforeEach(() => {
        cy.visit('http://localhost:80/registration');
-
-       cy.get('[formControlName="email"]').type('user@example.com');
-       cy.get('[formControlName="password"]').type('password123');
-       cy.get('[formControlName="confirmPassword"]').type('password123', { force: true });
-       cy.get('form').submit();
+       cy.registrate('user@example.com', 'password123', 'password123');
        cy.contains('Du wurdest erfolgreich registriert').should('exist');
 
        cy.visit('http://localhost:80/login');
-       cy.get('input[formControlName="email"]').type('user@example.com');
-       cy.get('input[formControlName="password"]').type('password123');
-       cy.get('button[type="submit"]').click();
+       cy.login('user@example.com', 'password123')
        cy.url().should('eq', 'http://localhost/home');
 
        cy.visit('http://localhost:80/deleteAccount');
-
    });
 
    afterEach(() => {
-       cy.get('[formControlName="email"]').type('user@example.com');
-       cy.get('[formControlName="password"]').type('password123');
-       cy.get('[formControlName="confirmPassword"]').type('password123', { force: true });
-       cy.get('.delete-account-button').click();
-
+       cy.deleteUser('user@example.com', 'password123', 'password123');
        cy.contains('Ihr Account wird jetzt gelöscht').should('exist');
        cy.wait(5000);
    });
-
-
 
     it('should display snackbar for empty fields', () => {
         cy.get('.delete-account-button').click();
@@ -36,42 +23,20 @@ describe('Delete-Account Page Test', () => {
     });
 
     it('should display snackbar for passwords not matching', () => {
-        cy.get('[formControlName="email"]').type('user@example.com');
-        cy.get('[formControlName="password"]').type('password123');
-        cy.get('[formControlName="confirmPassword"]').type('password456', { force: true });
-        cy.get('.delete-account-button').click();
-
+        cy.deleteUser('user@example.com', 'password123', 'password456');
         cy.contains('Passwörter stimmen nicht überein').should('exist');
-
-        cy.get('[formControlName="email"]').clear();
-        cy.get('[formControlName="password"]').clear();
-        cy.get('[formControlName="confirmPassword"]').clear();
+        cy.clearForm();
     });
 
     it('should display snackbar for incorrect email', () => {
-        cy.get('[formControlName="email"]').type('incorrect@example.com');
-        cy.get('[formControlName="password"]').type('password123');
-        cy.get('[formControlName="confirmPassword"]').type('password123', { force: true });
-        cy.get('.delete-account-button').click();
-
+        cy.deleteUser('incorrect@example.com', 'password123', 'password123');
         cy.contains('Die eingegebene E-Mail stimmt nicht mit der aktuellen E-Mail überein').should('exist');
-
-        cy.get('[formControlName="email"]').clear();
-        cy.get('[formControlName="password"]').clear();
-        cy.get('[formControlName="confirmPassword"]').clear();
+        cy.clearForm();
     });
 
-
     it('should display snackbar for incorrect email or password', () => {
-        cy.get('[formControlName="email"]').type('user@example.com');
-        cy.get('[formControlName="password"]').type('incorrectpassword');
-        cy.get('[formControlName="confirmPassword"]').type('incorrectpassword', { force: true });
-        cy.get('.delete-account-button').click();
-
+        cy.deleteUser('user@example.com', 'incorrectpassword', 'incorrectpassword');
         cy.contains('E-Mail oder Passwort ist falsch').should('exist');
-
-        cy.get('[formControlName="email"]').clear();
-        cy.get('[formControlName="password"]').clear();
-        cy.get('[formControlName="confirmPassword"]').clear();
+        cy.clearForm();
     });
 });
