@@ -1,46 +1,9 @@
-/// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
-
 import Chainable = Cypress.Chainable;
 
 declare namespace Cypress {
     interface Chainable {
         getMatSnackbar(): Chainable<string>;
+        login(email: string, password: string): Chainable;
     }
 }
 
@@ -49,3 +12,8 @@ function getMatSnackbar(): Chainable<string> {
 }
 
 Cypress.Commands.add('getMatSnackbar', getMatSnackbar);
+Cypress.Commands.add('login', (email: any, password: any) => {
+    cy.get('input[formControlName="email"]').type(email);
+    cy.get('input[formControlName="password"]').type(password);
+    cy.get('button[type="submit"]').click();
+});
