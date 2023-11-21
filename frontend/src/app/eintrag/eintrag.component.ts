@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import { Location} from "@angular/common";
 import {Eintrag} from "../Interfaces/Eintrag";
 import {ServiceEintrag} from "../Services/service.eintrag";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -10,7 +11,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 
 export class EintragComponent implements OnInit{
-  constructor(private eintragService: ServiceEintrag, private route: ActivatedRoute, private router: Router) {}
+  constructor(private eintragService: ServiceEintrag, private route: ActivatedRoute, private router: Router, private location: Location) {}
 
   ngOnInit(): void {
     this.getEintrag();
@@ -32,5 +33,9 @@ export class EintragComponent implements OnInit{
 
   redirectToHome() {
     this.router.navigate(['/home']);
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
