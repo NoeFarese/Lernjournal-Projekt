@@ -4,6 +4,7 @@ import { SnackbarService } from "../Services/snackbar.service";
 import { LoginService } from "../Services/login.service";
 import { PersonService } from "../Services/person.service";
 import { ServiceEintrag } from "../Services/service.eintrag";
+import { Location } from "@angular/common";
 
 @Component({
   selector: 'app-delete-account',
@@ -18,7 +19,7 @@ export class DeleteAccountComponent implements OnInit {
   userEmail: string | null = '';
   authorId: string | null = '';
 
-  constructor(private formBuilder: FormBuilder, private snackBarService: SnackbarService, private loginService: LoginService, private personService: PersonService, private eintragService: ServiceEintrag) {
+  constructor(private formBuilder: FormBuilder, private snackBarService: SnackbarService, private loginService: LoginService, private personService: PersonService, private eintragService: ServiceEintrag, private location: Location) {
     this.form = this.formBuilder.group({
       email: ['', Validators.required, Validators.email],
       password: ['', Validators.required],
@@ -70,5 +71,9 @@ export class DeleteAccountComponent implements OnInit {
 
   toggleConfirmPasswordVisibility(): void {
     this.isConfirmPasswordHidden = !this.isConfirmPasswordHidden;
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
