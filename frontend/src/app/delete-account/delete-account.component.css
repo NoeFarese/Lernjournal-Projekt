@@ -25,6 +25,31 @@
     width: 100%;
 }
 
+.go-back-button {
+    margin: 10px;
+    padding: 25px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #403BB8 !important;
+}
+
+.go-back-button:hover {
+    color: white;
+    background-color: #42545C;
+}
+
+.go-back-button:active {
+    background-color: black;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
 label {
     margin-bottom: 5px;
 }

@@ -1,7 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Eintrag} from "../Interfaces/Eintrag";
-import {ServiceEintrag} from "../Services/service.eintrag";
-import {ActivatedRoute, Router} from "@angular/router";
+import { Component, Input, OnInit } from '@angular/core';
+import { Location } from "@angular/common";
+import { Eintrag } from "../Interfaces/Eintrag";
+import { ServiceEintrag } from "../Services/service.eintrag";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-eintrag',
@@ -10,7 +11,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 
 export class EintragComponent implements OnInit{
-  constructor(private eintragService: ServiceEintrag, private route: ActivatedRoute, private router: Router) {}
+  constructor(private eintragService: ServiceEintrag, private route: ActivatedRoute, private location: Location) {}
 
   ngOnInit(): void {
     this.getEintrag();
@@ -30,7 +31,7 @@ export class EintragComponent implements OnInit{
     return text;
   }
 
-  redirectToHome() {
-    this.router.navigate(['/home']);
+  goBack(): void {
+    this.location.back();
   }
 }
