@@ -42,4 +42,9 @@ describe('Profil Test', () => {
       cy.get('.inner-container').should('exist');
       cy.get('.white-field').should('exist');
    });
+
+   it('should check if user data is displayed', () => {
+      cy.get('p').should('exist').should('contain.text', 'test@example.com').should('be.visible');
+      cy.get('p').should('exist').should('contain.text', '0').should('be.visible');
+   });
 });
