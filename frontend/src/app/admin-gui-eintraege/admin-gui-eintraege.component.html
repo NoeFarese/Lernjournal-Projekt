@@ -1,16 +1,21 @@
 <body>
     <h1>Einträge von: <b>{{ userEmail }}</b></h1>
 <div class="flex-container-liste">
+    <div class="searchbar_and_checkbox_container">
+        <div class="divSearchbar">
+            <mat-form-field appearance="fill">
+                <mat-label>Suche nach Einträgen</mat-label>
+                <input type="text" matInput [(ngModel)]="searchTerm">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
 
-    <mat-form-field appearance="fill">
-        <mat-label>Suche nach Einträgen</mat-label>
-        <input type="text" matInput [(ngModel)]="searchTerm">
-        <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
-
-    <mat-checkbox matTooltip="alle Einträge als PDF herunterladen" color="primary" class="exportAll-Checkbox" [(ngModel)]="exportAllChecked"
-                  (change)="updateCheckboxStates(exportAllChecked)">Export all as PDF
-    </mat-checkbox>
+        <div class="divCheckbox">
+            <mat-checkbox matTooltip="alle Einträge als PDF herunterladen" color="primary" class="exportAll-Checkbox" [(ngModel)]="exportAllChecked"
+                          (change)="updateCheckboxStates(exportAllChecked)">Export all as PDF
+            </mat-checkbox>
+        </div>
+    </div>
 
     <mat-list class="einträge">
         <mat-list-item *ngFor="let eintrag of filterEintraege()" class="eintrag-item">

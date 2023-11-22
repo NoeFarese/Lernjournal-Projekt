@@ -109,3 +109,16 @@ li {
     height: 40px;
     box-sizing: border-box;
 }
+
+.searchbar_and_checkbox_container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    margin-top: 25px;
+    margin-left: 25px;
+}
+
+.divSearchbar { grid-area: 1 / 1 / 2 / 2; }
+.divCheckbox { grid-area: 1 / 2 / 2 / 3; }
