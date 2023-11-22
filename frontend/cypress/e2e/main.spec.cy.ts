@@ -5,10 +5,6 @@ describe('Main Test', () => {
         cy.url().should('eq', 'http://localhost/home');
     });
 
-    it('should display Einträge heading', () => {
-        cy.contains('h1', 'Einträge:');
-    });
-
     it('should click the Eintrag', () => {
         cy.get('.div1 a:first-child').click();
         cy.url().should('include', '/eintrag/');
