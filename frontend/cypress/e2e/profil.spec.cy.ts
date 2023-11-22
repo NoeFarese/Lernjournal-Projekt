@@ -1,11 +1,11 @@
 describe('Profil Test', () => {
    beforeEach(() => {
       cy.visit('http://localhost/registration');
-      cy.registrate('test@example.com', 'passwordExample', 'passwordExample');
+      cy.fillOutRegistrationForm('test@example.com', 'passwordExample', 'passwordExample');
       cy.contains('Du wurdest erfolgreich registriert').should('exist');
 
       cy.visit('http://localhost:80/login');
-      cy.login('test@example.com', 'passwordExample');
+      cy.fillOutLoginForm('test@example.com', 'passwordExample');
       cy.url().should('eq', 'http://localhost/home');
 
       cy.visit('http://localhost/profil');
@@ -13,7 +13,7 @@ describe('Profil Test', () => {
 
    afterEach(() => {
       cy.visit('http://localhost/deleteAccount');
-      cy.deleteUser('test@example.com', 'passwordExample', 'passwordExample');
+      cy.fillOutDeleteUserForm('test@example.com', 'passwordExample', 'passwordExample');
       cy.contains('Ihr Account wird jetzt gelöscht').should('exist');
       cy.wait(5000);
    })

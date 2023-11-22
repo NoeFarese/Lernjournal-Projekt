@@ -1,18 +1,18 @@
 describe('Delete-Account Page Test', () => {
    beforeEach(() => {
        cy.visit('http://localhost:80/registration');
-       cy.registrate('user@example.com', 'password123', 'password123');
+       cy.fillOutRegistrationForm('user@example.com', 'password123', 'password123');
        cy.contains('Du wurdest erfolgreich registriert').should('exist');
 
        cy.visit('http://localhost:80/login');
-       cy.login('user@example.com', 'password123')
+       cy.fillOutLoginForm('user@example.com', 'password123')
        cy.url().should('eq', 'http://localhost/home');
 
        cy.visit('http://localhost:80/deleteAccount');
    });
 
    afterEach(() => {
-       cy.deleteUser('user@example.com', 'password123', 'password123');
+       cy.fillOutDeleteUserForm('user@example.com', 'password123', 'password123');
        cy.contains('Ihr Account wird jetzt gelöscht').should('exist');
        cy.wait(5000);
    });
@@ -23,19 +23,19 @@ describe('Delete-Account Page Test', () => {
     });
 
     it('should display snackbar for passwords not matching', () => {
-        cy.deleteUser('user@example.com', 'password123', 'password456');
+        cy.fillOutDeleteUserForm('user@example.com', 'password123', 'password456');
         cy.contains('Passwörter stimmen nicht überein').should('exist');
         cy.clearForm();
     });
 
     it('should display snackbar for incorrect email', () => {
-        cy.deleteUser('incorrect@example.com', 'password123', 'password123');
+        cy.fillOutDeleteUserForm('incorrect@example.com', 'password123', 'password123');
         cy.contains('Die eingegebene E-Mail stimmt nicht mit der aktuellen E-Mail überein').should('exist');
         cy.clearForm();
     });
 
     it('should display snackbar for incorrect email or password', () => {
-        cy.deleteUser('user@example.com', 'incorrectpassword', 'incorrectpassword');
+        cy.fillOutDeleteUserForm('user@example.com', 'incorrectpassword', 'incorrectpassword');
         cy.contains('E-Mail oder Passwort ist falsch').should('exist');
         cy.clearForm();
     });

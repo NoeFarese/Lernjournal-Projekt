@@ -16,12 +16,12 @@ describe('Login Test', () => {
     });
 
     it('should login with valid data', () => {
-        cy.login('test@css.ch', 'testcss');
+        cy.fillOutLoginForm('test@css.ch', 'testcss');
         cy.url().should('eq', 'http://localhost/home');
     });
 
     it('Logout', () => {
-        cy.login('test@css.ch', 'testcss');
+        cy.fillOutLoginForm('test@css.ch', 'testcss');
 
         cy.visit('http://localhost/login');
         cy.get('.ausloggen-button').click();
@@ -30,7 +30,7 @@ describe('Login Test', () => {
     });
 
     it('Login with invalid data', () => {
-        cy.login('invalid@data.ch', '1234567890');
+        cy.fillOutLoginForm('invalid@data.ch', '1234567890');
 
         cy.contains('Email oder Passwort ist falsch').should('exist');
         cy.contains('Du bist nicht eingeloggt. Bitte melde dich an.').should('be.visible');

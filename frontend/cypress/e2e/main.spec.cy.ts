@@ -1,7 +1,7 @@
 describe('Main Test', () => {
     beforeEach(() => {
         cy.visit('http://localhost:80/login');
-        cy.login('test@css.ch', 'testcss');
+        cy.fillOutLoginForm('test@css.ch', 'testcss');
         cy.url().should('eq', 'http://localhost/home');
     });
 
