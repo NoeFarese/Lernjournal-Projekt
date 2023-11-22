@@ -6,6 +6,7 @@ declare namespace Cypress {
         login(email: string, password: string): Chainable;
         registrate(email: string, password: string, confirmPassword: string): Chainable;
         deleteUser(email: string, password: string, confirmPassword: string):Chainable;
+        changePassword(actualPassword: string, newPassword: string, confirmNewPassword: string): Chainable;
         clearForm(): Chainable;
     }
 }
@@ -40,4 +41,11 @@ Cypress.Commands.add('clearForm', () => {
     cy.get('[formControlName="email"]').clear();
     cy.get('[formControlName="password"]').clear();
     cy.get('[formControlName="confirmPassword"]').clear();
+});
+
+Cypress.Commands.add('changePassword', (actualPassword: string, newPassword: string, confirmNewPassword: string) => {
+    cy.get('[formControlName="actualPassword"]').type(actualPassword, { force: true });
+    cy.get('[formControlName="newPassword"]').type(newPassword, { force: true });
+    cy.get('[formControlName="confirmNewPassword"]').type(confirmNewPassword, { force: true });
+    cy.get('form').submit();
 });
