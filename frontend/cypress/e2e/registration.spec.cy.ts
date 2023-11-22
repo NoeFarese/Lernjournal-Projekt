@@ -19,56 +19,30 @@ describe('Registration Test', () => {
         cy.contains('Bitte füllen Sie alle Felder aus').should('exist');
     });
 
-
     it('should show error message for password mismatch', () => {
-        cy.get('[formControlName="email"]').type('test@example.com');
-        cy.get('[formControlName="password"]').type('password');
-        cy.get('[formControlName="confirmPassword"]').type('differentPassword', { force: true });
-        cy.get('form').submit();
-
+        cy.registrate('test@example.com', 'password', 'differentPassword');
         cy.contains('Passwörter stimmen nicht überein').should('exist');
     });
 
     it('should show error message for password length less than 8 characters', () => {
-        cy.get('[formControlName="email"]').type('test@example.com');
-        cy.get('[formControlName="password"]').type('pass');
-        cy.get('[formControlName="confirmPassword"]').type('pass', { force: true });
-        cy.get('form').submit();
-
+        cy.registrate('test@example.com', 'baum', 'baum');
         cy.contains('Passwort muss mindestens 8 Zeichen haben').should('exist');
     });
 
     it('should show error message for user already exists', () => {
-        cy.get('[formControlName="email"]').type('a@a.ch');
-        cy.get('[formControlName="password"]').type('aaaaaaaaaaa');
-        cy.get('[formControlName="confirmPassword"]').type('aaaaaaaaaaa', { force: true });
-        cy.get('form').submit();
-
+        cy.registrate('a@a.ch', 'aaaaaaaaaaa', 'aaaaaaaaaaa');
         cy.contains('User existiert schon').should('exist');
     });
 
     it('should make a valid registration and delete User afterwards ', () => {
-        //User erstellen/registrieren
-        cy.get('[formControlName="email"]').type('test@example.com');
-        cy.get('[formControlName="password"]').type('validPassword123');
-        cy.get('[formControlName="confirmPassword"]').type('validPassword123', { force: true });
-        cy.get('form').submit();
-
+        cy.registrate('test@example.com', 'validPassword123', 'validPassword123');
         cy.contains('Du wurdest erfolgreich registriert').should('exist');
 
-        //User einloggen
         cy.visit('http://localhost/login');
-        cy.get('input[formControlName="email"]').type('test@example.com');
-        cy.get('input[formControlName="password"]').type('validPassword123');
-        cy.get('button[type="submit"]').click();
+        cy.login('test@example.com', 'validPassword123')
 
-        //User wieder löschen
         cy.visit('http://localhost/deleteAccount');
-        cy.get('[formControlName="email"]').type('test@example.com');
-        cy.get('[formControlName="password"]').type('validPassword123');
-        cy.get('[formControlName="confirmPassword"]').type('validPassword123', { force: true })
-        cy.get('form').submit();
-
+        cy.deleteUser('test@example.com', 'validPassword123', 'validPassword123');
         cy.contains('Ihr Account wird jetzt gelöscht').should('exist');
         cy.url().should('eq', 'http://localhost/registration');
     });
