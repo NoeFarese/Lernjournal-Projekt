@@ -1,16 +1,11 @@
 describe('Profil Test', () => {
    beforeEach(() => {
       cy.visit('http://localhost/registration');
-      cy.get('[formControlName="email"]').type('test@example.com');
-      cy.get('[formControlName="password"]').type('passwordExample');
-      cy.get('[formControlName="confirmPassword"]').type('passwordExample', { force: true });
-      cy.get('form').submit();
+      cy.registrate('test@example.com', 'passwordExample', 'passwordExample');
       cy.contains('Du wurdest erfolgreich registriert').should('exist');
 
       cy.visit('http://localhost:80/login');
-      cy.get('input[formControlName="email"]').type('test@example.com');
-      cy.get('input[formControlName="password"]').type('passwordExample');
-      cy.get('button[type="submit"]').click();
+      cy.login('test@example.com', 'passwordExample');
       cy.url().should('eq', 'http://localhost/home');
 
       cy.visit('http://localhost/profil');
@@ -18,11 +13,7 @@ describe('Profil Test', () => {
 
    afterEach(() => {
       cy.visit('http://localhost/deleteAccount');
-      cy.get('[formControlName="email"]').type('test@example.com');
-      cy.get('[formControlName="password"]').type('passwordExample');
-      cy.get('[formControlName="confirmPassword"]').type('passwordExample', { force: true });
-      cy.get('.delete-account-button').click();
-
+      cy.deleteUser('test@example.com', 'passwordExample', 'passwordExample');
       cy.contains('Ihr Account wird jetzt gelöscht').should('exist');
       cy.wait(5000);
    })
