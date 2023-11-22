@@ -1,10 +1,7 @@
 describe('Main Test', () => {
     beforeEach(() => {
         cy.visit('http://localhost:80/login');
-        cy.get('input[formControlName="email"]').type('test@css.ch');
-        cy.get('input[formControlName="password"]').type('testcss');
-        cy.get('button[type="submit"]').click();
-
+        cy.login('test@css.ch', 'testcss');
         cy.url().should('eq', 'http://localhost/home');
     });
 
@@ -45,7 +42,7 @@ describe('Main Test', () => {
 
     it('should create Eintrag after delete', () => {
        cy.visit('http://localhost:80/edit');
-        cy.url().should('eq', 'http://localhost/edit');
+       cy.url().should('eq', 'http://localhost/edit');
 
         const titel = 'Test Eintrag';
         const text = 'This is a test.';
