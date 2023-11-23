@@ -27,13 +27,16 @@
       </mat-form-field>
   </div>
 
-  <button matTooltip="speichern" mat-raised-button color="primary" type="button" class="save-button" (click)="submit()">
-    <mat-icon>save</mat-icon>
-  </button>
+  <div class="button-container">
+    <button matTooltip="speichern" mat-raised-button color="primary" type="button" class="save-button" (click)="submit()">
+      <mat-icon>save</mat-icon>
+    </button>
 
-  <button matTooltip="als PDF herunterladen" mat-raised-button color="primary" type="button" class="exportPdf-button"
-          (click)="exportPdf()">
-    <mat-icon>save_alt</mat-icon>
-  </button>
+    <button matTooltip="als PDF herunterladen" mat-raised-button color="primary" type="button" class="exportPdf-button"
+            (click)="exportPdf()">
+      <mat-icon>save_alt</mat-icon>
+    </button>
+  </div>
+
 </div>
 </body>
