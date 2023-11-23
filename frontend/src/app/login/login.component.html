@@ -19,7 +19,9 @@
         </mat-form-field>
       </div>
 
-      <button mat-raised-button color="primary" type="submit">Login</button>
+      <div *ngIf="!isLoggedIn">
+        <button mat-raised-button color="primary" type="submit">Login</button>
+      </div>
     </form>
 
     <div *ngIf="isLoggedIn">
