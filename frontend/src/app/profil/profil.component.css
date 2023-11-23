@@ -1,26 +1,41 @@
 body {
     font-size: 16px;
+    font-family: 'Arial', sans-serif;
 }
 
-.passwort-aeandern-link, .account-loeschen-link {
-    padding: 1.2rem;
+.info-text {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.user-email, .anzahl-eintraege {
+    font-weight: bold;
+}
+
+.action-link {
+    padding: 1rem 1.5rem;
+    margin-right: 10px;
+    margin-top: 20px;
     font-size: 1rem;
     text-decoration: none;
-    display: block;
-    background-color: #403BB8;
-    color: white;
+    display: inline-block;
     border-radius: 10px;
-    margin: 20px 40px;
+    transition: background-color 0.3s ease;
 }
 
-.user-email {
-    font-weight: bold;
-    font-size: 1.2rem;
+.change-password {
+    background-color: #0ca814;
+    color: white;
 }
 
-.anzahl-eintraege {
-    font-weight: bold;
-    font-size: 1.2rem;
+.delete-account {
+    background-color: #B90E0A;
+    color: white;
+}
+
+.action-link:hover {
+    background-color: #555;
+    color: white;
 }
 
 .outer-container {
@@ -44,12 +59,10 @@ body {
 
 .white-field {
     background-color: white;
-    padding: 2rem 6rem;
+    padding: 2rem 3rem;
     border-radius: 20px;
 }
 
 .white-field p {
-    font-size: 1.2rem;
-    color: black;
     text-align: left;
 }
